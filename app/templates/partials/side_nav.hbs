@@ -1,6 +1,6 @@
 <div class="side-nav">
   <ul>
-    {{#link-to 'index' tagName='li' id ='li-index'}}
+    {{#link-to 'index' tagName='li'}}
       <div class='header-logo'>
         <img src="https://gw-advance-prod-us-east-1.s3.amazonaws.com/grad_advance/GradAdvanceLogo_1.png" alt="GradAdvance logo" style="width: 100%;">
       </div>
@@ -25,71 +25,78 @@
       </li>
     </a>
     {{#if currentUser.sprout_participant}}
-      {{#link-to 'sprout' tagName='li' id ='li-sprout'}}
+      {{#link-to 'sprout' tagName='li'}}
         <p><i class="fa fa-fw fa-leaf"></i> <span class="side-nav-text">Sprout</span></p>
       {{/link-to}}
     {{/if}}
 
     {{#if currentUser.entity_admin}}
-      {{#link-to 'campaigns' tagName='li' id ='li-campaigns'}}
+      {{#link-to 'campaigns' tagName='li'}}
         <p><i class="fa fa-fw fa-bar-chart"></i> <span class="side-nav-text">Campaigns</span></p>
       {{/link-to}}
 
       {{#if settings.current_entity.campaign_email}}
-        {{#link-to 'emails' tagName='li' id ='li-emails'}}
+        {{#link-to 'emails' tagName='li'}}
           <p><i class="fa fa-fw fa-envelope-o"></i> <span class="side-nav-text">Emails</span></p>
         {{/link-to}}
       {{/if}}
 
-      {{#link-to 'editor' tagName='li' id ='li-editor'}}
+      {{#link-to 'editor' tagName='li'}}
         <p><i class="fa fa-fw fa-th "></i><span class="side-nav-text">Tile Mapping</span></p>
       {{/link-to}}
 
       {{#if settings.current_entity.matching_gifts}}
-        {{#link-to 'matching-gifts' tagName='li' id ='li-matching-gifts'}}
+        {{#link-to 'matching-gifts' tagName='li'}}
           <p><i class="fa fa-fw fa-trophy"></i><span class="side-nav-text">Matching Gifts</span></p>
         {{/link-to}}
       {{/if}}
 
       {{#if settings.current_entity.events}}
-        {{#link-to 'events' tagName='li' id ='li-events'}}
+        {{#link-to 'events' tagName='li'}}
           <p><i class="fa fa-fw fa-calendar"></i> <span class="side-nav-text">Events</span></p>
         {{/link-to}}
       {{/if}}
 
       {{#if settings.current_entity.raisers_edge_integration }}
-        {{#link-to 'initiatives' tagName='li' id ='li-initiatives'}}
+        {{#link-to 'initiatives' tagName='li'}}
           <p><i class="fa fa-fw fa-plug"></i> <span class="side-nav-text">Integrations</span></p>
         {{/link-to}}
       {{/if}}
 
       {{#if settings.current_entity.reporting}}
-        {{#link-to 'reporting' tagName='li' id ='li-reporting'}}
+        {{#link-to 'reporting' tagName='li'}}
           <p><i class="fa fa-fw fa-file"></i> <span class="side-nav-text">Reporting</span></p>
         {{/link-to}}
       {{/if}}
     {{else}}
 
-      {{#link-to 'campaigns' tagName='li' id ='li-campaigns'}}
+      {{#link-to 'campaigns' tagName='li'}}
         <p><i class="fa fa-fw fa-bar-chart"></i> <span class="side-nav-text">Campaigns</span></p>
       {{/link-to}}
 
     {{/if}}
 
     {{#if currentUser.super_admin}}
-      {{#link-to 'importing' tagName='li' id ='li-importing'}}
+      {{#link-to 'importing' tagName='li'}}
         <p><i class="fa fa-fw fa-cloud-upload"></i> <span class="side-nav-text">Importing</span></p>
       {{/link-to}}
     {{/if}}
 
     {{#if settings.current_entity.embedded_forms}}
-      {{#link-to 'embedded-forms-welcome' tagName='li' id ='li-embedded-forms-welcome'}}
+      {{#link-to 'embedded-forms-welcome' tagName='li'}}
       <p><i class="fa fa-fw fa-cloud-upload"></i> <span class="side-nav-text">Embedded forms</span></p>
       {{/link-to}}
     {{/if}}
+
+    {{#if settings.current_entity.embedded_forms_poc}}
+      {{#link-to 'embedded-forms-welcome' tagName='li'}}
+      <p><i class="fa fa-fw fa-cloud-upload"></i> <span class="side-nav-text">Embedded forms</span></p>
+      {{/link-to}}
+    {{/if}}
+
   </ul>
   <ul>
-    {{#link-to 'settings' tagName='li' id ='li-settings'}}
+    {{#link-to 'settings' tagName='li'}}
       <p><i class="fa fa-fw fa-cogs"></i> <span class="side-nav-text">settings</span></p>
     {{/link-to}}
   </ul>

@@ -18,8 +18,7 @@ const App = Ember.Application.extend({
   modulePrefix: config.modulePrefix,
   podModulePrefix: config.podModulePrefix,
   currentPath: '',
-  Resolver: Resolver,
-  rootElement: '#ember-container',
+  Resolver
 });
 
 loadInitializers(App, config.modulePrefix);

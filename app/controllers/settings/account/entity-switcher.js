@@ -23,7 +23,6 @@ export default Controller.extend({
         set(this, "settings.current_entity", reloadedEntity);
         this.transitionToRoute('index');
       })
-      reset_side_nav_react()
     }
   }
 });

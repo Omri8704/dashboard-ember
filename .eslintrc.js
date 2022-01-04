@@ -1,6 +1,5 @@
 module.exports = {
   globals: {
-    reset_side_nav_react: true,
     server: true,
     $: true,
     moment: true,
