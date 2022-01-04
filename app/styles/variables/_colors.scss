@@ -1,0 +1,135 @@
+// UPDATED GRAYSCALE
+$white:           #FFFFFF;
+$gray--one:       #D3D3D3;
+$gray--two:       #AFAFAF;
+$gray--three:     #828282;
+$gray--four:      #555556;
+$black:           #333333;
+
+// OLD COLORS UPDATED
+$white:           #fff;
+$gray-light:      $gray--two;
+$gray-dark:       $gray--three;
+$gray-darker:     $gray--four;
+$gray:            $black;
+$gray-base:       $black;
+
+
+$background:      $gray--one;
+$fb-color:        #3E5E97;
+
+
+$dark-gray: $black;
+$bg-gray:  $gray--four;
+$gray-background: $gray--two;
+$gray-on-gray: $gray--one;
+
+$text-color: $gray--four;
+$secondary-text-color: $gray--three;
+
+
+// SNAP ADVANCE COLORS
+$brand-purple: #8460EA;
+$brand-purple--light: #987CEA;
+$brand-purple--dark: #6E4DD6;
+
+$brand-blue: #457FE5;
+
+$brand-red: #D24B45;
+$brand-red--light: #DC6464;
+$brand-red--dark: #BE3237;
+
+$brand-orange: #FF8E3A;
+$brand-orange--light: #FAB566;
+$brand-orange--dark: #EE6F27;
+
+$brand-yellow: #F0C81E;
+$brand-yellow--light: #F0D26E;
+$brand-yellow--dark: #E6B91E;
+
+
+
+
+// old colors
+$brand-primary: $brand-purple;
+$brand-dark: $brand-purple--dark;
+$brand-success: $brand-blue;
+$brand-info: $gray--three;
+$brand-warning: #FF7028;
+$brand-danger: #FF4344;
+$brand-pink: #CC56E0;
+
+// $btn-primary-bg:#7e3f98;
+
+// default colors
+// $default-border-color: #c1d1dc;
+$default-border-color: #c1d1dc;
+$font-secondary-color: #6b7b90;
+
+$FreestyleGuide-color--primary: $brand-primary;
+$FreestyleGuide-color--accent: $brand-info;
+// $FreestyleGuide-color--secondary: $brand-purple;
+/*$FreestyleGuide-color--foreground*/
+/*$FreestyleGuide-color--background*/
+
+//button secondary
+$btn-secondary-font-color: $gray--four;
+$btn-secondary-font-color-hover: $gray--four;
+$btn-secondary-border: 1px solid $gray--four;
+$btn-secondary-border-radius: 3px;
+$btn-secondary-background-color: $gray--one;
+$btn-secondary-box-shadow: inset 0 1px #fff, 0px 1px 2px 0px rgba(193, 202, 213, 0.6);
+
+:root {
+    --gw-success: #58a225;
+    --gw-warning: #ffb300;
+    --gw-danger: #f84350;
+    --gw-white: #ffffff;
+    --gw-border-gray: #cccccc;
+    --gw-gray-background: #f9f9f9;
+    --gw-black-text: #333333;
+    --gw-gray-text: #666666;
+    --gw-light-gray-text: #999999;
+    --gw-purple-button: #8c58f2;
+    --gw-purple-border-button: #6b23ed;
+}
+
+.gw-gray-text {
+    color: var(--gw-gray-text);
+}
+
+.gw-purple-border-button {
+    color: var(--gw-purple-border-button);
+}
+
+.gw-purple-button {
+    color: var(--gw-purple-button);
+}
+
+.gw-black-text {
+    color: var(--gw-black-text);
+}
+
+.gw-gray-background {
+    color: var(--gw-gray-background);
+}
+
+.gw-border-gray {
+    color: var(--gw-border-gray);
+}
+
+.gw-white {
+    color: var(--gw-white);
+}
+
+.gw-danger {
+    color: var(--gw-danger);
+}
+
+.gw-warning {
+    color: var(--gw-warning);
+}
+
+.gw-success {
+    color: var(--gw-success);
+}

@@ -1,0 +1,39 @@
+<h2>API Settings</h2>
+<div class="panel">
+  <div class="panel-body">
+    <div class="flex-it">
+
+      <div class="half-width p-md-r">
+        <label class="control-label">API Version</label>
+        <span>{{model.amploApiVersion}}</span>
+
+        <div class="form-group">
+          <label class="control-label">API Token</label>
+          <span type="text" class="form-control ember-view">
+            {{#if model.amploApiToken}}
+              {{model.amploApiToken}}
+            {{else}}
+              xxxx-xxxx-xxxx-xxxx
+            {{/if}}
+          </span>
+        </div>
+        <button class="btn btn-primary" disabled={{loading_regen}} onclick={{action "regenerateToken"}}>
+          {{regenButtonText}}
+        </button>
+
+        {{banger-text-input
+          property=model.amploApiWebhookUrl
+          errors=model.errors.amploApiWebhookUrl
+          validation_errors=model.validations.attrs.amploApiWebhookUrl.messages
+          label="Webhook URL"
+          placeholder="https://example.com/advance-webhook" }}
+
+        <button class="btn btn-primary" disabled={{loading_url}} onclick={{action "updateURL"}}>
+          {{updateUrlButtonText}}
+         </button>
+
+      </div>
+
+    </div>
+  </div>
+</div>

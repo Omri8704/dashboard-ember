@@ -1,0 +1,24 @@
+{{#if label}}
+  <label class="control-label">{{label}}</label>
+{{/if}}
+{{one-way-select
+    property
+    class=_classNames
+    options=options
+    disabled=disabled
+    optionValuePath=optionValuePath
+    optionLabelPath=optionLabelPath
+    prompt=prompt
+    update=(action 'updateProp')
+    keyUp=(action "updateFeedback")
+    focusOut=(action 'showFeedbackAction')
+}}
+
+{{#if displayErrors}}
+  {{#if (and showFeedback hasFeedback)}}
+    <span class="form-control-feedback"><i class="fa {{if hasError 'fa-times' 'fa-check'}}"></i></span>
+    {{#each errors as |error|}}
+      <span class="help-block">{{error}}</span>
+    {{/each}}
+  {{/if}}
+{{/if}}

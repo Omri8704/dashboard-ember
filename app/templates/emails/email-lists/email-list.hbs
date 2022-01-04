@@ -1,0 +1,187 @@
+<section class='section-highlight'>
+  <h1> Email List: {{model.name}}</h1>
+</section>
+
+<section class="user-search-container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4>Edit List Details</h4>
+        </div>
+        <div class="panel-body" style="min-height: 100px;">
+          <div class="row" style="text-align: center; font-size: 120%">
+            <div class="col-md-6">
+              {{model.subscribedUserCount}} Subscribed
+            </div>
+            <div class="col-md-6">
+              {{model.unsubscribedUserCount}} Unsubscribed
+            </div>
+          </div>
+          <hr />
+          <div class="form-group">
+            {{banger-text-input
+              class="event-name"
+              property=model.name
+              errors=model.validations.attrs.name.messages
+              hasFeedback=(readonly canShowErrors)
+              label="Email List Name"
+              placeholder="Email List Name" }}
+          </div>
+          <button {{action "updateUserSegment"}} class="btn btn-primary clear-m pull-right">
+            Save Details
+          </button>
+        </div>
+      </div>
+
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4>
+            Add More Users
+            {{#if drawer}}
+              <button class="btn btn-xs btn-default pull-right" {{action "closeDrawer"}}><i class="fa fa-chevron-left"></i> Cancel</button>
+            {{/if}}
+          </h4>
+
+        </div>
+        <div class="panel-body email-list-wizard">
+
+          {{#liquid-unless drawer class="email-list-selectors"}}
+            <h3 class="control-label m-md-b m-sm-t p-sm-b default-border-bottom pointer"><a {{action (pipe (toggle "addingUser" this) (toggle "drawer" this)) }}><i class="fa fa-search"></i> Search and Add Individual Users <i class="fa fa-chevron-right"></i></a></h3>
+            <h3 class="control-label m-md-b m-sm-t p-sm-b default-border-bottom pointer"><a {{action (pipe (toggle "addingFile" this) (toggle "drawer" this)) }}><i class="fa fa-upload"></i> Upload Users By File <i class="fa fa-chevron-right"></i></a></h3>
+            <h3 class="control-label m-sm-b m-sm-t p-sm-b default-border-bottom pointer"><a {{action (pipe (toggle "addingFilter" this) (toggle "drawer" this)) }}><i class="fa fa-filter"></i> Select Users By Filter <i class="fa fa-chevron-right"></i></a></h3>
+          {{/liquid-unless}}
+
+          {{#liquid-if drawer class="email-list-drawer"}}
+            {{#if addingUser}}
+              <h3 class="control-label">Search and Add Individual Users</h3>
+              {{#user-search results=searchUsers title="Search For a User" searchPlaceholder="Search by name or email" getUsers="searchUsers" as |results|}}
+                {{#unless selectedUser}}
+                  <div class='table-responsive'>
+                    <table class="donation-table">
+                      <thead>
+                        <tr>
+                          <th><div>Name</div></th>
+                          <th><div>Email</div></th>
+                          <th><div></div></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {{#if results}}
+                          {{#each results as |user|}}
+                            <tr>
+                              <td>{{user.first_name}} {{user.last_name}}</td>
+                              <td>{{user.email}}</td>
+                              <td style="text-align: center;">
+                                {{#if (contains model user.subscribed_user_segments)}}
+                                  <span style="color: green;"><i class="fa fa-check"></i></span>
+                                {{else}}
+                                  <span style="color: #5eaade;"><i class="fa fa-plus pointer" {{action "addUser" user}}></i></span>
+                                {{/if}}
+                              </td>
+                            </tr>
+                          {{/each}}
+                        {{else}}
+                          <tr>
+                            <td colspan="5" >
+                              {{#if searching}}
+                                <p>Searching... <i class="fa fa-spin fa-spinner"></i></p>
+                              {{else}}
+                                <p>No Users Found</p>
+                              {{/if}}
+                            </td>
+                          </tr>
+                        {{/if}}
+                      </tbody>
+                    </table>
+                  </div>
+                {{/unless}}
+              {{/user-search}}
+
+            {{/if}}
+
+            {{#if addingFile}}
+              <h3 class="control-label">Upload Users by File</h3>
+              {{file-drop fileAdded="filePicked" removeFile="removeFile" file=file}}
+              <p class="p-sm-t">
+                <a href="/assets/templates/users_template.xlsx">Download Template</a>
+              </p>
+              {{#if file}}
+                <button {{action "uploadUsersS3"}} disabled={{if uploading "disabled"}}  class="btn btn-primary clear-m ">
+                  upload users
+                </button>
+                {{#if session.current_user.super_admin }}
+                <label class="col-md-6">
+                  {{input type="checkbox" checked=use_new update=(action (mut use_new)) }}
+                  Use new uploader (beta)
+                </label>
+                {{/if}}
+              {{/if}}
+            {{/if}}
+            <hr>
+
+            {{#if addingFilter}}
+              <h3 class="control-label">Select Users by Filter</h3>
+              <div class="m-md-b" style="background-color: #fff; padding: 20px; border: 1px solid #ddd;">
+                {{audience-filter mailingFilter=segmentFilter }}
+                <hr />
+                <button {{action "applyFilter"}} class="btn btn-primary">Add Users Based On This Filter</button>
+              </div>
+            {{/if}}
+
+          {{/liquid-if}}
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      {{#user-search filter=true results=users title="All Users On This List" searchPlaceholder="Filter by name or email" getUsers="listUsers" toggleUser='toggleUser' as |results|}}
+        {{#unless selectedUser}}
+          <div class='table-responsive'>
+            <table class="donation-table compact">
+              <thead>
+                <tr>
+                  <th><div>Name</div></th>
+                  <th><div>Email</div></th>
+                  <th><div>External Id</div></th>
+                  <th><div></div></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#if results}}
+                  {{#each results as |user|}}
+                    <tr>
+                      <td>{{user.first_name}} {{user.last_name}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.external_id}}</td>
+                      <td>
+                        <button class="btn btn-link" {{action "removeUser" user}}><i class="fa fa-close"></i></button>
+                      </td>
+                    </tr>
+                  {{/each}}
+                  <tr>
+                    <td colspan="10">
+                      {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+                    </td>
+                  </tr>
+                {{else}}
+                  <tr>
+                    <td colspan="5" >
+                      {{#if searching}}
+                        <p>Searching... <i class="fa fa-spin fa-spinner"></i></p>
+                      {{else}}
+                        <p>No Users Found</p>
+                      {{/if}}
+                    </td>
+                  </tr>
+                {{/if}}
+              </tbody>
+            </table>
+          </div>
+        {{/unless}}
+      {{/user-search}}
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,108 @@
+.modal-footer{
+    background-color: lightgrey;
+}
+
+.modal-header{
+    background-color: lightgrey;
+}
+
+#dashboard {
+   .list-view-campaigns{
+    background-color: #ffffff;
+    margin-top: 0px;
+    border-radius: 0 0 5px 5px;
+    .campaign{
+      &:hover{
+        background-color: lighten($brand-info, 30%);
+      }
+      img{
+        width: 100%;
+        // image clipping diaginally in half.
+        -webkit-clip-path: polygon(100% 60%, 100% 0, 0 0);
+        clip-path: polygon(100% 60%, 100% 0, 0 0);
+      }
+      &.active{
+        background-color: lighten($brand-info, 20%);
+      }
+    }
+  }
+}
+
+.campaign-media{
+  .divider{
+    border-bottom: 3px solid $white;
+  }
+  .col-md-3{
+    text-align:center;
+  }
+  .fa-times-circle{
+    font-size: 2em;
+    color: $brand-danger;
+    cursor: pointer;
+    padding-top: 12px;
+    &:hover{
+      color: darken($brand-danger, 20%);
+    }
+  }
+}
+.campaign-resource-uploader{
+  p {
+    text-align: center;
+  }
+
+  cursor: pointer;
+  color: $gray-light;
+  .fa-plus, .fa-youtube, .fa-vimeo-square {
+    font-size: 3em;
+    color: $gray-light;
+  }
+  .col-md-6{
+    &.campaign-image{
+      border-right:1px solid $gray-light;
+    }
+  }
+}
+.video-link{
+  input{
+    width: 100%;
+    margin: 10px 0;
+    padding: 5px 0;
+  }
+}
+.campaign-video{
+  text-align:center;
+  padding-top: 30px;
+  min-height: 229px;
+  .form-group {
+    text-align: left;
+  }
+  .fa-video-camera {
+    font-size: 3em;
+    color: $gray-light;
+
+  }
+}
+
+.donation-amount{
+  display: inline-block;
+  float: right;
+  padding: 0 10px 0 0;
+  color: $brand-success;
+  font-style: italic;
+}
+
+.days_left{
+  display: inline-block;
+  width: 100%;
+}
+
+.campaign-link {
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.float-right {
+  float: right;
+}

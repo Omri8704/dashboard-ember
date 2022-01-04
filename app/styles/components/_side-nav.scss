@@ -1,0 +1,66 @@
+// the sidebar and container css
+.side-nav{
+  width: 170px;
+  background-color: $black;
+  color: $white;
+  margin-right: 0px;
+  font-size: 15px;
+  z-index: 1;
+  position: relative;
+  @include flexbox();
+  @include flex-column();
+  @include justify-content(space-between);
+  ul {
+    margin: 0;
+    padding: 0;
+    color: $gray-light;
+    list-style: none;
+    li {
+      cursor: pointer;
+      &.open {
+        background-color: $brand-primary;
+      }
+      &:hover {
+        background-color: $brand-primary;
+        color: $white;
+      }
+      &.active {
+        color: $white;
+        background-color: $brand-primary;
+        border-top: 0 solid lighten($brand-primary, 5%);
+      }
+      p {
+        padding:11px 15px 15px 15px;
+        margin: 0 0 0 5px;
+        display:inline-block;
+        color: #fff;
+        width: 100%;
+        text-transform: uppercase;
+        .fa {
+          font-size: 18px;
+          padding-right: 5px;
+        }
+        .side-nav-text {
+          font-family: $font-roboto;
+          font-size: 13px;
+          vertical-align: top;
+        }
+      }
+    }
+  }
+  .subdrop {
+    background-color: darken($gray-base, 5%);
+    li {
+      padding-left: 10%;
+    }
+  }
+  .dropdown {
+    float:right;
+    margin-right: 8%;
+    i {
+      font-size: 0.8em;
+      float:right;
+      display: inline;
+    }
+  }
+}

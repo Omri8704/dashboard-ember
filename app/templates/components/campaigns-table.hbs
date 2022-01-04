@@ -1,0 +1,25 @@
+<div class='table-responsive'>
+  <table class="amplo-table">
+    <thead>
+      <tr>
+        <th><div>Campaign Name</div></th>
+        <th><div>Campaign Type</div></th>
+        <th><div>Days Left</div></th>
+        <th><div>Actions</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each campaigns as |campaign|}}
+        <tr>
+          <td class='text-uppercase'>{{campaign.name}}</td>
+          <td>{{campaign.type}}</td>
+          <td>{{campaign.days_left}}</td>
+          <td>
+            <a href="/campaigns/{{campaign.slug}}" target="_blank" class="" >View</a> |
+            {{#link-to "campaigns.campaign.edit" campaign.id }}Edit{{/link-to}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

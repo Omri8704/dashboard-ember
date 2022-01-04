@@ -1,0 +1,13 @@
+<section class='section-highlight-campaign'>
+  <h1>Import Campaigns</h1>
+  {{#link-to 'campaigns.index' class="nav-link"}}
+    <i class="fa fa-fw fa-bars"></i> List
+  {{/link-to}}
+</section>
+
+<iframe class="embed-iframe-bottom {{if loading 'hidden' }}" onload={{action "onLoadingIframe"}} src={{srcIframe}} style="height: 90vh;width: 89vw;"></iframe>
+<div class="loading">
+    {{#if loading}}
+        <h2 class="primary-color-text">loading...</h2>
+    {{/if}}
+</div>

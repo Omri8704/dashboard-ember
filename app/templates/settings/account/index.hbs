@@ -1,0 +1,36 @@
+<h2>Change Entity</h2>
+<div class="panel">
+  <div class="panel-body">
+    <h2>Current Entity</h2>
+    <div class="entity-card clo-md-6">
+      <img src="{{settings.current_entity.headlogo}}" alt=""> - {{settings.current_entity.name}}
+    </div>
+    <div class="row p-md-t">
+      <div class="col-md-3">
+        <h2 class="p-sm-t">
+          Switch Entities
+        </h2>
+      </div>
+      <div class="col-md-9">
+        <div class="inner-addon left-addon">
+          <i class="fa fa-search"></i>
+          {{one-way-input
+            autofocus=true
+            value=filter
+            update=(action (mut filter))
+            placeholder="Filter Entities"
+            class="form-control autofocus"}}
+        </div>
+      </div>
+    </div>
+    <div class="flex-it wrap-it">
+      {{#each filteredEntities as |entity|}}
+        <div
+          {{action "switchEntity" entity}}
+          class="entity-card pointer {{if (eq entity.name settings.current_entity.name) "active"}}">
+          <img src="{{entity.headlogo}}" alt=""> - {{entity.name}}
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</div>

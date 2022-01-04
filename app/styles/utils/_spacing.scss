@@ -1,0 +1,59 @@
+/* Creates a full list of margin and padding helpers for all sizes and locations */
+
+$sizes: xs sm md lg xl;
+$vals: 5px 10px 20px 30px 40px;
+$locs: right left top bottom;
+$loc_sm: r l t b;
+
+@for $i from 1 through 5 {
+  @for $j from 1 through 4 {
+    .p-#{nth($sizes, $i)}-#{nth($loc_sm, $j)} {
+      padding-#{nth($locs, $j)}: nth($vals, $i) !important;
+    }
+  }
+
+  @for $j from 1 through 4 {
+    .m-#{nth($sizes, $i)}-#{nth($loc_sm, $j)} {
+      margin-#{nth($locs, $j)}: nth($vals, $i) !important;
+    }
+  }
+
+  .p-#{nth($sizes, $i)}-a {
+    padding: nth($vals, $i) !important;
+  }
+
+  .m-#{nth($sizes, $i)}-a {
+    margin: nth($vals, $i) !important;
+  }
+}
+
+@for $j from 1 through 4 {
+  .clear-m-#{nth($loc_sm, $j)} {
+    margin-#{nth($locs, $j)}: 0 !important;
+  }
+}
+
+.clear-m {
+  margin: 0 !important;
+}
+
+.p-xs-l-r {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.p-sm-no-l {
+  padding: 10px 10px 10px 0 !important;
+}
+
+.spacer-1 {
+  height: 10px;
+}
+
+.spacer-2 {
+  height: 20px;
+}
+
+.spacer-3 {
+  height: 30px;
+}

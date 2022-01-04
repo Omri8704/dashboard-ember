@@ -1,0 +1,15 @@
+<div class="product-bar settings-product">
+  <div class="product-label">
+    Matching Gifts
+  </div>
+  {{#link-to 'matching-gifts.index' class="nav-link"}}
+    <i class="fa fa-fw fa-bars"></i> Matches
+  {{/link-to}}
+  {{#link-to 'matching-gifts-sections.index' class="nav-link"}}
+    <i class="fa fa-fw fa-columns"></i> Sections
+  {{/link-to}}
+</div>
+
+<section class="main-content campaigns">
+  {{outlet}}
+</section>

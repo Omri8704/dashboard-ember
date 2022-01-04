@@ -1,0 +1,52 @@
+.nav-tabs-justified, .nav-tabs.nav-justified {
+  &.campaign-tabs{
+    background-color: $white;
+    padding-top: 0px;
+    li:last-of-type{
+      border-right: 1px solid $default-border-color;
+    }
+    li{
+      border-top: 1px solid $default-border-color;
+      border-right: 1px solid $default-border-color;
+      border-bottom: 1px solid $default-border-color;
+      text-transform: uppercase;
+      a, a:hover, a:focus, .active{
+        border:none;
+        background: none;
+        padding:0;
+        color: $gray;
+        display: block;
+        padding: 15px 20px;
+        h3 {
+          font-size: 1.3em;
+          margin: 0px;
+          display: inline-block;
+          font-family: $bold-sans-serif;
+        }
+        span{
+          font-size: 1.5em;
+          display: inline-block;
+          padding-right: 5px;
+          font-size: 1.5em;
+        }
+      }
+      &:hover{
+        a {
+          color: $brand-primary;
+          h3 {
+            color: $brand-primary;
+          }
+        }
+      }
+      &.active{
+        background-color: $gray-on-gray;
+        a {
+          color: $brand-primary;
+          h3 {
+            color: $brand-primary;
+          }
+        }
+      }
+    }
+  }
+}

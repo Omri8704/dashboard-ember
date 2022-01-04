@@ -1,0 +1,24 @@
+<div class="product-bar settings-product">
+  <div class="product-label">
+    Integrations
+  </div>
+  {{#link-to 'initiatives' class="nav-link"}}
+    <i class="fa fa-fw fa-umbrella"></i> Initiatives
+  {{/link-to}}
+  {{#link-to 'causes' class="nav-link"}}
+    <i class="fa fa-fw fa-bullseye"></i> Causes
+  {{/link-to}}
+  {{#link-to 'appeals' class="nav-link"}}
+    <i class="fa fa-fw fa-phone"></i> Appeals
+  {{/link-to}}
+  {{#if settings.current_entity.stripe}}
+    {{#link-to 'stripe' class="nav-link"}}
+      Stripe
+    {{/link-to}}
+  {{/if}}
+  {{#if settings.current_entity.bbms_payment}}
+    {{#link-to 'bbms' class="nav-link"}}
+        BBMS
+    {{/link-to}}
+  {{/if}}
+</div>

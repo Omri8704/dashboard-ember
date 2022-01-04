@@ -1,0 +1,70 @@
+{{partial 'partials/components/integrations-nav-bar'}}
+
+<div class="bbms">
+  <section class="main-content initiatives">
+    <section class='integrations-title'>
+      <h1>BBMS Integration</h1>
+    </section>
+    <section>
+      <div class="bbms-status text-center">
+        {{#if canReceiveBbmsPayments}}
+          <img src="https://gw-advance-prod-us-east-1.s3.amazonaws.com/dashboard/assets/Icons/stripe-connected-status.png" />
+        {{else}}
+          <img src="https://gw-advance-prod-us-east-1.s3.amazonaws.com/dashboard/assets/Icons/stripe-disconnected-status.png" />
+        {{/if}}
+      </div>
+    </section>
+
+    <div class="bbms-integration-container">
+      <section class='section-highlight'>
+        <div class="flex-container">
+          <div class="bbms-logo-section">
+            <img class="logo" src="https://gw-advance-prod-us-east-1.s3.amazonaws.com/dashboard/assets/Logos/bbms-logo.png" />
+          </div>
+          <div class="input-account-name-section">
+            <div class="bbms-title">
+              <span>Blackbaud Merchant Services</span>
+            </div>
+            {{#if canReceiveBbmsPayments}}
+                  <div class="sync-message">
+                    <div class="sync">
+                      <i class="material-icons gw-success">sync</i>
+                    </div>
+                    <div class="sync-succeeded">
+                      <span class="success-status-text">Your Blackbaud Merchant Services account is connected.
+                        <a class="pointer bbms-disconnect-btn" {{action actionLinkDisconnect }} > Disconnect</a>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="saved-account-name">
+                    <span class="account-name-title">Account name:&nbsp;</span><span class="account-name-text">{{bbmsAccountName}}</span>
+                  </div>
+            {{else}} 
+              <div class="account-name-section">
+                <div class="row">
+                  <div class="col-xs-10">
+                    <span class="section-text">Enter your account name</span>
+                    {{input type="text" value=merchant_service_name update=(action (mut merchant_service_name)) class="form-control" placeholder=bbmsAccountName}}
+                  </div>
+                  <div class="col-xs-2 connect-btn-section">
+                      <button class='btn btn-info pull-right integrate-button' 
+                        {{action "integrateClick"}} disabled={{disableButton}} >
+                        CONNECT
+                      </button>
+                  </div>
+                </div>
+                {{#if dispalyAlert}}
+                  <div class="row">
+                    <div class="col-xs-6">
+                      <span class="alert-text gw-danger">Account name does not exist, please check the account name and try again.</span>
+                    </div>
+                  </div>
+                {{/if}}
+              </div>
+            {{/if}}
+          </div> 
+        </div>
+      </section>
+    </div>
+  </section>
+</div>

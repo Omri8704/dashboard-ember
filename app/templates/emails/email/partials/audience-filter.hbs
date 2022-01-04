@@ -1,0 +1,72 @@
+<div data-test="filter-options" class="panel-body">
+  <h3 class='text-center text-info'>
+    {{#if mailing.userSegment}}
+      you are sending to
+      <span class="gray-bordered-bg">&nbsp;
+        {{mailing.userSegment.name}}
+      &nbsp;</span>
+      and promoting
+      <span class="gray-bordered-bg">&nbsp;
+      {{mailing.promotion.name}}
+      &nbsp;</span>
+    {{else}}
+      you are sending to
+      <span class="gray-bordered-bg">&nbsp;
+        all users
+      &nbsp;</span>
+      and promoting
+      <span class="gray-bordered-bg">&nbsp;
+      {{mailing.promotion.name}}
+      &nbsp;</span>
+    {{/if}}
+  </h3>
+
+  <p class="text-center">
+    {{email-filter-sentence-builder filter=(readonly mailingFilter) }}
+  </p>
+
+  {{#liquid-if pickingFilters }}
+    <hr />
+    {{#tool-tipster
+      classNames='inline-b'
+      content='This filter applies when the email is sent.'
+      position='right'
+      delay=0
+      theme='tooltipster-noir'
+      updateAnimation=false
+    }}
+      <h3>Filter your Email List <i class="fa fa-question-circle"></i></h3>
+    {{/tool-tipster}}
+
+    {{audience-filter mailingFilter=mailingFilter }}
+  {{else}}
+    <p class="text-center">
+      <a href=""
+         class="btn btn-primary"
+         {{action (mut pickingFilters) true }}>
+       Would you like to filter this down?
+      </a>
+    </p>
+  {{/liquid-if }}
+
+</div>
+
+<div class='panel-footer'>
+  <div class='row'>
+    <div class='col-sm-12'>
+      <button
+        class="btn btn-primary clear-m"
+        {{action wizard.transition-to "1" }}>
+        <i class="fa fa-arrow-circle-left f-1.5x"></i>
+        Email List
+      </button>
+
+      <button
+        class="btn btn-primary pull-right"
+        {{action wizard.transition-to "4" }}>
+        Next Step
+        <i class="fa fa-arrow-circle-right f-1.5x"></i>
+      </button>
+    </div>
+  </div>
+</div>

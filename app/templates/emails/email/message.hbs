@@ -1,0 +1,178 @@
+<section class="step-info">
+  <h2>Step 3 of 4: Compose Message
+    <span class="pull-right">{{help-documentation documentationId="platform-training/intelligent-email/creating-your-message"}}</span>
+  </h2>
+  <p>Add your message content and images below. You can also specify the date
+    and time for when the email will be sent out. When you are done editing
+    your message's content make sure to receive a test email, by clicking the
+    "Send Test Email Button".</p>
+</section>
+
+<section class="email-message">
+  <form class="form-white-bg">
+
+
+    <div class="flex-it default-border-bottom m-sm-t">
+      <div class="m-md-l">
+        <div class="row">
+          <div class="col-md-4">
+            <label>
+              Email Notification Name
+              {{#tool-tipster
+                classNames='inline-b'
+                content='Give this mailing a that you can reference later.'
+                position='right'
+                delay=0
+                theme='tooltipster-noir'
+                updateAnimation=false
+              }}
+                <i class="fa fa-question-circle"></i>
+              {{/tool-tipster}}
+            </label>
+
+            {{banger-text-input
+              property=mailing.name
+              innerAddonHtml="<span class='fa fa-stack fa-lg'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-quote-left fa-stack-1x fa-inverse'></i></span>"
+              errors=mailing.validations.attrs.name.messages
+              hasFeedback=(readonly hasFeedback)
+              placeholder="Example: Week 1 Email Reminder"}}
+
+          </div>
+
+          <div class="col-md-4">
+            {{banger-text-input
+              label='Sender Name'
+              property=mailing.sender_name
+              innerAddonHtml="<i class='fa fa-user'></i>"
+              errors=mailing.validations.attrs.sender_name.messages
+              hasFeedback=(readonly hasFeedback)
+              placeholder="IE: Coach John Smith"}}
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="emailReplyTo">
+                Reply-to email
+                {{#tool-tipster
+                  classNames='inline-b'
+                  content='This email address comes from the Promotion associated with this email.'
+                  position='right'
+                  delay=0
+                  theme='tooltipster-noir'
+                  updateAnimation=false
+                }}
+                  <i class="fa fa-question-circle"></i>
+                {{/tool-tipster}}
+              </label>
+              {{banger-text-input
+                defaultValue=mailing.promotion.reply_to
+                property=mailing.reply_to
+                innerAddonHtml="<i class='fa fa-reply-all'></i>"
+                errors=mailing.validations.attrs.reply_to.messages
+                hasFeedback=(readonly hasFeedback)
+              }}
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="emailSendingDomain">
+                Sending Domain
+                {{#tool-tipster
+                  classNames='inline-b'
+                  content='This domain comes from your global Entity settings and defaults to Amplo if it is not set.'
+                  position='right'
+                  delay=0
+                  theme='tooltipster-noir'
+                  updateAnimation=false
+                }}
+                  <i class="fa fa-question-circle"></i>
+                {{/tool-tipster}}
+              </label>
+              <div class="inner-addon left-addon">
+                <i class="fa fa-globe"></i>
+                {{input
+                  type="text"
+                  disabled="disabled"
+                  value=settings.current_entity.send_email_from_host
+                  class="form-control"
+                  id="emailSendingDomain"}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group">
+              {{#if (and hasFeedback mailing.validations.attrs.sent_at.messages)}}
+                <label class='text-danger' for="emailSentAt">Send At ({{display-time-zone entityTimeZone}})</label>
+              {{else}}
+                <label for="emailSentAt">Send At ({{display-time-zone entityTimeZone}})</label>
+              {{/if}}
+
+              {{date-time-picker
+                initialDate=mailing.sent_at
+                defaultTimeZone=entityTimeZone
+                onSaveDateTime=(action 'saveDateTime')
+                entityDateFormat=settings.current_entity.date_format
+              }}
+
+              {{#if (eq mailing.filter.scope 'event') }}
+                <div class="row">
+                  <div class="col-md-12">
+                    <button {{action "setSendToTwoDays"}} class="btn btn-default btn-xs" style="margin: 10px 0 0 0;">Set Send At To 48h Before Event Starts</button>
+                  </div>
+                </div>
+              {{/if}}
+
+              {{#if (and hasFeedback mailing.validations.attrs.sent_at.messages)}}
+                <span class='text-danger'>{{mailing.validations.attrs.sent_at.messages}}</span>
+              {{/if}}
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            {{banger-text-input
+              label='Subject'
+              property=mailing.subject
+              innerAddonHtml="<span class='fa fa-stack fa-lg'><i class='fa fa-square fa-stack-2x'></i><i class='fa fa-quote-left fa-stack-1x fa-inverse'></i></span>"
+              errors=mailing.validations.attrs.subject.messages
+              hasFeedback=(readonly hasFeedback)
+              placeholder="Go Team!"}}
+          </div>
+
+        </div>
+      </div>
+
+      <div class="template">
+        <h3>{{mailing.emailTemplate.name}}</h3>
+        <div class="email-template-image-container">
+          <img
+            class='template-image'
+            src={{mailing.emailTemplate.icon}}
+            placeholder={{mailing.emailTemplate.name}} />
+          <div class="email-template-hover">
+            {{#link-to 'emails.templates.edit' mailing.emailTemplate.id }}Edit Template{{/link-to}}
+            <p>or</p>
+            {{#link-to 'emails.email.template'}}Change Template{{/link-to}}
+          </div>
+        </div>
+        <span>This email template may be linked to other emails.</span>
+      </div>
+    </div>
+
+
+    <section class="bottom-CTA">
+      <div class="row">
+        <div class="col-md-12">
+          <button {{action "saveEmail"}} class="btn btn-primary pull-right">save email</button>
+          <button {{action "sendTestEmail" true}} class="btn btn-primary pull-right m-sm-r">send test email</button>
+        </div>
+      </div>
+    </section>
+
+  </form>
+
+</section>

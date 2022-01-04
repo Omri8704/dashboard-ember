@@ -1,0 +1,60 @@
+<section class='section-highlight'>
+  <h1>Your Memberships</h1>
+  {{#link-to 'memberships.new' class='btn btn-primary m-md-r'}}
+    <i class='fa fa-plus'></i>&nbsp;New Membership
+  {{/link-to}}
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <div class='table-responsive'>
+      <table class="amplo-table">
+        <thead>
+          <tr>
+            <th><div></div></th>
+            <th><div>Membership Name</div></th>
+            <th><div>Dues</div></th>
+            <th><div>Lifetime?</div></th>
+            <th><div>Status</div></th>
+            <th><div># Months</div></th>
+            <th><div>External ID</div></th>
+            <th><div>Actions</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model as |membership index|}}
+            <tr>
+              <td>{{paginated-item-number page index}}</td>
+              <td>{{#link-to 'memberships.membership' membership.id class='campaign-link'}}{{membership.name}}{{/link-to}}</td>
+              <td>${{membership.dues}}</td>
+              <td>
+                {{#if membership.lifetime}}
+                  <i class="fa fa-check"></i>
+                {{else}}
+                  <i class="fa fa-close"></i>
+                {{/if}}
+              </td>
+              <td class='text-capitalize'>{{membership.status}}</td>
+              <td>{{membership.num_months}}</td>
+              <td>{{membership.external_id}}</td>
+              <td>
+                {{#link-to 'memberships.membership' membership.id class='campaign-link'}}Edit{{/link-to}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="8">
+              {{amplo-pagination
+                offset=offset
+                limit=limit
+                count=count
+                action="changeOffset"}}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

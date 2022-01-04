@@ -1,0 +1,61 @@
+<section class= "health-tiles-container">
+  <div class="summary-cards">
+    {{#summary-card
+      classNames='emails'
+      headerText='Tickets Sold'
+      icon='fa-ticket'
+      total=totalSold}}
+    {{/summary-card}}
+
+    {{#summary-card
+      classNames='percentage'
+      headerText='Gross Sold'
+      icon='fa-money'
+      isMoney=true
+      total=totalAmount}}
+    {{/summary-card}}
+
+    {{#summary-card
+      classNames='interaction'
+      headerText='Emails Sent'
+      icon='fa-envelope'
+      total=event.emails_sent}}
+    {{/summary-card}}
+  </div>
+</section>
+
+<div>
+  <ul class="campaign-tabs nav nav-tabs nav-justified" >
+    {{#link-to 'events.event.view.index' tagName="li" class="media" }}
+      <a href="">
+        <span  class="icon">
+          <i class="fa fa-camera-retro"></i>
+        </span>
+        <h3>Event Details</h3>
+      </a>
+    {{/link-to}}
+
+    {{#link-to 'events.event.view.tickets' tagName="li" class="details" }}
+        <a href="">
+          <span class="icon">
+            <i class="fa fa-list-ul"></i>
+          </span>
+          <h3>
+            Tickets
+          </h3>
+        </a>
+    {{/link-to}}
+
+    {{#link-to 'events.event.view.ticket-levels' tagName="li" class="details" }}
+        <a href="">
+          <span class="icon">
+            <i class="fa fa-list-ul"></i>
+          </span>
+          <h3>
+            Ticket Levels
+          </h3>
+        </a>
+    {{/link-to}}
+  </ul>
+  {{outlet}}
+</div>

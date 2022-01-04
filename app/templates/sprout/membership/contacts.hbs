@@ -1,0 +1,67 @@
+<section class='section-highlight'>
+  <h1>
+    Your Share Wizard Contacts
+  </h1>
+  <div>
+    {{#if (eq membership.role 'leader')}}
+      {{#link-to 'sprout.membership.leader' membership class='btn btn-primary m-xs-t m-xs-b'}}
+        <i class="fa fa-list"></i> Leaderboard
+      {{/link-to}}
+    {{/if}}
+    {{#if settings.current_entity.referrals}}
+      {{#link-to 'sprout.membership.referrals' membership class='btn btn-primary m-xs-t m-xs-b'}}
+        <i class="fa fa-money"></i> Referrals
+      {{/link-to}}
+    {{/if}}
+  </div>
+</section>
+
+<div class='user-campaign-table-header'>
+  <h3 class='header'>Your {{count}} Invited Contacts</h3>
+</div>
+
+<div class='table-responsive'>
+  <table class='user-campaign-table table'>
+    <thead>
+      <tr>
+        <td class='default-border-right'><div>Name</div></td>
+        <td class='default-border-right'>
+          <div class='flex-it center-it'>
+            {{#tool-tipster
+              classNames='inline-b'
+              content='Did this person follow your Share Wizard invite into donating?'
+              position='top'
+              delay=0
+              theme='tooltipster-noir'
+              updateAnimation=false }}
+              Converted? <i class="fa fa-question-circle"></i>
+            {{/tool-tipster}}
+          </div>
+        </td>
+        <td class='default-border-right'><div>Email</div></td>
+        <td class='default-border-right'><div>Facebook</div></td>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each contacts as |contact|}}
+        <tr>
+          <td>{{contact.first_name}} {{contact.last_name}}</td>
+          <td>
+            <div class='flex-it center-it'>
+              {{#if contact.converted}}
+                <i class="fa fa-check"></i>
+              {{else}}
+                <i class="fa fa-close"></i>
+              {{/if}}
+            </div>
+          </td>
+          <td>{{contact.email}}</td>
+          <td>{{contact.facebook_id}}</td>
+        </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+  {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+</div>

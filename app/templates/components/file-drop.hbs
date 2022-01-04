@@ -1,0 +1,18 @@
+{{#if file}}
+  <p>
+  {{file.name}}
+  </p>
+  <a href="" {{action "removeFile"}}>
+    remove file
+  </a>
+{{else}}
+  <div class="pointer"
+       onClick={{action 'triggerClick'}}
+       ondragenter={{action 'enterTheDragon'}}
+       ondragleave={{action 'leaveTheDragon'}} >
+    <p class='notice-text'>
+      Drag and drop file here, or <a>click</a> to upload file.
+    </p>
+  </div>
+{{/if}}
+{{new-file-field action="filePicked" fileTooBig="fileTooBig" class="hidden file" }}

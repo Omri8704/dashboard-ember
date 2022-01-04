@@ -1,0 +1,130 @@
+<section class="templates-summary">
+    <div class="introduction">
+      <h2 class="introduction--header">
+        Welcome to your Report Builder
+        <span class="pull-right">{{help-documentation documentationId="platform-training/reporting/report-builder-reports"}}</span>
+      </h2>
+      <h3 class="introduction--sub-header">
+        Schedule customized donation reports to be delivered straight to your inbox.
+      </h3>
+    </div>
+
+  <h1 class="reporting--header">Templates</h1>
+
+  {{#if templates}}
+    {{#link-to 'reporting.builder.template.new' }}
+    Create a Template
+    {{/link-to}}
+    to choose what data fields to include in your report.
+  <table>
+    <thead>
+      <tr class="row">
+        <th>Template</th>
+        <th>Created</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each templates as |template|}}
+        <tr class="row">
+          <td>{{template.name}}</td>
+          <td>{{pretty-date template.formattedCreatedAt settings.current_entity.date_format}}</td>
+          <td style="text-align: right;">
+            {{#link-to 'reporting.builder.template.edit' template.id class="action"}}
+            view/edit
+            {{/link-to}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+
+  <div class="button-container">
+    {{#link-to 'reporting.builder.template.new' class="button button--primary button__add"}}
+    <i class="fa fa-fw fa-plus"></i>
+    Create a template
+    {{/link-to}}
+  </div>
+  {{else}}
+    <div class="empty-state">
+      <span class="empty-state-icon">
+        <span class="fa fa-fw fa-file-o "></span>
+      </span>
+      <p class="empty-state-text">
+        {{#link-to 'reporting.builder.template.new' }}
+        Create a Template
+        {{/link-to}}
+        to choose what data fields to include in your report.
+      </p>
+      <br/>
+
+      {{#link-to 'reporting.builder.template.new' class="button button--primary button__add"}}
+      <i class="fa fa-fw fa-plus"></i>
+      Create a template
+      {{/link-to}}
+    </div>
+  {{/if}}
+</section>
+
+
+<section class="reports-summary">
+  <h1 class="reporting--header">Reports</h1>
+  {{#if templates}}
+    {{#link-to 'reporting.builder.schedule.new'}}
+    Create a report
+    {{/link-to}}
+    to have your report delivered to you!
+  {{else}}
+    You'll need to
+    {{#link-to 'reporting.builder.template.new' }}
+      create a Template
+    {{/link-to}}
+    before you can run your report!
+  {{/if}}
+
+
+  {{#if reportSchedules}}
+  <table>
+    <thead>
+      <tr class="row">
+        <th>Report</th>
+        <th>Template</th>
+        <th>Last delivered at</th>
+        <th>Frequency</th>
+        <th>Delivery start / end</th>
+        <th>Deliver to</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each reportSchedules as |schedule|}}
+        <tr class="row">
+          <td>{{schedule.name}}</td>
+          <td>{{schedule.reportTemplate.name}}</td>
+          <td>{{schedule.formattedLastRunAt}}</td>
+          <td>{{schedule.formattedDeliveryFrequency}}</td>
+          <td>{{schedule.formattedDeliveryStartsAt}} til <br/>
+             {{schedule.formattedDeliveryEndsAt}}
+          </td>
+          <td>
+            {{schedule.formattedDeliveryTargets}}
+          </td>
+          <td style="text-align: right;">
+            {{#link-to 'reporting.builder.schedule.edit' schedule.id class='action'}}
+              view/edit
+            {{/link-to}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{/if}}
+
+  {{#if templates}}
+    <div class="button-container">
+      {{#link-to 'reporting.builder.schedule.new' class="button button--primary button__add"}}
+      <i class="fa fa-fw fa-plus"></i>
+      Create a Report
+      {{/link-to}}
+    </div>
+{{/if}}
+</section>

@@ -1,0 +1,37 @@
+
+  <div class="section-sub-heading">
+    Payment Information
+  </div>
+
+  <div class="section-body">
+    {{#if (eq donation.don_type "cc" ) }}
+      {{spreedly-form
+        spreedlyKey=donation.campaign.spreedly_key
+        runValidation=runValidation
+        afterSpreedlyValidation=(action 'afterSpreedlyValidation')
+        afterFailedSubmit=(action 'afterFailedSubmit')
+        card_expiration=donation.card_expiration
+        first_name=userName.first_name
+        last_name=userName.last_name
+        cardExp=donation.cardExp
+        address=donation.user.address.address1
+        city=donation.user.address.city
+        state=donation.user.address.region
+        zip=donation.user.address.zip
+        country=donation.user.address.country
+        phone=donation.user.address.cell_phone
+      }}
+    {{/if}}
+
+    {{#if (eq donation.don_type "check" ) }}
+      <div class="row">
+        <label for="check_number" class="col-sm-2 control-label">Check Number</label>
+        <div class='col-sm-3'>
+          {{banger-text-input
+            hasFeedback=(readonly canShowErrors)
+            property=donation.check_number
+            errors=donation.validations.attrs.check_number.messages}}
+        </div>
+      </div>
+    {{/if}}
+  </div>

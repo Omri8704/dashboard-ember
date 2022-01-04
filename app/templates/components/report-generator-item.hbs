@@ -1,0 +1,32 @@
+<div class="panel m-md-a" style="min-height: 250px;">
+  <div class="panel-heading" style="font-size: 2rem;">
+    {{name}}
+  </div>
+  <div class="panel-body">
+    <div class='m-sm-b'>
+      <p>
+        {{description}}
+      </p>
+    </div>
+    <label>Download</label><br/>
+    {{#each options.ranges as |range_option|}}
+    <button {{action 'requestReport' type range_option.value 'download'}}
+            disabled={{if loading "disabled"}} style="margin-bottom: 1rem;">
+            {{#if loading}}<span class="fa fa-spin fa-spinner"></span>{{/if}}
+            {{range_option.label}}
+    </button>
+    &nbsp;
+    {{/each}}
+
+    <br/><br/>
+    <label>Receive via Email</label><br/>
+    {{#each options.ranges as |range_option|}}
+    <button {{action 'requestReport' type range_option.value 'deliver'}}
+            disabled={{if loading "disabled"}} style="margin-bottom: 1rem;">
+            {{#if loading}}<span class="fa fa-spin fa-spinner"></span>{{/if}}
+            {{range_option.label}}
+    </button>
+    &nbsp;
+    {{/each}}
+  </div>
+</div>

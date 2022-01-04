@@ -1,0 +1,303 @@
+// amplo table vars
+$amplo-table-td-padding: 6px;
+$amplo-table-border-radius: 5px;
+
+@mixin base-table {
+  width: 100%;
+  border-collapse: separate;
+  border-top: 1px solid #bfcfd9;
+  border-left: 0;
+  border-right: 0;
+  vertical-align: middle;
+  th {
+    background-color: #f6f6fc;
+    color: #838ca2;
+    font-weight: bold;
+    border-bottom: 1px solid #bfcfd9;
+    border-right: 1px solid #bfcfd9;
+    text-align: left;
+    background-color: #edf0f4;
+    background-image: -webkit-linear-gradient(rgb(243, 246, 249),rgb(230, 233, 236));
+    background-image: linear-gradient(rgb(243, 246, 249),rgb(230, 233, 236));
+    > div{
+      font-size: 12px;
+      line-height: 18px;
+      white-space: nowrap;
+      position: relative;
+      padding: 6px 10px 6px 10px;
+      text-shadow: 0 1px #FFF;
+    }
+    &.select-field{
+      width: 21px;
+    }
+  }
+  th:last-of-type{
+    border-right: none;
+  }
+  thead{
+    tr{
+      height: 33px;
+    }
+  }
+  tbody{
+    tr{
+      height: 40px;
+    }
+    tr:last-of-type{
+      td{
+        border-bottom: none;
+      }
+    }
+  }
+  td{
+    border-bottom: 1px solid #b5b7c3;
+    background-color: rgb(246, 246, 246);
+    max-width: 200px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding-left: 10px;
+    &.select-field{
+      input[type="checkbox"]{
+        margin-left: 31%;
+      }
+    }
+  }
+}
+
+.table-td-p {
+  padding: $amplo-table-td-padding 0;
+}
+
+.table-icon-well {
+  padding: $amplo-table-td-padding;
+  border-top-left-radius: $amplo-table-border-radius;
+  border-bottom-left-radius: $amplo-table-border-radius;
+
+  i.fa.fa-fw {
+    color: #fff;
+  }
+}
+
+// extend table icon for different colors backgrounds
+.table-icon-well--default {
+  @extend .table-icon-well;
+
+  background-color: #fff;
+  border-radius: $amplo-table-border-radius;
+  border: 1px solid #b5b7c3;
+
+  i.fa.fa-fw {
+    color: #b5b7c3;
+  }
+}
+.table-icon-well--email {
+  @extend .table-icon-well;
+  background-color: #32bcbd;
+}
+
+.table-icon-well--sms {
+  @extend .table-icon-well;
+  background-color: #00adee;
+}
+
+.table-icon-well--facebook {
+  @extend .table-icon-well;
+  background-color: #3a5999;
+}
+
+.table-icon-well--email-clicked {
+  @extend .table-icon-well;
+  background-color: #e8bc66;
+}
+
+.table-icon-well--email-opened {
+  @extend .table-icon-well;
+  background-color: #a0a7d6;
+}
+
+.table-icon-well--conversions {
+  @extend .table-icon-well;
+  background-color: #55977d;
+}
+
+.table-text-well {
+  padding: $amplo-table-td-padding;
+
+  background-color: #fff;
+  border-top-right-radius: $amplo-table-border-radius;
+  border-bottom-right-radius: $amplo-table-border-radius;
+  border: 1px solid #b5b7c3;
+  border-left: none;
+}
+
+.table-text-well--user {
+  @extend .table-text-well;
+
+  background-color: inherit;
+  border-radius: 0;
+  border: none;
+}
+
+
+.amplo-table{
+  width: 100%;
+  border-collapse: separate;
+  border-left: 0;
+  border-right: 0;
+  vertical-align: middle;
+  thead {
+    tr {
+      height: 33px;
+      th {
+        background-color: $gray-on-gray;
+        font-weight: bold;
+        text-align: left;
+        > div {
+          white-space: nowrap;
+          position: relative;
+          padding: 6px 10px 6px 10px;
+        }
+        &.select-field{
+          width: 21px;
+        }
+      }
+      th:last-of-type{
+        border-right: none;
+      }
+    }
+  }
+  tbody {
+    tr {
+      background-color: $white;
+      height: 60px;
+      &.drawer {
+        height: inherit;
+        border: 0;
+        td {
+          border: 0;
+          padding: 0;
+          div.panel-body {
+            min-height: 100px;
+          }
+        }
+      }
+    }
+    td {
+      text-align: left;
+      border-bottom: 1px solid $default-border-color;
+      max-width: 200px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding-left: 10px;
+
+      &.select-field{
+        input[type="checkbox"]{
+          margin-left: 31%;
+        }
+      }
+    }
+    &:hover {
+      td {
+        a {
+          color: $brand-primary;
+        }
+      }
+    }
+  }
+  tfoot {
+    td:last-of-type {
+      border-bottom: none;
+    }
+  }
+  &.compact {
+    tbody {
+      tr {
+        height: 30px;
+        &.drawer{
+          height: inherit;
+          border: 0;
+        }
+      }
+    }
+  }
+  .amplo-table-actions {
+    display: flex;
+    justify-content: space-evenly;
+    color: $brand-purple;
+  }
+  .amplo-table-data{
+    text-align: center;
+  }
+  .amplo-table-header {
+    text-align: center;
+  }
+}
+
+.donation-table {
+  @extend .amplo-table;
+  .donation:hover a { color: $white; }  
+
+  td {
+    a {
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+}
+table .user, table .donation{
+  &:hover{
+    a {
+      color: $white;
+    }
+    button.refund.btn {
+      color: $gray--four;
+    }
+
+    td{
+      background-color: $brand-primary;
+      color: $white;
+      cursor: pointer;
+      button.refund.btn:hover {
+        background-color: $gray--one;
+      }
+    }
+  }
+}
+
+.amplo-table--user {
+  button.btn{
+    visibility: hidden;
+  }
+  &:hover{
+    button.btn{
+      background-color: $white;
+      color: $brand-info;
+      visibility: visible;
+    }
+  }
+  &:hover{
+    td {
+      background-color: $brand-info;
+      color: $white;
+      cursor: pointer;
+
+      a {
+        color: $white;
+      }
+    }
+  }
+}
+
+.amplo-table-wrap {
+  min-height: 200px;
+  background-color: $bg-gray;
+}
+
+.table-responsive{
+  tr td:first-child, tr th:first-child{
+    padding-left: 20px;
+  }
+}

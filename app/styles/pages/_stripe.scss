@@ -1,0 +1,106 @@
+
+.integrations-title {
+    padding: 20px;
+    h1 {
+        text-transform: none;
+        font-size: 30px;
+        color: $dark-gray;
+        margin: 0;
+        width: 100%;
+      }
+  }
+
+.section-highlight {
+    padding: 14px;
+    width: 1096px;
+    height: 92px;
+    width: 99%;
+    border-radius: 5px;
+    border: solid 1px var(--gw-border-gray);
+    background-color: var(--gw-white);
+}
+
+.flex-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.stripe-connect {
+    width: 220px;
+    height: 24px;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
+    font-family: $font-family-sans-serif;
+    font-size: 20px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--gw-black-text);
+}
+
+.parent-stripe-connect {
+    width: 60%;
+}
+
+.your-stripe {
+    width: 664px;
+    height: 20px;
+    -webkit-text-stroke: 1px rgba(0, 0, 0, 0);
+    font-family: $font-family-sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    text-align: left;
+    color: var(--gw-gray-text);
+    
+    .stripe-disconnect-btn {
+        font-family: $bold-sans-serif;
+        text-decoration: underline;
+    }
+}
+
+.sync-message {
+    padding-top: 8px;
+    display: inline-flex;
+}
+
+.parent-your-stripe {
+    padding-top: 2px;
+    padding-left: 8px;
+}
+
+.integrate-button {
+    width: 120px;
+    height: 36px;
+    border-radius: 5px;
+    border: solid 1px var(--gw-purple-border-button);
+    background-color: var(--gw-purple-button);
+}
+
+.parent-stripe-image {
+    .logo {
+        padding: 15px;
+    }
+}
+
+.parent-button {
+    width: 30%;
+}
+
+.align-button {
+    margin: 10px 37px;
+}
+
+.stripe-integration-container {
+    padding-left: 24px;
+}
+
+.stripe-status {
+    margin-bottom: 15px;
+}

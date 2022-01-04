@@ -1,0 +1,26 @@
+{{#amplo-dropdown
+  options=options
+  onChange=(action 'changeFilter')
+  placeholderText=(readonly (if attribute.name (humanize-string attribute.name) 'Select Filter'))
+  as |option| }}
+  {{humanize-string option}}
+{{/amplo-dropdown}}
+
+{{#if attribute.name}}
+
+  {{#amplo-dropdown
+    options=attribute.options
+    onChange=(action 'changeFilterValue')
+    placeholderText=(readonly (if attribute.value (humanize-string attribute.value) 'Select Value'))
+    as |option| }}
+    {{humanize-string option}}
+  {{/amplo-dropdown}}
+
+  {{#if (eq emptyFilter false) }}
+    <span class="line-button fa-stack" {{action 'action'}}>
+      <i class="fa fa-times fa-stack-1x"></i>
+      <hr class='line'>
+    </span>
+  {{/if}}
+
+{{/if}}

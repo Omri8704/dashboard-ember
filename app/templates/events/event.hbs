@@ -1,0 +1,34 @@
+<section class='section-highlight'>
+  <h1>
+    {{event.name}}
+    <span class="badge {{if (eq event.status "active") "badge-success"}}">Status: {{event.status}}</span>
+  </h1>
+  <div class="nowrap">
+    {{#if onViewRoute}}
+      {{#link-to 'events.event.details' event class='btn btn-default m-sm-b'}}Edit Details{{/link-to}}
+    {{else}}
+      {{#link-to 'events.event.view' event class='btn btn-default m-sm-b'}}Overview{{/link-to}}
+    {{/if}}
+    <button class='btn btn-primary m-sm-b' {{action 'runReport'}}>Run Report</button>
+    <a class="btn btn-success m-sm-b" href="//{{settings.current_entity.host}}/events/{{event.slug}}/tickets" target="_blank">View Public Page</a>
+  </div>
+</section>
+
+{{#unless onViewRoute}}
+  <ul class='breadcrumb'>
+    <li class='breadcrumb-item'>
+      {{#link-to 'events.event.details' class='breadcrumb-link'}}Event Details{{/link-to}}
+    </li>
+    <li class='breadcrumb-item'>
+      {{#if event.noRegistration}}
+        {{#link-to 'events.event.tickets' class='breadcrumb-link' disabled=true}}Tickets{{/link-to}}
+      {{else}}
+        {{#link-to 'events.event.tickets' class='breadcrumb-link'}}Tickets{{/link-to}}
+      {{/if}}
+    </li>
+    <li class='breadcrumb-item'>
+      {{#link-to 'events.event.confirmation' class='breadcrumb-link'}}Confirmation{{/link-to}}
+    </li>
+  </ul>
+{{/unless}}
+{{outlet}}

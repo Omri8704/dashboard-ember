@@ -1,0 +1,89 @@
+<section class='section-highlight'>
+  <h1>
+    Your Matching Sections
+  </h1>
+  {{#link-to 'matching-gifts-sections.new' class='btn btn-primary pull-right m-sm-r'}}
+  <i class='fa fa-plus'></i> Create Matching Section
+  {{/link-to}}
+</section>
+
+<div class="flex-it align-center row p-md-l p-md-t">
+  <div class="col-md-1">
+    <h2 class="clear-m text-primary">Filter:</h2>
+  </div>
+
+  <div class="col-md-4">
+    <div class="inner-addon left-addon">
+      <i class="fa fa-search"></i>
+      {{one-way-input
+        autofocus=true
+        value=search_term_debounce
+        update=(action (mut search_term_debounce))
+        placeholder="Search for a Matching Gift"
+        class="form-control autofocus"}}
+    </div>
+  </div>
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <table class="amplo-table">
+      <thead>
+        <tr>
+          <th>
+            <div></div>
+          </th>
+          <th>
+            <div>Name</div>
+          </th>
+          <th>
+            <div>Selection Strategy</div>
+          </th>
+          <th>
+            <div>Campaign Name</div>
+          </th>
+          <th>
+            <div>Actions</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#if loading}}
+        <tr>
+          <td>
+            <div></div>
+          </td>
+          <td colspan=4>
+            <div>loading matching gifts...</div>
+          </td>
+        </tr>
+        {{else}}
+        {{#each matchingGiftsSections as |section index|}}
+        <tr>
+          <td>{{paginated-item-number page index}}</td>
+          <td>{{section.name}}</td>
+          <td>{{section.match_selection_strategy}}</td>
+          <td>{{section.campaign_name}}</td>
+          <td>
+            {{#link-to 'matching-gifts-sections.matching-gifts-section.edit' section.id class='campaign-link'}}Edit{{/link-to}}
+          </td>
+        </tr>
+        {{else}}
+        <tr>
+          <td>
+            <div></div>
+          </td>
+          <td colspan=4>
+            <div>0 Matching Gifts.</div>
+          </td>
+        </tr>
+        {{/each}}
+        {{/if}}
+      </tbody>
+      <tfoot>
+        <tr>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

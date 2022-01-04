@@ -1,0 +1,35 @@
+#dashboard {
+  // top navbar
+  nav.navbar{
+    z-index: 3;
+    border: none;
+    margin-bottom: 0;
+    border-bottom: 1px solid $default-border-color;
+    background: $white;
+    &.navbar-default .navbar-nav > li > a {
+      &:hover{
+        // color: $white;
+      }
+      // color: $white;
+    }
+  }
+  .navbar-default .navbar-nav > .open > a,
+  .navbar-default .navbar-nav > .open > a:hover,
+  .navbar-default .navbar-nav > .open > a:focus{
+
+  }
+}
+
+.header-logo {
+  width: 100%;
+  margin-bottom: 1.5em;
+  padding: 1.5em 1.5em .7em;
+  float: left;
+  background: $black;
+}
+.learn_more {
+  width: 100%;
+  padding: 0 1em;
+  text-align: right;
+  font-size: .8em;
+}

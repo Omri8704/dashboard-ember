@@ -1,0 +1,97 @@
+<section class="step-info">
+  <h2>Step 4 of 4: Finalize
+    <span class="pull-right">{{help-documentation documentationId="platform-training/intelligent-email/test-finalize-and-send-your-message"}}</span>
+  </h2>
+  <p>Your Email Has Been Saved!.</p>
+</section>
+
+<div class='divider'>
+
+</div>
+<div class="m-md-a">
+  <div class="panel">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Finalize!</h2>
+          <p>Your email content and who you are sending to has been saved! You can come back and edit this email. Once you "Finalize" the email on the next step, you cannot edit it, and it will be queued up for sending.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section>
+    <div class="row">
+      <div class="col-md-12">
+        <button {{action "finalize"}} class="btn btn-primary pull-right">Finalize</button>
+      </div>
+    </div>
+  </section>
+
+{{#if canEditStatus}}
+  <br/>
+  <div class="panel">
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Or Update Status</h2>
+        </div>
+        <div class="col-md-12">
+          {{banger-select
+            options=statuses
+            prompt="--select--"
+            property=mailing.status
+            errors=mailing.validations.attrs.status.messages
+            label="Status" }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <section>
+    <div class="row">
+      <div class="col-md-12">
+        <button {{action "updateStatus"}} class="btn btn-primary pull-right">Update Status</button>
+      </div>
+    </div>
+  </section>
+{{/if}}
+</div>
+
+{{#if confirmEmailSend}}
+  {{#modal-dialog
+    close="closeEmailSend"
+    containerClassNames='modal-wrap'
+    overlayClassNames='modal-overlay'}}
+    <div class='modal show fade in'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button class='close' {{action 'closeEmailSend'}}><span aria-hidden="true"><i class="fa fa-times-circle-o"></i></span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Confirm Sending Email</h4>
+          </div>
+          <div class='modal-body'>
+            <p>
+              You are about to send the "<b>{{mailing.name}}</b>" email using the
+              "<b>{{mailing.emailTemplate.name}}</b>" template out to an audience of approximately <b class="callout">{{estimate}} Users</b>
+              {{#if mailing.sent_at }}
+                <b>{{time-ago-in-words mailing.sent_at}}</b> (<b>{{pretty-date mailing.sent_at settings.current_entity.date_format}}</b>)
+              {{else}}
+                <b>immediately</b>
+              {{/if}}
+              .
+            </p>
+
+            <p>
+              You will not be able to edit this email once it's finalized below
+            </p>
+          </div>
+          <div class='modal-footer'>
+            <button {{action "saveAndFinish"}} disabled={{confirmEmailSending}} class="amplo-spinner btn btn-primary pull-right confirm-save-donation">
+              Yes, Finalize and Send/Schedule
+            </button>
+            <button class="btn btn-default pull-right" {{action 'closeEmailSend'}}>Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/modal-dialog}}
+{{/if}}

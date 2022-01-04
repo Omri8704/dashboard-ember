@@ -1,0 +1,24 @@
+.drop-zone {
+  position: relative;
+  min-height: 100px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 6px dashed #717c92;
+  color: #717c92;
+  text-align: center;
+  &.entered {
+    border-color: lighten(#717c92, 20%);
+    color: lighten(#717c92, 20%);
+  }
+  .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  .notice-text {
+    font-size: 1.5em;
+    margin: 20px 0;
+  }
+}

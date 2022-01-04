@@ -1,0 +1,8 @@
+
+<iframe class="embed-iframe no-border {{if loading 'hidden' }}" onload={{action "onLoadingIframe" }} src={{srcIframe}}
+  style="height: 90vh;width: 65vw;"></iframe>
+<div class="loading">
+  {{#if loading}}
+  <h2 class="primary-color-text">loading...</h2>
+  {{/if}}
+</div>

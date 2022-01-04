@@ -1,0 +1,66 @@
+<tbody>
+  <tr class="row--container add-field">
+    <td colspan="2">
+      <div class="row-add">  
+        {{#if remainingFieldNames}}
+          {{one-way-select
+            class='form-control blue-select'
+            prompt="Select a field to add..."
+            value=selectedField
+            options=remainingFieldNames
+            optionLabelPath="name"
+            optionValuePath="value"
+            update=(action 'selectField')
+          }}
+          <button class="button button--primary button--primary-table" disabled={{hasSelectedField}} onclick={{action 'handleCreateField'}}>+ Add Field</button>
+          {{else}}
+          <p class="fields-note">All of the possible fields have been added. Click on details if you would like to remove one.</p>
+        {{/if}}
+      </div>
+    </td>
+  </tr>
+  <hr>
+  {{#if fields}}
+    <tr class="row--container">
+      <th>
+        <div class="field-info">
+          <p>Data field</p>
+          <p>Example value</p>
+          <p>Appears on report under</p>
+          <p>Selected Formatter</p>
+        </div>
+      </th>
+    </tr>
+  {{/if}}
+</tbody>
+  {{#if fields}}
+    {{#sortable-group tagName="tbody" onChange="reorderItems" as |group|}}
+      {{#each fields as |field|}}
+        {{#sortable-item
+          tagName="tr"
+          class='row--container show-order-number'
+          model=field
+          group=group
+          handle=".handle"}}
+          {{report-field
+            field=field
+            fieldFormatters=fieldFormatters
+            onSelectFormatter=(action 'handleSelectFormatter')
+            onCustomHeader=(action 'handleCustomHeader')
+            onRemoveField=(action 'handleRemoveField')
+          }}
+        {{/sortable-item}}
+      {{/each}}
+    {{/sortable-group}}
+  {{else}}
+  <tr class="row--container">
+    <td colspan="0">
+      <div class="empty-state">
+        <span class="empty-state-icon">
+          <span class="fa fa-fw fa-file-o "></span>
+        </span>
+        <p class="empty-state-text">Start customizing this template by adding a field!</p>
+      </div>
+    </td>
+  </tr>
+  {{/if}}

@@ -1,0 +1,23 @@
+@mixin badgeify ($color) {
+  background-color: lighten($color, 25%);
+  border:1px solid $color;
+  padding: 4px 7px;
+  border-radius: 20px;
+  font-size: 14px
+}
+
+.badge-primary {
+  @include badgeify($brand-primary)
+}
+.badge-info {
+  @include badgeify($brand-info)
+}
+.badge-warning {
+  @include badgeify($brand-warning)
+}
+.badge-danger {
+  @include badgeify($brand-danger)
+}
+.badge-success {
+  @include badgeify($brand-success)
+}

@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-md-6 form-group">
+    <label>Credit Card Number</label>
+    {{#if loading}}
+      <div class='text-center' style='height: 2.5em'>
+        <i class='fa fa-spin fa-spinner' />
+      </div>
+    {{/if}}
+    <div id='spreedly-number' className='card- number' style="height: 2.5em;" />
+    {{#if cardNumberError}}
+      <div class='text-danger'>
+        Invalid card number
+      </div>
+    {{/if}}
+  </div>
+  <div class="col-md-3 form-group">
+    {{banger-text-input
+      class='card-expiration'
+      property=card_expiration
+      label="Expiration Date"
+      placeholder="MM/YY" }}
+    <!-- {{banger-input canShowErrors=expDate class="card-expiration" property="card_expiration" placeholder="(MM/YY)"}} -->
+    {{#if expirationError}}
+      <div class='text-danger'>
+        Invalid expiration date
+      </div>
+    {{/if}}
+  </div>
+  <div class="col-md-3 form-group hasTooltip">
+    <label>CCV</label>
+    {{#if loading}}
+      <div class='text-center' stule='height: 2.5em;'>
+        <i class='fa fa-spin fa-spinner' />
+      </div>
+    {{/if}}
+    <div id='spreedly-cvv' className='card-code' style="height: 2.5em;" />
+    {{#if cvvError}}
+      <div class='text-danger'>
+        Invalid card number
+      </div>
+    {{/if}}
+    <span class='tooltip-image'>
+      <img src={{cc_security}} alt="Security Code: Last 3 digits on back of card, or 4 digits on front of AMEX.">
+    </span>
+  </div>
+</div>

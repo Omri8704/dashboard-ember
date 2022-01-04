@@ -1,0 +1,129 @@
+<section class="donations-raised-container">
+  <h2>
+    Donations Raised: ${{mailing.total_value}}
+    {{#tool-tipster
+      classNames='inline-b'
+      content='The number of direct donations this mailing has generated. For information on how this is calculated, please visit our support helpdesk.'
+      position='right'
+      delay=0
+      theme='tooltipster-noir'
+      updateAnimation=false
+    }}
+      <i class="fa fa-question-circle"></i>
+    {{/tool-tipster}}
+  </h2>
+</section>
+
+<section class="m-md-a">
+  <h3>
+    Core Stats&nbsp;&nbsp;
+    <div class="btn-group">
+      <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{#if (eq 1 chartDataResolution) }}
+          24 Hour View
+        {{else}}
+          Lifetime View
+        {{/if}}
+        <i class="fa fa-fw fa-caret-down"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a {{action "changeChartResolution" 1}}>24 Hours</a></li>
+        <li><a {{action "changeChartResolution" 365}}>Lifetime</a></li>
+      </ul>
+    </div>
+  </h3>
+</section>
+
+<section class="email-stats m-md-r m-md-l m-md-b">
+  {{amplo-highcharts
+    content=chartData
+    chartOptions=chartOptions
+    theme=theme
+  }}
+</section>
+
+
+
+<div class="health-tiles-container">
+  <div class="summary-cards">
+    {{#summary-card
+      classNames='totals'
+      headerText='Sends'
+      icon='fa-envelope'
+      details='Total Emails sent in this Mailing'
+      total=totals.total_email_sent as |showing|}}
+    {{/summary-card}}
+
+    {{#summary-card
+      classNames='percentage'
+      headerText='Opens'
+      icon='fa-envelope-open'
+      details='The number of emails that were opened for vieweing.'
+      total=totals.total_opens as |showing|}}
+    {{/summary-card}}
+
+    {{#summary-card
+      classNames='emails'
+      headerText='Clicks'
+      icon='fa-mouse-pointer'
+      details='The number of emails that were opened and then someone clicked on a link.'
+      total=totals.total_clicks as |showing|}}
+    {{/summary-card}}
+
+    {{#summary-card
+      classNames='interaction'
+      headerText='Unsubscribes'
+      icon='fa-times-circle'
+      details='The number of people who unsubscribed to this email segment.'
+      total=totals.total_unsubscribes as |showing|}}
+    {{/summary-card}}
+    </div>
+</div>
+
+
+<section class="m-md-a m-lg-t">
+  <div class="row">
+    <div class="col-md-5 col-md-offset-1">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Mailing Details</h4>
+        </div>
+        <div class="panel-body">
+          <table class="amplo-table compact">
+            <tbody>
+              <tr>
+                <td style="font-weight:bold">Name:</td>
+                <td>{{mailing.name}}</td>
+              </tr>
+              <tr>
+                <td style="font-weight:bold">Status:</td>
+                <td>{{mailing.status}}</td>
+              </tr>
+              <tr>
+                <td style="font-weight:bold">Sent At:</td>
+                <td>{{pretty-date mailing.sent_at settings.current_entity.date_format}}</td>
+              </tr>
+              <tr>
+                <td style="font-weight:bold">Subject:</td>
+                <td>{{mailing.subject}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4>Mailing Preview</h4>
+        </div>
+        <div class="panel-body">
+          <img
+            class='template-image'
+            src={{if mailing.emailTemplate.icon mailing.emailTemplate.icon "/assets/images/template-icon.png"}}
+            placeholder={{mailing.emailTemplate.name}} />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

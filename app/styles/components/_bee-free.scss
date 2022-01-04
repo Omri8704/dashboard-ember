@@ -1,0 +1,10 @@
+#bee-plugin-container {
+  position: relative;
+  min-height: 740px;
+  background-color: $background;
+  border: 1px solid $default-border-color;
+
+  iframe {
+    min-height: 740px;
+  }
+}

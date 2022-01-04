@@ -1,0 +1,93 @@
+<div class="product-bar settings-product">
+  <div class="product-label">
+    Integrations
+  </div>
+  {{#link-to 'initiatives' class="nav-link"}}
+    <i class="fa fa-fw fa-umbrella"></i> Initiatives
+  {{/link-to}}
+  {{#link-to 'causes' class="nav-link"}}
+    <i class="fa fa-fw fa-bullseye"></i> Causes
+  {{/link-to}}
+  {{#link-to 'appeals' class="nav-link"}}
+    <i class="fa fa-fw fa-phone"></i> Appeals
+  {{/link-to}}
+  {{#link-to 'stripe' class="nav-link active"}}
+    Stripe
+  {{/link-to}}
+  {{#link-to 'bbms' class="nav-link"}}
+    BBMS
+  {{/link-to}}
+</div>
+
+<section class="main-content initiatives">
+
+    <section class='integrations-title'>
+      <h1>Integrations</h1>
+    </section>
+
+    <section>
+      <div class="stripe-status text-center">
+        {{#if canReceiveStripePayments}}
+          <img src="https://gw-advance-prod-us-east-1.s3.amazonaws.com/dashboard/assets/Icons/stripe-connected-status.png" />
+        {{else}}
+          <img src="https://gw-advance-prod-us-east-1.s3.amazonaws.com/dashboard/assets/Icons/stripe-disconnected-status.png" />
+        {{/if}}
+      </div>
+    </section>
+
+    <div class="stripe-integration-container">
+      <section class='section-highlight'>
+        <div class="flex-container">
+          <div class="parent-stripe-image">
+            <img class="logo" src="https://gw-advance-prod-us-east-1.s3.amazonaws.com/dashboard/assets/Logos/stripe-logo.png" />
+          </div>
+          <div class="parent-stripe-connect">
+            <div >
+              <span class="stripe-connect">Stripe Connect</span>
+            </div>
+            {{#if canReceiveStripePayments}}
+                 <div class="sync-message">
+                    <div class="sync">
+                      <i class="material-icons gw-success">sync</i>
+                    </div>
+                    <div class="parent-your-stripe">
+                      <span class="your-stripe">Your Stripe Connect account is synced.
+                        <a class="pointer stripe-disconnect-btn" {{action actionLinkDisconnect }} > Disconnect</a>
+                        </span>
+                    </div>
+                  </div>
+            {{else}} 
+              {{#if error}} 
+                <div class="sync-message">
+                  <div class="sync">
+                    <i class="material-icons gw-warning">sync_problem</i>
+                  </div>
+                  <div class="parent-your-stripe">
+                    <span class="your-stripe">There was a problem integrating stripe connect. Try to integrate again.</span>
+                  </div>
+                </div>
+              {{else unless error}}
+                <div class="sync-message">
+                  <div class="sync">
+                    <i class="material-icons gw-danger">sync_disabled</i>
+                  </div>
+                  <div class="parent-your-stripe">
+                    <span class="your-stripe">Your Stripe Connect account is not yet synced.</span>
+                  </div>
+                </div>
+              {{/if}}
+            {{/if}}
+          </div>
+          <div class="parent-button">
+            <div class="align-button">
+              {{#unless canReceiveStripePayments }}
+                <button class='btn btn-info pull-right integrate-button' 
+                {{action "integrateClick"}} disabled={{isConnected}} >Integrate</button>
+              {{/unless}}
+            </div>
+          </div>  
+        </div>
+      </section>
+    </div>
+
+</section>

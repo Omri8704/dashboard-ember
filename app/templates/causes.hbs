@@ -1,0 +1,80 @@
+{{partial 'partials/components/integrations-nav-bar'}}
+
+<section class="main-content initiatives">
+  <section class='section-highlight'>
+    <h1>Manage Causes</h1>
+    <span class="pull-right">{{help-documentation documentationId="platform-training/reporting/working-with-snap-advance-integrations"}}</span>
+  </section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel-search">
+          <div class="panel-heading">
+            <h4>Create New Cause</h4>
+          </div>
+          <div class="panel-body">
+            {{cause-form
+              cause=newCause
+              settings=settings
+              submitAction=(action 'causeSaved')
+              buttonText="Create Cause"}}
+          </div>
+          <div class="panel-footer">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel info">
+          <div class="panel-heading">
+            <h4>Existing Causes</h4>
+          </div>
+          <div class="panel-body" style="padding: 15px 0;">
+            <table class="amplo-table compact">
+              <thead>
+                <tr>
+                  <th><div>Name</div></th>
+                  <th><div>Code</div></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+
+              {{#each filteredCauses as |row|}}
+                <tr>
+                  <td>{{row.name}}</td>
+                  <td>{{row.code}}</td>
+                  <td>
+                    {{#if (eq row.id editCause.id)}}
+                      <a class="pointer" {{action "cancelEdit" }}>Cancel</a>
+
+                    {{else}}
+                      <a class="pointer" {{action "editCause" row}}>Edit</a>
+                    {{/if}}
+                    | <a class="pointer" {{action "deleteCause" row}}>Delete</a>
+                  </td>
+                </tr>
+                <tr class="drawer">
+                  <td colspan="10">
+                    {{#liquid-if (eq row.id editCause.id)}}
+                      <div class="panel-body">
+                        {{cause-form
+                          cause=row
+                          settings=settings
+                          submitAction=(action 'causeSaved')
+                          cancelEditAction=(action 'cancelEdit')
+                          buttonText="Save Changes"}}
+                      </div>
+                    {{/liquid-if}}
+                  </td>
+                </tr>
+              {{/each}}
+              </tbody>
+            </table>
+
+            {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

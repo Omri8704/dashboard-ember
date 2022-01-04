@@ -1,0 +1,70 @@
+<div class="panel">
+  <div class="panel-heading flex-it space-between align-center">
+    <h3>upload donations</h3>
+    <i class="fa fa-times" {{action "close"}}></i>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-12">
+        {{#if donationSuccess}}
+          <div class="alert alert-dismissible alert-success" role="alert">
+            <button type="button" class="close" ><span aria-hidden="true">&times;</span><span class="sr-only" {{action "removeNotice"}} >Close</span></button>
+            {{donationSuccess}}
+          </div>
+        {{/if}}
+        {{#if donationError}}
+          <div class="alert alert-dismissible alert-danger" role="alert">
+            <button type="button" class="close" ><span aria-hidden="true">&times;</span><span class="sr-only" {{action "removeNotice"}} >Close</span></button>>
+            {{donationError}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3">
+        <p>Campaign</p>
+      </div>
+      <div class="col-md-3">
+        {{banger-select
+          displayErrors=false
+          options=campaigns
+          optionValuePath="id"
+          optionLabelPath="name"
+          prompt="Select a Campaign"
+          property=selectedCampaignId
+          updateSelected=(action 'changeSelectedCampaign')
+         }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <p>Donations File</p>
+      </div>
+      <div class="col-md-3">
+        {{#if loading}}
+          {{new-file-field action="filePicked" fileTooBig="fileTooBig" class="file" id=cid}}
+        {{else}}
+          {{new-file-field action="filePicked" fileTooBig="fileTooBig" class="file" id=cid}}
+        {{/if}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        {{#if loading}}
+          <button class="btn btn-gray">uploading..</button>
+        {{else}}
+          <button {{action 'upload'}} class="btn btn-primary clear-m">upload</button>
+        {{/if}}
+
+        {{#if settings.current_entity.affinities_grad_year }}
+          <a class="btn btn-primary" href="/assets/templates/offline_donations_template_affinity_grad_year.xlsx">download template</a>
+        {{else if settings.current_entity.affinities }}
+          <a class="btn btn-primary" href="/assets/templates/offline_donations_template_affinity.xlsx">download template</a>
+        {{else}}
+          <a class="btn btn-primary" href="/assets/templates/offline_donations_template.xlsx">download template</a>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>

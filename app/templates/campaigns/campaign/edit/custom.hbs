@@ -1,0 +1,210 @@
+{{#if session.current_user.entity_admin}}
+  <div class="p-md-a">
+    <div class="panel info">
+      <div class="panel-heading">
+        <h4>Custom Settings</h4>
+      </div>
+      <div class="panel-body">
+        <div class='row'>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type='checkbox'
+                checked=campaign.hide_goal_bar
+              }}
+              Hide Goal Bar
+            </label>
+          </div>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type='checkbox'
+                checked=campaign.hide_title
+              }}
+              Hide Campaign Title
+            </label>
+          </div>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type='checkbox'
+                checked=campaign.member_page_opt_out
+              }}
+              Member Page Opt Out
+            </label>
+          </div>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type='checkbox'
+                checked=campaign.dont_send_receipt
+              }}
+              Do Not Send Receipt
+            </label>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type='checkbox'
+                checked=campaign.show_logo
+              }}
+              Show Logo
+            </label>
+          </div>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type="checkbox"
+                disabled=campaign.has_max_additional_gifts
+                checked=campaign.is_part_additional_gift
+              }}
+              Is this an additional suggested campaign?
+              <br />
+              {{#if campaign.has_max_additional_gifts}}
+                You have reached the maximum of 3 campaigns that can be included in the additional suggested gift giving form page.
+              {{/if}}
+            </label>
+          </div>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type="checkbox"
+                checked=campaign.is_send_abandon_notification
+              }}
+              Send abandon form notification?
+            </label>
+          </div>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type='checkbox'
+                checked=campaign.causes_required
+              }}
+              Causes Required
+            </label>
+          </div>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type='checkbox'
+                checked=campaign.hide_average_donation
+              }}
+              Hide Average Donation
+            </label>
+          </div>
+          <div class='col-md-3 form-group'>
+            <label>
+              {{input
+                type='checkbox'
+                checked=campaign.auto_media_carousel
+              }}
+              Auto Scroll Media Carousel
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class='col-md-4 form-group'>
+            <label>
+              {{input
+                type="checkbox"
+                checked=campaign.disable_stretch_goal
+              }}
+              Disable Stretch Goal
+            </label>
+          </div>
+          <div class='col-md-4 form-group'>
+            <label>
+              {{input
+                type="checkbox"
+                checked=campaign.use_giving_form
+              }}
+              Use Giving Form
+            </label>
+          </div>
+        </div>
+        <div class='row'>
+          <div class='col-md-4 form-group'>
+            {{banger-text-input
+              property=campaign.external_donation_url
+              errors=campaign.validations.attrs.external_donation_url.messages
+              disabled=(not-eq session.current_user.entity_admin true)
+              label="External Donation URL"
+              placeholder="External Donation URL" }}
+          </div>
+          <div class='col-md-4 form-group'>
+            {{banger-text-input
+              property=campaign.title_color
+              errors=campaign.validations.attrs.title_color.messages
+              disabled=(not-eq session.current_user.entity_admin true)
+              label="Campaign Name Title Color"
+              placeholder="#ff7f50" }}
+          </div>
+          {{#if campaign.entity.allow_subscriptions }}
+            <div class='col-md-4 form-group'>
+              <label>Subscriptions
+
+              {{one-way-select campaign.allow_subscriptions
+                options=campaign.allow_subscription_options
+                optionTargetPath="id"
+                optionLabelPath="label"
+                includeBlank=true
+                promptIsSelectable=true
+                update=(action (mut campaign.allow_subscriptions))
+                class='form-control blue-select'}}
+                </label>
+            </div>
+          {{/if}}
+        </div>
+        <div class='row'>
+          <div class='col-md-4 form-group'>
+            <label>
+              {{input
+                type="checkbox"
+                checked=campaign.shell_campaign
+              }}
+              Shell Campaign
+            </label>
+          </div>
+        </div>
+        <div class='row'>
+          <div class="col-md-4 form-group">
+          {{banger-text-area
+            label="Category"
+            property=campaign.category
+            rows=4}}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 form-group">
+            <label>Parent campaign</label>
+            {{#power-select
+              placeholder="Search"
+              options=campaignOptions
+              selected=parentCampaign
+              onchange=(action "updateParentCampaign")
+              renderInPlace=true
+              searchField="name"
+              as |option|}}
+              {{option.name}}
+            {{/power-select}}
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <div class="row">
+          <div class="pull-right">
+            <button
+              disabled={{if campaign.isSaving "disabled"}}
+              class="{{if campaign.isSaving "disabled"}} btn btn-primary pull-right"
+              {{action "updateCampaign" campaign}}>
+              {{if campaign.isSaving "Saving..." "Save"}}
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{{/if}}

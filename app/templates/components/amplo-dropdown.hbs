@@ -1,0 +1,35 @@
+<button
+  type="button"
+  class={{buttonClassNames}}
+  data-toggle="dropdown"
+  disabled={{disableButton}}
+  aria-haspopup="true"
+  aria-expanded="false">
+  <div class='amplo-dropdown-list' data-test-selected-text>
+    {{#if isLoading}}
+      <i class='fa fa-spinner fa-spin fa-lg'></i>
+    {{else}}
+      {{#if selectedItem }}
+        {{yield selectedItem}}
+      {{else}}
+        {{placeholderText}}
+      {{/if}}
+    {{/if}}
+  </div>
+  &nbsp;
+  <span class="caret v-super"></span>
+</button>
+
+<ul class={{ulClassName}}>
+  {{#if dropdownOpen}}
+    {{#each options as |option index|}}
+      {{#amplo-dropdown-item
+        index=index
+        model=option
+        selectedItem=selectedItem
+        selectItemAction=(action 'selectItemAction')}}
+        {{yield option}}
+      {{/amplo-dropdown-item}}
+    {{/each}}
+  {{/if}}
+</ul>

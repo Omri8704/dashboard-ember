@@ -1,0 +1,24 @@
+
+<h2 class='m-md-l'>Edit Details</h2>
+<div class="panel m-md-a">
+  <div class="panel-body">
+    {{event-form
+      event=event
+      entityTimeZone=entityTimeZone
+      settings=settings
+      initiatives=initiatives
+      appeals=appeals
+      submitAction=(action 'saveEvent')
+      startDateAction=(action (mut event.start_date))
+      endDateAction=(action (mut event.end_date))
+      registrationStart=(action 'registrationStart')
+      registrationEnd=(action 'registrationEnd')
+      fileUpload=(action 'fileUpload')
+      defaultDateFrom=event.start_date
+      defaultDateTo=event.end_date
+      defaultRegistrationStart=event.registration_start
+      defaultRegistrationEnd=event.registration_end
+      canShowErrors=(readonly canShowErrors)
+      buttonText="Save & Continue"}}
+  </div>
+</div>

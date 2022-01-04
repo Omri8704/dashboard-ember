@@ -1,0 +1,119 @@
+  <div class="row">
+    <label for="company" class="col-sm-2 control-label">Company</label>
+    {{#if editable}}
+      <div class='col-sm-3'>
+        {{banger-text-input
+          class="company"
+          hasFeedback=(readonly hasFeedback)
+          property=address.company
+          errors=address.validations.attrs.company.messages }}
+      </div>
+    {{else}}
+      <div class="col-sm-3">
+        <p>{{address.company}}</p>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <label for="address1" class="col-sm-2 control-label">Address</label>
+    {{#if editable}}
+      <div class='col-sm-3'>
+        {{banger-text-input
+          class="address1"
+          hasFeedback=(readonly hasFeedback)
+          property=address.address1
+          errors=address.validations.attrs.address1.messages }}
+      </div>
+
+    {{else}}
+      <div class="col-sm-3">
+        <p>{{address.address1}}</p>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <label for="city" class="col-sm-2 control-label">City</label>
+    {{#if editable}}
+      <div class='col-sm-3'>
+        {{banger-text-input
+          class="city"
+          hasFeedback=(readonly hasFeedback)
+          property=address.city
+          errors=address.validations.attrs.city.messages }}
+      </div>
+    {{else}}
+      <div class="col-sm-3">
+        <p>{{address.city}}</p>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <label for="region" class="col-sm-2 control-label">State/Region</label>
+    {{#if editable}}
+      <div class='col-sm-3'>
+        {{banger-text-input
+          class="region"
+          hasFeedback=(readonly hasFeedback)
+          property=address.region
+          errors=address.validations.attrs.region.messages }}
+      </div>
+    {{else}}
+      <div class="col-sm-3">
+        <p>{{address.region}}</p>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <label for="zip" class="col-sm-2 control-label">Zip</label>
+    {{#if editable}}
+      <div class='col-sm-3'>
+        {{banger-text-input
+          class="zip"
+          hasFeedback=(readonly hasFeedback)
+          property=address.zip
+          errors=address.validations.attrs.zip.messages }}
+      </div>
+    {{else}}
+      <div class="col-sm-3">
+        <p>{{address.zip}}</p>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <label for="country" class="col-sm-2 control-label">Country</label>
+    {{#if editable}}
+      <div class='col-sm-3'>
+        {{banger-text-input
+          class="country"
+          hasFeedback=(readonly hasFeedback)
+          property=address.country
+          errors=address.validations.attrs.country.messages }}
+      </div>
+    {{else}}
+      <div class="col-sm-3">
+        <p>{{address.country}}</p>
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="row">
+    <label for="cell_phone" class="col-sm-2 control-label">Phone</label>
+    {{#if editable}}
+      <div class='col-sm-3'>
+        {{banger-text-input
+          class="cell-phone"
+          hasFeedback=(readonly hasFeedback)
+          property=address.cell_phone
+          errors=address.validations.attrs.cell_phone.messages }}
+      </div>
+    {{else}}
+      <div class="col-sm-3">
+        <p>{{address.cell_phone}}</p>
+      </div>
+    {{/if}}
+  </div>

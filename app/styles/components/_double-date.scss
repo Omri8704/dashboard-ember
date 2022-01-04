@@ -1,0 +1,12 @@
+.double-date {
+  @extend .flex-it;
+  max-width: 600px;
+
+  @media (max-width: $screen-sm-min) {
+    display: block;
+
+    > div {
+      padding-right: 0;
+    }
+  }
+}

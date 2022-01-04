@@ -1,0 +1,77 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="clear-m-t">Editing {{humanize-string emailTemplate.base_template_type}} Template</h4>
+    <p>When referring to data that will change per email, such as the users first name, you have these substitutions to work with:</p>
+    <ul>
+      {{#each-in model.mergeTags as |key val|}}
+        <li>
+          {{#tool-tipster
+            classNames='inline-b'
+            content=val
+            position='right'
+            delay=0
+            theme='tooltipster-noir'
+            updateAnimation=false }}
+            %{{key}}% <i class="fa fa-question-circle"></i>
+          {{/tool-tipster}}
+
+        </li>
+      {{/each-in}}
+    </ul>
+    <p>So for example, if you put "Hello %first_name% %last_name%", in your template somewhere, it would be replaced with "Hello John Smith" when an email is sent to John Smith.</p>
+    <p>Note that you CAN use these tags in the subject line. Note that if you add a Subject line override below, it will override the subject in all circumstances.  Some emails have special programmatically generated subject lines, and those will still get overwritten by whatever is entered in the subject line box below if anything is entered.</p>
+
+  </div>
+
+
+  <div class="col-md-12 p-md-t p-md-b">
+    <div class="row">
+      <label class="col-md-3">
+        Overwrite Subject (optional)
+        {{#tool-tipster
+          classNames='inline-b'
+          content='If you enter in text here, this subject will override any other default subject on this email.'
+          position='right'
+          delay=0
+          theme='tooltipster-noir'
+          updateAnimation=false
+        }}
+          <i class="fa fa-question-circle"></i>
+        {{/tool-tipster}}
+      </label>
+      <div class="col-md-9">
+        {{input type="text" value=emailTemplate.subject update=(action (mut emailTemplate.subject)) class="form-control" placeholder=""}}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12">
+    {{bee-free
+      token=beeToken
+      entityId=entityId
+      model=emailTemplate.parsedJSON
+      beeInitialized=(action 'beeInitialized')
+      saveEmail=(action 'saveEmailTemplate')
+    }}
+
+  </div>
+</div>
+
+<section class="bottom-CTA">
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-primary pull-right" {{action "saveTemplate"}}>
+        Save &amp; Go Back
+      </button>
+
+      <button class="btn btn-primary pull-right" {{action "sendTest"}}>
+        Send Test
+      </button>
+
+      {{#link-to 'emails.settings' class='btn btn-default pull-right'}}
+        Discard Changes and Go BAck
+      {{/link-to}}
+    </div>
+  </div>
+</section>

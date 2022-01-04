@@ -1,0 +1,129 @@
+<section class='section-highlight'>
+  <h1>New Matching Gift</h1>
+</section>
+
+
+<div class="p-md-a">
+  <div class="panel info">
+    <h4 class="panel-heading">
+      <h4>Matching Gift Details</h4>
+    </h4>
+
+    <form class="form" {{action "saveMatchingGift" on="submit"}}>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-4 form-group">
+            {{banger-text-input
+            class="campaign-name"
+            property=matchingGift.title
+            errors=matchingGift.validations.attrs.name.messages
+            label="Matching Gift Title"
+            placeholder="Matching Gift Title" }}
+          </div>
+          <div class="col-md-4 form-group">
+            {{banger-select
+            label="Type"
+            property=matchingGift.type
+            options=typeOptions
+            prompt="--select--"
+            updateSelected=(action "updateType")}}
+          </div>
+          {{#if isMoneyType}}
+            <div class="col-md-4 form-group">
+              {{banger-text-input
+              class="campaign-name"
+              property=matchingGift.money_goal
+              errors=matchingGift.validations.attrs.money_goal.messages
+              label="Money Goal (in dollars)"
+              placeholder="Money Goal" }}
+            </div>
+          {{else}}
+            <div class="col-md-4 form-group">
+              {{banger-text-input
+              class="campaign-name"
+              property=matchingGift.participation_goal
+              errors=matchingGift.validations.attrs.participation_goal.messages
+              label="Number of Donors Goal"
+              placeholder="Number of Donors Goal" }}
+            </div>
+          {{/if}}
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 form-group">
+            {{banger-select
+            label="Campaign Scope"
+            property=matchingGift.campaign_id
+            propertyToSet='id'
+            options=campaignOptions
+            optionValuePath='id'
+            optionLabelPath='name'
+            prompt="--select--"}}
+          </div>
+          <div class="col-md-4">
+            <label class="control-label">Start Date</label>
+            {{date-time-picker
+              initialDate=matchingGift.start_date
+              defaultTimeZone=entityTimeZone
+              onSaveDateTime=(action (mut matchingGift.start_date))
+              entityDateFormat=settings.current_entity.date_format
+            }}
+          </div>
+          <div class="col-md-4">
+            <label class="control-label">End Date</label>
+            {{date-time-picker
+              initialDate=matchingGift.end_date
+              defaultTimeZone=entityTimeZone
+              onSaveDateTime=(action (mut matchingGift.end_date))
+              entityDateFormat=settings.current_entity.date_format
+            }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4 form-group">
+            {{banger-text-area
+            class="full-description"
+            property=matchingGift.full_description
+            errors=matchingGift.validations.attrs.full_description.messages
+            label="Full Description"
+            placeholder="Full Description" }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="panel-body banner">
+            {{square-base64-cropper
+              aspectRatio="1.7"
+              property=matchingGift.image_filename
+              submitButtonText="Done"
+              saveAction="saveMatchingGift" }}
+              <br />
+          {{banger-text-input
+            property=matchingGift.image_alt_text
+            label="Alt Text"
+            placeholder="Alt Text" }}
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              disabled={{if matchingGift.isSaving "disabled"}}
+              class="btn btn-primary pull-right save-campaign">
+              {{#if matchingGift.isSaving}}
+                Saving...
+              {{else}}
+                Save Matching Gift
+              {{/if}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

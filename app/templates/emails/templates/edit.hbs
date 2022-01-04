@@ -1,0 +1,107 @@
+<div class="spacer-2"></div>
+<div class="flex-it align-center space-between p-md-l">
+  <h2 class='title-item'>
+    Email Template - {{emailTemplate.name}}
+  </h2>
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <form class="form-white-bg">
+      <!-- row 1 -->
+      <section class="field-section">
+        {{banger-text-input
+          innerAddonHtml='<span class="fa fa-stack fa-lg"><i class="fa fa-square fa-stack-2x"></i><i class="fa fa-quote-left fa-stack-1x fa-inverse"></i></span>'
+          property=emailTemplate.name
+          errors=emailTemplate.validations.attrs.name.messages
+          hasFeedback=(readonly hasFeedback)
+          placeholder="Spring Notification"
+        }}
+      </section>
+
+      <section class="field-section">
+        <label for="emailTemplateName">Email Template Content</label>
+      </section>
+
+      <!-- row 3  -->
+      <section class="field-section">
+        <div class="row">
+          <div class="col-md-12">
+            <p>When referring to data that will change per email, such as the users first name, you have these substitutions to work with:</p>
+            <ul>
+              <li>%first_name%</li>
+              <li>%last_name%</li>
+              <li>%email%</li>
+              <li>%constituency_affiliation%</li>
+              <li>%last_gift_date%</li>
+              <li>%class_year%</li>
+              <li>%ask_amount1%</li>
+              <li>%ask_amount2%</li>
+              <li>%ask_amount3%</li>
+              <li>%last_gift_made_to_campaigns%</li>
+              <li>%formal_salutation%</li>
+              <li>
+                {{#tool-tipster
+                  classNames='inline-b'
+                  content='This is the URL for your Campaign or Event'
+                  position='right'
+                  delay=0
+                  theme='tooltipster-noir'
+                  updateAnimation=false }}
+                  %promotion_link% <i class="fa fa-question-circle"></i>
+                {{/tool-tipster}}
+              </li>
+            </ul>
+            <p>So you can replace John Smith with: %first_name% %last_name%, in your template.</p>
+          </div>
+        </div>
+
+        {{#if emailTemplate.mailings}}
+          <div>
+            <h4>Other Emails using this Email Template</h4>
+            <ul>
+              {{#each emailTemplate.mailings as |mailing|}}
+                <li>{{mailing.name}}</li>
+              {{/each}}
+            </ul>
+          </div>
+        {{/if}}
+      </section>
+
+      <!-- row 2 -->
+      {{#unless emailTemplate.userUploaded}}
+        {{bee-free
+          token=beeToken
+          entityId=entityId
+          model=emailTemplate.parsedJSON
+          beeInitialized=(action 'beeInitialized')
+          saveEmail=(action 'saveEmailTemplate')
+        }}
+      {{/unless}}
+
+      <section class="bottom-CTA">
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              class="btn btn-primary pull-right"
+              {{action "saveTemplate"}}>
+
+              Save &amp; Go Back
+            </button>
+
+            <button
+              class="btn btn-primary pull-right"
+              {{action "sendTest"}}>
+
+              Send Test
+            </button>
+
+            <button
+              {{action "deleteTemplate"}}
+               class="btn btn-danger pull-right">Delete</button>
+          </div>
+        </div>
+      </section>
+    </form>
+  </div>
+</div>

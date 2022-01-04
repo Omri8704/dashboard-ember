@@ -1,0 +1,56 @@
+<section class="step-info">
+  <h2>Step 2 of 4: Select Template
+    <span class="pull-right">{{help-documentation documentationId="platform-training/intelligent-email/creating-and-selecting-your-template"}}</span>
+  </h2>
+  <p>In this step you can pick a template for your email to be formatted in.</p>
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    {{#liquid-if mailing.emailTemplate}}
+      <h3 class=''>
+        Selected Email Template
+      </h3>
+
+      <div class='flex-it'>
+        <img
+          class='template-image'
+          src={{if mailing.emailTemplate.icon mailing.emailTemplate.icon "/assets/images/template-icon.png"}}
+          placeholder={{mailing.emailTemplate.name}} />
+        <div class='p-sm-l'>
+          <h3>
+            {{mailing.emailTemplate.name}}
+          </h3>
+          <a href="#" {{action "unsetTemplate"}}>Change Template</a>
+        </div>
+      </div>
+    {{else}}
+      <div class="templates-list">
+        {{#each emailTemplates as |emailTemplate| }}
+          <div class="template-list-item">
+            <div class="template">
+              <h3>{{emailTemplate.name}}</h3>
+              <div {{action "selectTemplate" emailTemplate}}
+                class="email-template-image-container {{if (eq mailing.emailTemplate.id emailTemplate.id) 'active'}}">
+                <img class='template-image' src={{emailTemplate.icon}} placeholder={{emailTemplate.name}} />
+              </div>
+
+            </div>
+          </div>
+        {{else}}
+          <p>It looks like you do not have any templates built, go create a template for this email!</p>
+        {{/each}}
+      </div>
+      {{amplo-pagination limit=limit offset=offset count=count action='setOffset'}}
+    {{/liquid-if}}
+  </div>
+
+  <div class="panel-footer flex-it flex-end">
+    <button {{action "saveTemplate"}}
+            class="btn btn-primary"
+            disabled={{if (or mailing.isSaving (not mailing.emailTemplate)) "disabled"}}>
+      {{if mailing.isSaving "Saving..." "Save And Continue"}}
+    </button>
+  </div>
+
+</div>

@@ -1,0 +1,42 @@
+<form class="form">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group {{if errors.first_name 'has-error' }}">
+        <label>First Name</label> {{one-way-input user.first_name update=(action (mut user.first_name)) class="form-control"
+        placeholder=""}} {{#each errors.first_name as |error| }}
+        <span id="helpBlock" class="help-block">{{error}}</span> {{/each}}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group {{if errors.last_name 'has-error' }}">
+        <label>Last Name</label> {{one-way-input user.last_name update=(action (mut user.last_name)) class="form-control"
+        placeholder=""}} {{#each errors.last_name as |error| }}
+        <span id="helpBlock" class="help-block">{{error}}</span> {{/each}}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group {{if errors.email 'has-error' }}">
+        <label>Email</label> {{one-way-input user.email update=(action (mut user.email)) class="form-control" placeholder=""}}
+        {{#each errors.email as |error| }}
+        <span id="helpBlock" class="help-block">{{error}}</span> {{/each}}
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        {{#if session.current_user.entity_admin }} 
+          {{banger-select label="Role" property=roles options=typeOptions }} 
+        {{else}}
+         {{banger-select label="Role" property=roles options=typeOptionsLeader disabled=true}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <p class='text-success'>{{success}}</p>
+    </div>
+    <div class="col-md-6">
+      <button class='btn btn-info pull-right' {{action "inviteUser"}}>Invite</button>
+    </div>
+  </div>
+</form>

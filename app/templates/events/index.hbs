@@ -1,0 +1,67 @@
+<section class='section-highlight'>
+  <h1>Events</h1>
+  {{#link-to 'events.new' class='btn btn-primary m-md-r'}}
+    <i class='fa fa-plus'></i>&nbsp;New Event
+  {{/link-to}}
+</section>
+
+<div class="flex-it align-center row p-md-l p-md-t">
+  <div class="col-md-1"><h2 class="clear-m text-primary">Filter:</h2></div>
+
+  <div class="col-md-4">
+    <div class="inner-addon left-addon">
+      <i class="fa fa-search"></i>
+      {{one-way-input
+        autofocus=true
+        value=search_term_debounce
+        update=(action (mut search_term_debounce))
+        placeholder="Search for an Event"
+        class="form-control autofocus"}}
+    </div>
+  </div>
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <div class='table-responsive'>
+      <table class="amplo-table">
+        <thead>
+          <tr>
+            <th><div></div></th>
+            <th><div>Event Name</div></th>
+            <th><div>Event Date</div></th>
+            <th><div>Location</div></th>
+            <th><div>Status</div></th>
+            <th><div>Actions</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each model as |event index|}}
+          <tr>
+            <td>{{paginated-item-number page index}}</td>
+            <td>{{#link-to 'events.event' event.id class='campaign-link'}}{{event.name}}{{/link-to}}</td>
+            <td>{{pretty-date event.start_date settings.current_entity.date_format}}</td>
+            <td>{{event.location}}</td>
+            <td class='text-capitalize'>{{event.status}}</td>
+            <td>
+              {{#link-to 'events.event' event.id class='campaign-link'}}Manage{{/link-to}} |
+              {{#link-to 'events.event.details' event.id class='campaign-link'}}Edit{{/link-to}}
+            </td>
+          </tr>
+          {{/each}}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6">
+              {{amplo-pagination
+                offset=offset
+                limit=limit
+                count=count
+                action="changeOffset"}}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>

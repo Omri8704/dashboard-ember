@@ -1,0 +1,11 @@
+<button type="button" class="btn btn-secondary amplo-dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  {{selectedText}}&nbsp;<span class="caret"></span>
+</button>
+
+<ul class={{ulClassName}}>
+  {{yield
+    this
+    (action 'filterSelected')
+    (action 'filterOptionSelected')
+  }}
+</ul>

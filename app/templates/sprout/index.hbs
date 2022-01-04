@@ -1,0 +1,38 @@
+<section class='section-highlight'>
+  <h1>Your Sprout Campaigns</h1>
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <table class="amplo-table">
+
+      <thead>
+        <tr>
+          <th><div>Campaign Name</div></th>
+          <th><div>Total Raised</div></th>
+          <th><div>Total URL Referrals</div></th>
+          <th><div></div></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each memberships as |membership|}}
+          <tr>
+            <td>{{#link-to 'sprout.membership' membership}}{{membership.campaign.name}}{{/link-to}}</td>
+            <td><span>{{membership.campaign.total_raised}}</span></td>
+            <td><span>{{membership.campaign.total_referrals}}</span></td>
+
+            <td>
+              {{#if (eq membership.role 'leader')}}
+                {{#link-to 'sprout.membership' membership}}Leaderboard{{/link-to}} |
+              {{/if}}
+              {{#link-to 'sprout.membership.contacts' membership}}Contacts{{/link-to}}
+              {{#if settings.current_entity.referrals}}
+                | {{#link-to 'sprout.membership.referrals' membership}}Referrals{{/link-to}}
+              {{/if}}
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

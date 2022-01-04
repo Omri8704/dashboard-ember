@@ -1,0 +1,21 @@
+<section class='section-highlight'>
+  <h1>New Event</h1>
+</section>
+
+<ul class='breadcrumb'>
+  <li class='breadcrumb-item'>
+    {{#link-to 'events.new.details' class='breadcrumb-link'}}Event Details{{/link-to}}
+  </li>
+  <li class='breadcrumb-item'>
+    {{#if (or event.noRegistration disableTickets)}}
+      {{#link-to 'events.new.tickets' class='breadcrumb-link' disabled=true}}Tickets{{/link-to}}
+    {{else}}
+      {{#link-to 'events.new.tickets' class='breadcrumb-link'}}Tickets{{/link-to}}
+    {{/if}}
+  </li>
+  <li class='breadcrumb-item'>
+    {{#link-to 'events.new.confirmation' class='breadcrumb-link' disabled=disableConfirmation}}Confirmation{{/link-to}}
+  </li>
+</ul>
+
+{{outlet}}

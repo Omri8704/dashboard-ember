@@ -1,0 +1,50 @@
+<div class='panel-body text-center'>
+  <h4>Your Current Audience:</h4>
+
+  <h3 class='text-info'>
+    {{#if mailing.userSegment}}
+      You are sending to
+      <span class="gray-bordered-bg">&nbsp;
+        {{mailing.userSegment.name}}
+      &nbsp;</span>
+      and promoting
+      <span class="gray-bordered-bg">&nbsp;
+      {{mailing.promotion.name}}
+      &nbsp;</span>
+    {{else}}
+      You are sending to
+      <span class="gray-bordered-bg">&nbsp;
+        all users
+      &nbsp;</span>
+      and promoting
+      <span class="gray-bordered-bg">&nbsp;
+      {{mailing.promotion.name}}
+      &nbsp;</span>
+    {{/if}}
+  </h3>
+
+  {{email-filter-sentence-builder filter=(readonly mailingFilter) mailing=(readonly mailing) }}
+
+  <button
+    class="btn btn-primary m-sm-t"
+    {{action wizard.transition-to '1' }}>
+    Edit Audience
+  </button>
+  <p class="m-xs-a clear-p"> or </p>
+  <button
+    class="btn btn-primary "
+    {{action wizard.transition-to "3" }}>
+    manually add users to email
+  </button>
+</div>
+<div class='panel-footer text-center'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <button
+        {{action "saveAudience"}}
+        class="btn btn-primary pull-right">
+        save & pick template <i class="fa fa-arrow-circle-right f-1.5x"></i>
+      </button>
+    </div>
+  </div>
+</div>

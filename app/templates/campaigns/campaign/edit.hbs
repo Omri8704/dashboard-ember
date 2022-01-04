@@ -1,0 +1,43 @@
+<ul class="campaign-tabs nav nav-tabs nav-justified" >
+  {{#link-to 'campaigns.campaign.edit.details' tagName="li" class="details" }}
+      <a href="" class="flex-it">
+        <span class="icon">
+          <i class="fa fa-list-ul"></i>
+        </span>
+        <h3> Campaign Details </h3>
+      </a>
+  {{/link-to}}
+
+  {{#if (not-eq campaign.type 'votes')}}
+    {{#link-to 'campaigns.campaign.edit.donation_levels' tagName="li" class="donation-levels" }}
+      <a href="">
+        <span class="icon">
+          <i class="fa fa-usd"></i>
+        </span>
+        <h3>Donation Levels</h3>
+      </a>
+    {{/link-to}}
+  {{/if}}
+
+  {{#link-to 'campaigns.campaign.edit.media' tagName="li" class="media" }}
+    <a href="">
+      <span  class="icon">
+        <i class="fa fa-camera-retro"></i>
+      </span>
+      <h3>Campaign Media</h3>
+    </a>
+  {{/link-to}}
+
+  {{#if session.current_user.entity_admin}}
+    {{#link-to 'campaigns.campaign.edit.custom' tagName="li" class="details" }}
+        <a href="" class="flex-it">
+          <span class="icon">
+            <i class="fa fa-gear"></i>
+          </span>
+          <h3> Custom Settings </h3>
+        </a>
+    {{/link-to}}
+  {{/if}}
+</ul>
+
+{{outlet}}

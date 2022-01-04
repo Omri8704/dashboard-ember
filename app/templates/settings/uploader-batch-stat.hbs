@@ -1,0 +1,28 @@
+<div class='table-responsive'>
+  <table class="amplo-table">
+    <thead>
+      <tr>
+        <th><div>Owner Name</div></th>
+        <th><div>File Name</div></th>
+        <th><div>Time Sent</div></th>
+        <th><div>Size</div></th>
+        <th><div>Errors</div></th>
+        <th><div>Completion</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each model as |uploaderStatus|}}
+        <tr>
+          <td>{{uploaderStatus.owner}}</td>
+          <td>{{uploaderStatus.filename}}</td>
+          <td>{{uploaderStatus.formattedTimestamp}}</td>
+          <td>{{uploaderStatus.size}}</td>
+          <td>{{uploaderStatus.error}}</td>
+          <td>
+            {{progress-circle value=uploaderStatus.completionValue}}
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,88 @@
+<section class='section-highlight'>
+  <h1>New Campaign</h1>
+  <span class="pull-right">{{help-documentation documentationId="platform-training/campaign-training"}}</span>
+</section>
+
+
+<div class="p-md-a">
+  <div class="panel info">
+    <div class="panel-heading">
+      <h4>Main Campaign Details</h4>
+    </div>
+
+    <form class="form" {{action "saveCampaign" on="submit"}}>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6 form-group">
+            {{banger-text-input
+            class="campaign-name"
+            property=campaign.name
+            errors=campaign.validations.attrs.name.messages
+            label="Campaign
+            Name"
+            placeholder="Campaign Name" }}
+          </div>
+          <div class="col-md-3 form-group">
+            {{banger-text-input
+            class="campaign-name"
+            property=campaign.goal
+            errors=campaign.validations.attrs.goal.messages
+            label="Goal"
+            placeholder="100,000" }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3 form-group">
+
+            <label class="control-label">Start Date</label>
+            {{date-time-picker
+              initialDate=campaign.start_date
+              defaultTimeZone=entityTimeZone
+              onSaveDateTime=(action (mut campaign.start_date))
+              entityDateFormat=settings.current_entity.date_format
+            }}
+          </div>
+
+          <div class="col-md-3 end-date form-group">
+
+            <label class="control-label">End Date</label>
+            {{date-time-picker
+              initialDate=campaign.end_date
+              defaultTimeZone=entityTimeZone
+              onSaveDateTime=(action (mut campaign.end_date))
+              entityDateFormat=settings.current_entity.date_format
+            }}
+          </div>
+
+          <div class="col-md-6 form-group">
+            {{banger-select
+            label="Campaign Type"
+            property=campaign.type
+            options=typeOptions
+            prompt="--select--"}}
+          </div>
+        </div>
+
+      </div>
+
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              disabled={{if campaign.isSaving "disabled"}}
+              class="btn btn-primary pull-right save-campaign">
+              {{#if campaign.isSaving}}
+                Saving...
+              {{else}}
+                Save Campaign
+              {{/if}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

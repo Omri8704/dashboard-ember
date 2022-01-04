@@ -1,0 +1,52 @@
+<section class='section-highlight'>
+  <h4 class='color-white clear-m'>
+    New Email Template
+  </h4>
+</section>
+
+<div class="panel panel-default m-md-a">
+  <div class="panel-heading">
+    <h3>Default Templates</h3>
+  </div>
+  <div class="panel-body">
+    <div class="templates-list">
+      {{#each defaultEmailTemplates as |emailTemplate| }}
+        <div class="template-list-item">
+          <div class="template">
+            <h3>{{emailTemplate.name}}</h3>
+            <div
+              {{action "cloneTemplate" emailTemplate}}
+              class="email-template-image-container">
+
+              <img
+                class='template-image'
+                src={{emailTemplate.icon}}
+                placeholder={{emailTemplate.name}} />
+
+              <div class="email-template-hover">
+                <a href="">Use {{emailTemplate.name}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class='text-center'>
+      <h3 class='m-md-l'>Upload a custom email template</h3>
+    </div>
+
+    <div class='email-template-file-drop'>
+      {{file-drop fileAdded="filePicked" removeFile="removeFile" file=file}}
+    </div>
+
+    <div class='email-template-file-drop'>
+      {{banger-text-area
+        update=(action 'pastedHtml')
+        placeholder='Paste Html'
+        rows=4}}
+        <button class='btn btn-primary m-md-b pull-right' {{action 'savePastedHtml'}}>Save Pasted Html</button>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<div class="product-bar settings-product">
+  <div class="product-label">
+    Settings
+  </div>
+  {{#link-to 'settings.account' class="nav-link"}}
+    <i class="fa fa-fw fa-sliders"></i> Account
+  {{/link-to}}
+
+  {{#if currentUser.entity_admin}}
+
+    {{#link-to 'settings.report-status' class="nav-link"}}
+      <i class="fa fa-fw fa-hourglass-half"></i> Report Status
+    {{/link-to}}
+    {{#link-to 'settings.reports' class="nav-link"}}
+      <i class='fa fa-fw fa-file'></i> Reports
+    {{/link-to}}
+  {{/if}}
+
+  {{#if currentUser.super_admin}}
+    {{#link-to 'settings.emails' class="nav-link"}}
+      <i class='fa fa-fw fa-envelope-o'></i> Global Email Settings
+    {{/link-to}}
+  {{/if}}
+
+  <a href="/users/sign_out" class="nav-link" onClick={{action 'forgetAuthToken'}}>
+    <i class='fa fa-fw fa-sign-out'></i> Log Out
+  </a>
+</div>
+<div class="main-content settings">
+  {{outlet}}
+</div>

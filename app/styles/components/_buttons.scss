@@ -1,0 +1,226 @@
+@mixin amplo-btn($color){
+  text-transform: uppercase;
+  color: $white;
+  border-radius: 0.25em;
+}
+
+button[disabled] {
+  opacity: 0.25;
+}
+
+@mixin amplo-btn-flat($color){
+  background-color: $color;
+  text-shadow: none;
+  color: $white;
+  text-transform: uppercase;
+  border-radius: 0.25em;
+  box-shadow: none;
+  &:hover, &:active, &.active{
+    background-color: darken($color, 10%);
+    color: $white;
+    box-shadow: none;
+  }
+}
+
+// btn styles
+.btn-info{
+  @include amplo-btn($brand-purple);
+}
+.btn-success{
+  @include amplo-btn($brand-success);
+}
+.btn-danger{
+  @include amplo-btn($brand-danger);
+}
+.btn-primary{
+  @include amplo-btn($brand-blue);
+}
+.btn-warning{
+  @include amplo-btn($brand-warning);
+}
+.btn-gray{
+  @include amplo-btn($gray-light);
+}
+.btn-default{
+  @include amplo-btn($gray-light);
+  color: #6b7b90;
+  &:hover, &:active, &.active{
+    color: #6b7b90;
+  }
+}
+
+.btn-primary-on-white {
+  @include amplo-btn-flat($white);
+  color: $brand-blue;
+  &:hover, &:active, &.active{
+    color: $brand-blue;
+  }
+}
+
+.btn-secondary {
+  background-color: $btn-secondary-background-color;
+  border: $btn-secondary-border;
+  border-radius: $btn-secondary-border-radius;
+
+  -webkit-box-shadow: $btn-secondary-box-shadow;
+  -moz-box-shadow: $btn-secondary-box-shadow;
+  box-shadow: $btn-secondary-box-shadow;
+  text-transform: uppercase;
+  margin-left: 10px;
+  font-weight: bold;
+  color: $btn-secondary-font-color;
+
+  &:hover, &:active, &:focus {
+    color: $gray--four;
+  }
+}
+
+.btn-side{
+  border-color: #b0bbd0;
+  box-shadow: inset 0 1px lighten(#f3f4f7, 20%);
+  background-image: -webkit-linear-gradient(#f3f4f7, darken(#f3f4f7, 5%));
+  background-image: linear-gradient(#f3f4f7, darken(#f3f4f7, 5%));
+  text-shadow: 0 1px darken(#f3f4f7, 10%);
+  color: #6b7b90;
+}
+
+.btn-no-background {
+  background-color: #fff;
+  border:none;
+  color: #555;
+  &:hover {
+    color: #57a3e7;
+  }
+}
+
+.no-margin {
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.delete-icon{
+  &:hover{
+    color: $brand-danger;
+    cursor: pointer;
+  }
+}
+
+.back-btn {
+  color: $white;
+  border: 1px solid $white;
+  padding: 5px;
+  margin: 0 10px;
+  position: relative;
+  border-radius: 0 3px 3px 0;
+  border-left: none;
+
+  &:hover {
+    text-decoration: none;
+    color: darken($white, 10%);
+    border-color: darken($white, 10%);
+    &:before {
+      border-color-color: darken($white, 10%);
+    }
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: -16px;
+    top: -1px;
+    border-top: 16px solid transparent;
+    border-bottom: 16px solid transparent;
+    border-right:16px solid $white;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: -15px;
+    top: 0px;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right:15px solid $brand-info;
+  }
+}
+
+
+// NEW ADVANCE BUTTONS
+.button {
+  display: inline-block;
+  padding: .9em 1.25em;
+  @include proxima('bold');
+  font-size: 1.3rem;
+  letter-spacing: .09em;
+  text-transform: capitalize;
+  color: $white;
+  border: none;
+  border-radius: 1.2rem;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,0.24),
+              0 2px 6px 0 rgba(0,0,0,0.12);
+  transition: all .2s ease-out;
+  &:hover {
+    box-shadow: 0 2px 6px  rgba(0,0,0,0.24),
+                0 2px 12px  rgba(0,0,0,0.12);
+  }
+  &:focus { outline: none; text-decoration: none; }
+}
+
+.button--basic {
+  display: inline-block;
+  margin: .9em 1.25em;
+  @include proxima('bold');
+  font-size: 1.3rem;
+  letter-spacing: .09em;
+  text-transform: capitalize;
+  color: $white;
+  border: none;
+  color: $gray--four;
+  transition: all .2s ease-out;
+  &:hover { color: $brand-purple }
+  &:active { color:  $brand-purple--light;}
+  &:focus { outline: none; }
+}
+
+.button--primary {
+  background-color: $brand-purple;
+  &:hover {
+    color: $white;
+    background-color: $brand-purple--dark;
+    text-decoration: none;
+  }
+  &:active {
+    background-color: $brand-purple--light;
+  }
+  &:visited { color: $white; }
+}
+.button--secondary {
+  background-color: $brand-blue;
+  &:hover { background-color: darken($brand-blue, 5%); }
+  &:active { background-color: lighten($brand-blue, 15%); }
+}
+.button--add {}
+.button--primary-table {
+  padding: 1.2em 1.4em;
+  font-size: 1.2rem;
+  letter-spacing: .12em;
+  line-height: 1;
+  border-radius: 7px;
+  color: $white;
+  background-color: $brand-blue;
+  &:hover { background-color: darken($brand-blue, 5%); }
+  &:active { background-color: lighten($brand-blue, 15%); }
+}
+.button--plain {
+  @include proxima('bold');
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  transition: all .2s ease-out;
+  &:focus { outline: none; text-decoration: none; }
+}

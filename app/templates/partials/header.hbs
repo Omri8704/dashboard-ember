@@ -1,0 +1,41 @@
+<nav class="navbar navbar-default dashboard-navbar" role="navigation">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+            <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+              {{model.first_name}} {{model.last_name}}
+              <i class="fa fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li>
+                {{#link-to "application" }}
+                  Home
+                {{/link-to}}
+              </li>
+              {{#each model.entities as |entity|}}
+                <li>
+                  <a {{action "switchEntity" entity}} href="#">
+                    {{entity.name}}
+                  </a>
+                </li>
+              {{else}}
+
+              {{/each}}
+              <!-- <li class="divider"></li>
+              {{#each model.campaigns as |campaign|}}
+                <li>
+                  {{#link-to "member_campaign" campaign }}
+                    {{campaign.name}}
+                  {{/link-to}}
+                </li>
+              {{/each}} -->
+              <li class="divider"></li>
+              <li>
+                <a href="/users/edit" rel="nofollow">Edit Profile</a>
+              </li>
+              <li>
+                <a {{action 'logout' preventDefault=false}} data-method="delete" href="/users/sign_out" rel="nofollow">Logout</a>
+              </li>
+            </ul>
+          </li>
+      </ul>
+</nav>

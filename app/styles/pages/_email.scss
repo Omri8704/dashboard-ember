@@ -1,0 +1,230 @@
+section.email-steps-nav{
+  padding: 10px 20px;
+  background-color: $white;
+  span{
+    padding:5px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: $bold-sans-serif;
+    cursor: pointer;
+    &.active{
+      color: $brand-primary;
+    }
+  }
+}
+section.step-info{
+  background-color: $white;
+  display: inline-block;
+  width: 100%;
+  padding: 20px;
+  border-top: 1px solid #c3c8d6;
+  border-bottom: 1px solid #c3c8d6;
+  h2 {
+    font-size: 1.5em;
+    margin: 0px;
+  }
+}
+section.templates{
+  padding: 20px;
+  .section-body{
+    display: inline-block;
+    width: 100%;
+    background-color: #fbfbff;
+    border: 1px solid #cccfda;
+    border-radius: 3px;
+  }
+}
+
+.templates-list {
+  @include flexbox();
+  @include flex-wrap();
+  @include flex-grow(1);
+  @include align-items(baseline);
+  @include justify-content(space-around);
+}
+
+.template-list-item {
+  display: inline-block;
+  width: 250px;
+}
+
+.email-template-file-drop {
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.template{
+  padding:15px;
+  width: calc(100% - 2px);
+  display: inline-block;
+
+  h3{
+
+    text-align: center;
+    color:#6b7b90;
+    text-transform: capitalize;
+  }
+
+  .email-template-image-container {
+    cursor: pointer;
+    width: 185px;
+    min-height: 202px;
+    padding: 15px;
+    margin: 0 auto;
+    background-color: $gray-on-gray;
+    text-align: center;
+    position: relative;
+
+    &:hover {
+      background-color: darken($gray-on-gray, 10%);
+    }
+    &:hover .email-template-hover {
+      display: block;
+    }
+  }
+
+  .email-template-hover {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,0.5);
+    font-size: 1.1em;
+    p {
+      color: $white;
+      padding: 0;
+      margin: 0;
+    }
+    a {
+      &:first-of-type {
+        margin-top: 35%;
+      }
+      color: $white;
+      display: inline-block;
+    }
+  }
+
+  .template-image {
+    width: 150px;
+  }
+
+  .active {
+    background-color: #6b7b90;
+  }
+}
+
+.email-message{
+  padding: 0;
+  .options{
+    background-color: $gray-light;
+    padding: 20px;
+  }
+  .field-section{
+    padding: 20px;
+    background-color: $white;
+    border-bottom:1px solid #dfe6f0;
+  }
+  .m-md-l{
+    width: 66%;
+  }
+  .template{
+    width: auto;
+  }
+}
+
+// ################################################
+// ################ white-bg-form #################
+// ################################################
+form.form-white-bg{
+  input, textarea{
+    &.form-control{
+      border: 1px solid #d8dce5;
+      border-radius: 3px;
+      background-color: #f9fafb;
+      color: $gray;
+      box-shadow: inset 0px 1px 5px -3px;
+    }
+  }
+  label{
+    text-transform: uppercase;
+    font-family: $bold-sans-serif;
+    font-size: 13px;
+  }
+  ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+      color: #bbc2cb;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+     color:    #bbc2cb;
+     opacity:  1;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+     color:    #bbc2cb;
+     opacity:  1;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+     color:    #bbc2cb;
+  }
+}
+
+// this is for the image uploader on the message step when creating an email
+.file-field-container{
+  .input-container{
+    width: 70%;
+    float:left;
+  }
+  button{
+    width: 27%;
+    margin-left: 3%;
+  }
+}
+
+.expand-table-button{
+  text-align: center;
+  padding-top: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  color: $brand-info;
+  text-shadow: 0 1px 0 lighten($brand-info, 30%);
+}
+.options{
+  position: relative;
+}
+
+.bottom-CTA {
+  height: 50px;
+  padding: 1%;
+}
+
+.campaign-tabs {
+  padding-top: 3%;
+
+  &> a{
+    padding: 8px;
+    padding-bottom: 5px;
+    border: 1px solid lighten(#aaa, 5%);
+    border-radius: 3px 3px 0 0;
+    display: inline-block;
+    border-bottom-width: 0;
+    color: lighten(#aaa, 5%);
+    text-transform: uppercase;
+    min-width: 75px;
+    text-align: center;
+    margin-bottom: -3px;
+    background-color: darken(white, 10%);
+    z-index: 0;
+
+    &.active{
+      background-color: white;
+      box-shadow: 0px 0px 3px 0px #555;
+      color: darken(#aaa, 10%);
+      border-color: darken(#aaa, 10%);
+      z-index: 100;
+    }
+    &:hover{
+      text-decoration: none;
+      color: #5EAADE;
+    }
+  }
+}

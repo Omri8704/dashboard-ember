@@ -1,0 +1,103 @@
+
+  <div class="section-sub-heading">
+    Billing Information
+  </div>
+
+  <div class="section-body">
+    <form action="">
+      {{#if donation.user}}
+
+        <div class="row">
+          <div class="form-group">
+            <label for="external_id" class="col-sm-2 control-label">External Id:</label>
+            <div class="col-sm-3">
+              <p>{{donation.user.external_id}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="first_name" class="col-sm-2 control-label">First Name:</label>
+            <div class="col-sm-3">
+              <p>{{donation.user.first_name}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="last_name" class="col-sm-2 control-label">Last Name:</label>
+            <div class="col-sm-3">
+              <p>{{donation.user.last_name}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="form-group">
+            <label for="email" class="col-sm-2 control-label">Email:</label>
+            <div class="col-sm-3">
+              <p>{{donation.user.email}}</p>
+            </div>
+          </div>
+        </div>
+
+        {{#if donation.user.address}}
+          <div class="checkbox">
+            <label>
+              {{input type="checkbox" checked=useCurrentAddress}} Use Current Address
+            </label>
+          </div>
+          {{#if useCurrentAddress}}
+            {{address-form editable=false address=donation.user.address}}
+          {{else}}
+            {{address-form hasFeedback=canShowErrors editable=true address=newAddress}}
+          {{/if}}
+        {{else}}
+          {{address-form hasFeedback=canShowErrors editable=true address=newAddress}}
+        {{/if}}
+      {{else}}
+        <div class="row">
+          <label for="external_id" class="col-sm-2 control-label">External Id:</label>
+          <div class='col-sm-3'>
+            {{banger-text-input
+              hasFeedback=(readonly canShowErrors)
+              property=newUser.external_id
+              errors=newUser.errors.external_id }}
+          </div>
+        </div>
+        <div class="row">
+          <label for="first_name" class="col-sm-2 control-label">First Name:</label>
+          <div class='col-sm-3'>
+            {{banger-text-input
+              class="first-name"
+              hasFeedback=(readonly canShowErrors)
+              property=newUser.first_name
+              errors=newUser.errors.first_name }}
+          </div>
+        </div>
+        <div class="row">
+          <label for="last_name" class="col-sm-2 control-label">Last Name:</label>
+          <div class='col-sm-3'>
+            {{banger-text-input
+              class="last-name"
+              hasFeedback=(readonly canShowErrors)
+              property=newUser.last_name
+              errors=newUser.errors.last_name }}
+          </div>
+        </div>
+        <div class="row">
+          <label for="email" class="col-sm-2 control-label">Email:</label>
+          <div class='col-sm-3'>
+            {{banger-text-input
+              class="email"
+              hasFeedback=(readonly canShowErrors)
+              property=newUser.email
+              errors=newUser.errors.email }}
+          </div>
+        </div>
+        {{address-form hasFeedback=(readonly canShowErrors) editable=true address=newAddress}}
+      {{/if}}
+    </form>
+  </div>

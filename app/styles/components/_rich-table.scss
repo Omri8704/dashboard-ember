@@ -1,0 +1,15 @@
+.rich-table {
+  @include flexbox()
+  @include flex-column()
+
+  .left-items {
+    @include flexbox()
+  }
+  .right-items {
+  }
+}
+
+.rich-table-item {
+  @include flexbox()
+  @include justify-content(space-between)
+}

@@ -1,0 +1,55 @@
+<section class='section-highlight'>
+  <h1>
+    {{campaign.name}} Leaderboard for {{membership.user.email}}
+  </h1>
+  <div>
+    {{#link-to 'sprout.membership.contacts' membership class='btn btn-primary m-xs-b m-xs-t'}}
+      <i class="fa fa-address-book"></i> Contacts
+    {{/link-to}}
+    {{#if settings.current_entity.referrals}}
+      {{#link-to 'sprout.membership.referrals' membership class='btn btn-primary m-xs-b m-xs-t'}}
+        <i class="fa fa-money"></i> Referrals
+      {{/link-to}}
+    {{/if}}
+    {{#if adminViewing}}
+      {{#link-to 'campaigns.campaign.recruit' membership.campaign class='btn btn-default m-xs-b m-xs-t'}}
+        <i class="fa fa-arrow-left"></i> Back to Recruit
+      {{/link-to}}
+    {{/if}}
+  </div>
+</section>
+
+
+<section class= "health-tiles-container">
+  <div class="summary-cards">
+    {{summary-card-totals total=totalRaised}}
+    {{summary-card-percentage total=emailDeliverability}}
+    {{summary-card-emails total=totalEmailsSent}}
+    {{summary-card-interaction total=totalInteractions}}
+  </div>
+</section>
+
+{{#if settings.current_entity.referrals}}
+  <div class='user-search-container'>
+    <h3>Your Shareable Referral Link</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <p>Share your referral link (below) out to your personal network to get credit for referrals!</p>
+        <div class="input-group">
+          <input id="campaign-url" class="form-control" type="text"
+            value={{membership.referralLink}}
+          />
+          <span class="input-group-btn">
+            <button {{action "copyUrl"}} class="btn btn-primary">
+              <i class="fa fa-clipboard"></i> Copy URL To Clipboard
+            </button>
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+{{/if}}
+
+
+{{user-campaign-table participants=participants user=model}}

@@ -1,0 +1,12 @@
+.empty-state {
+  text-align: center;
+  padding-bottom: 2rem;
+  max-width: 300px;
+  margin: 0 auto;
+  .empty-state-icon {
+    font-size: 5rem;
+  }
+  .empty-state-text {
+    display: block;
+  }
+}

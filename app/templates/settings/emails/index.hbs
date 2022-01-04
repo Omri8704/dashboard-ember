@@ -1,0 +1,51 @@
+
+<p>
+  This page is only visible to super admins.  These files are only save-able by super admins.
+</p>
+<p>
+  The other email settings page allows you to view the global default system email template,
+  but when you click save it instead saves an entity-level version and the global version
+  doesn't change.
+</p>
+<p>
+  Instead of editing the entity overwrite version for the email template loaded,
+  this UI will allow super admins to actually edit the global email template itself.
+</p>
+
+<br />
+
+<div class="rich-table p-md-l p-md-r">
+  <div class="rich-table-item p-md-l p-md-r p-sm-b default-border-bottom">
+    <div class="left-items">
+      <h3 style="width: 125px">preview</h3>
+      <h3>Info</h3>
+    </div>
+    <div class="right-items">
+      <h3>Actions</h3>
+    </div>
+  </div>
+
+  {{#each templates as |template| }}
+    {{#if template.amplo_template_id }}
+      <div class="rich-table-item default-border-bottom p-md-a">
+        <div class="left-items">
+          <img class='template-image' src={{if template.icon template.icon "/assets/images/template-icon.png"}}  />
+          <div class='p-sm-l'>
+            <h3>
+              {{#link-to 'settings.emails.template' template.amplo_template_id}}
+                {{humanize-string template.base_template_type}}
+              {{/link-to}}
+            </h3>
+            <div>{{template.description}}</div>
+          </div>
+        </div>
+
+        <div class="right-items">
+          {{#link-to 'settings.emails.template' template.amplo_template_id}}
+            <i class="fa fa-fw fa-pencil"></i> Edit
+          {{/link-to}}
+        </div>
+      </div>
+    {{/if}}
+  {{/each}}
+</div>

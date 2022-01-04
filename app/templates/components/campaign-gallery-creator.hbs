@@ -1,0 +1,40 @@
+<div class="row">
+
+  {{#unless pickingVideo }}
+
+    <div class={{if pickingImage "col-md-12" "col-md-6 campaign-image" }}>
+      {{#square-base64-cropper
+        property=campaignResource.name
+        aspectRatio="1.7"
+        filePickedAction="triggerImage"
+        cancelAction="destroyResource"
+        saveAction="saveResource"
+        submitButtonText="Save" as |fileAction|}}
+        <p>
+          <img {{action fileAction}} src="/assets/images/uploader-no-image.png">
+        </p>
+      {{/square-base64-cropper}}
+    </div>
+
+  {{/unless}}
+
+  {{#unless pickingResource}}
+    <div class=" col-md-6">
+      <p {{action "triggerVideo"}} style="padding-top: 25px;" >
+        <i class="fa fa-plus"></i>
+        <i class="fa fa-youtube"></i><i class="fa fa-vimeo-square"></i>
+      </p>
+    </div>
+  {{/unless}}
+
+  {{#if pickingVideo}}
+    <div class="col-md-12">
+      {{banger-text-input
+        property=campaignResource.name
+        placeholder="Add Youtube/Vimeo Video URL" }}
+      <button {{action "destroyResource"}} class="btn btn-gray">Cancel</button>
+      <button {{action "saveResource"}} class="btn btn-info">Save Video</button>
+    </div>
+  {{/if}}
+
+</div>

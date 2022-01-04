@@ -1,0 +1,88 @@
+<header class="single-campaign-header">
+  <h1 class="header">Campaign Impact report:</h1>
+  <p class="time">
+    Report up-to-date as of {{lastRanFormatted}}.
+    <br/>
+    <span class="pull-right">{{help-documentation documentationId="platform-training/reporting/snap-advance-impact-reporting-overview"}}</span>
+  </p>
+  <h2 class="sub-header">{{campaign.name}}</h2>
+  {{#if isFamilyCalculation}}
+    <aside class="additional-information">
+      <span class="title">Child campaigns: </span>
+      {{#each childCampaignNames as |name|}}
+        <span class="child-campaign">{{name}}</span>
+      {{/each}}
+    </aside>
+  {{/if}}
+</header>
+
+{{#unless campaignIsPending}}
+  <section class="campaign-impact-reporting clearfix">
+    <ul class="stats stats--top">
+      <li class="stat">
+        {{svg-icon--heart}}
+        <div class="details-container">
+          <span class="stat__metric">{{totalDollarsFormatted}}</span>
+          <span class="stat__type">Dollars Raised</span>
+        </div>
+      </li>
+      <li class="stat">
+        {{svg-icon--gift}}
+        <div class="details-container">
+          <span class="stat__metric">{{campaignsDonationsCountFormatted}}</span>
+          <span class="stat__type">Gifts Made</span>
+        </div>
+      </li>
+      <li class="stat">
+        {{svg-icon--people}}
+        <div class="details-container">
+          <span class="stat__metric">{{uniqueDonorsFormatted}}</span>
+          <span class="stat__type">Unique Donors</span>
+        </div>
+      </li>
+    </ul>
+
+    {{impact-time
+      donationsByHour=donationsByHour
+      campaign=campaign
+      mostDonationsByHour=mostDonationsByHour
+    }}
+
+    {{impact-map
+      statsByState=totalDonationsByState
+      tooltipName="Total Gifts"
+      totalCountByStateSorted=totalDonationsByStateSorted
+    }}
+
+    <ul class="stats stats--bottom clearfix">
+      <li class="stat">
+        <span class="stat__type">Average Donation:</span>
+        <span class="stat__metric">{{averageDonation}}</span>
+      </li>
+      <li class="stat">
+        <span class="stat__type">Largest Donation:</span>
+        <span class="stat__metric">{{largestDonation}}</span>
+      </li>
+      <li class="stat">
+        <span class="stat__type">Donations by recent graduates:</span>
+        <span class="stat__metric">{{donationsByRecentGraduates}}</span>
+      </li>
+      <li class="stat">
+        <span class="stat__type">Alumni Donors:</span>
+        <span class="stat__metric">{{mostDonationsByGradYear}}</span>
+      </li>
+      <li class="stat">
+        <span class="stat__type">Child Campaigns:</span>
+        <span class="stat__metric">{{totalCampaignsFormatted}}</span>
+      </li>
+      <li class="stat">
+        <span class="stat__type">Countries with Donations:</span>
+        <span class="stat__metric">{{totalCountriesWithDonations}}</span>
+      </li>
+    </ul>
+  </section>
+  {{else}}
+    <h2 class="header__pending">
+      {{campaignNames}} is scheduled to begin <span class="red">{{campaignStartDate}}</span>.<br />Check back for real-time stats once the campaign has begun.
+    </h2>
+  {{/unless}}

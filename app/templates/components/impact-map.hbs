@@ -1,0 +1,23 @@
+<section class="panel m-md-a highchart-container highchart-container--map">
+  <section class="panel-body">
+    <h2 class="stat__type">Gifts by State</h2>
+    <div class="stats-container">
+      {{high-charts
+        mode='Map'
+        content=chartData
+        chartOptions=chartOptions
+      }}
+      <div class="stat-by-hour">
+        <h3 class="stat__type">Top States</h3>
+        <ol class="list">
+          {{#each totalCountByStateSorted as |record|}}
+          <li class="item">
+            <span class="hour">{{record.region}}</span>
+            <span class="amount"> {{record.value}} gifts</span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </section>
+</section>

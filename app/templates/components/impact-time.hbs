@@ -1,0 +1,25 @@
+<section class="panel m-md-a highchart-container">
+  <section class="panel-body">
+    <h2 class="stat__type">Gifts by Hour</h2>
+    <aside class="time-zone">All times in {{timeZoneDisplay}}.</aside>
+    <div class="stats-container">
+      {{amplo-highcharts
+        chartOptions=chartSettings.options
+        content=chartSettings.content
+        theme=theme
+      }}
+      <div class="stat-by-hour gifts">
+        <h3 class="stat__type">Top hours</h3>
+        <ol class="list">
+          {{#each mostDonationsByHour as |item|}}
+          <li class="item">
+            <span class="hour">{{item.hour}}</span>
+            <span class="amount"> {{item.count}} gifts</span>
+          </li>
+          {{/each}}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+</section>

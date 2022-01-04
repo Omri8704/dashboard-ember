@@ -1,0 +1,44 @@
+
+
+.tooltipster-sidetip.tooltipster-noir {
+
+  .tooltipster-box {
+    color: $text-color;
+    border: 1px solid $brand-primary;
+    border-radius: 2px;
+  }
+
+  &.tooltipster-top {
+
+    .tooltipster-arrow {
+      bottom: -2px;
+    }
+
+    .tooltipster-arrow-background {
+      top: -4px;
+    }
+  }
+
+  .tooltipster-arrow-background {
+    border-width: 13px;
+  }
+
+
+  .tooltipster-arrow-border {
+    border-top-color: $brand-primary;
+  }
+
+  .tooltipster-content {
+    font-family: inherit;
+  }
+
+  .tooltipster-arrow-right {
+    .tooltipster-arrow-border {
+      margin-left: -2px !important;
+    }
+
+    span {
+      left: -8px;
+    }
+  }
+}

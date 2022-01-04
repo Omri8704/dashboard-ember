@@ -1,0 +1,26 @@
+<section class='section-highlight'>
+  <h1>Report Statuses</h1>
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <table class="amplo-table">
+      <thead>
+        <tr>
+          <th><div>User</div></th>
+          <th><div>Completed</div></th>
+          <th><div>Beneficiaries</div></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model as |reportStatus|}}
+          <tr>
+            <td>{{reportStatus.user}}</td>
+            <td>{{reportStatus.formattedCompleted}}</td>
+            <td>{{reportStatus.beneficiary_names}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

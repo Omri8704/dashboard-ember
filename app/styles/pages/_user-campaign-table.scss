@@ -1,0 +1,159 @@
+.user-campaign-table-header {
+  @include flexbox;
+
+  @extend .clearfix;
+
+  padding: 5px 20px;
+  background-color: #eff0f6;
+  border-top: 1px solid #ccc;
+
+  .header {
+    @include flex-grow(5);
+
+    padding: 10px 10px 10px 0;
+    margin-bottom: 0;
+    margin-top: 8px;
+    font-weight: bold;
+  }
+
+  .input-section {
+    width: 300px;
+  }
+}
+
+.user-campaign-table {
+  @include base-table;
+  color: #333;
+
+  .user-campaign-title {
+    margin: 0;
+    padding: $amplo-table-td-padding;
+  }
+
+   tbody tr{
+    height: 60px;
+    td{
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+  }
+  tr td:first-child, tr th:first-child{
+    padding-left: 20px;
+  }
+
+  tr.user-campaign-table-row-email {
+    height: inherit;
+
+    td {
+      border: 0;
+      padding: 0;
+      margin: 0;
+
+      .user-campaign-table-row-email-form {
+        margin: 20px 0;
+
+        textarea {
+          width: 100%;
+          display: block;
+          margin: 10px 0;
+          padding: 10px;
+          min-height: 80px;
+        }
+
+        button {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  .good {
+    > td {
+      background-color: #e6eee2;
+    }
+    .table-text-well--user:before {
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content: "\f091 ";
+      color: #5f9643;
+    }
+  }
+
+  .average {
+    > td {
+      background-color: #dceefb;
+    }
+    .table-text-well--user:before {
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content: "\f132 ";
+      color: #3497df;
+    }
+  }
+
+  .poor {
+    > td {
+      background-color: #f9e5e5;
+    }
+    .table-text-well--user:before {
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      content: "\f165 ";
+      color: #dd6262;
+    }
+  }
+
+  i.fa.fa-fw.good-text {
+    color: #5f9643;
+  }
+
+  i.fa.fa-fw.average-text {
+    color: #3497df;
+  }
+
+  i.fa.fa-fw.poor-text {
+    color: #dd6262;
+  }
+
+  .fa-check{
+    color: #5f9643;
+  }
+  .fa-close{
+    color: #dd6262;
+  }
+
+  .good-border {
+    border-color: #5f9643;
+  }
+
+  .average-border {
+    border-color: #3497df;
+  }
+
+  .poor-border {
+    border-color: #dd6262;
+  }
+}
+
+@media (max-width: 850px) {
+  .user-campaign-table-header {
+    display: block;
+  }
+
+  .input-section {
+    float: left;
+  }
+
+  .btn-section {
+    float: left;
+  }
+}

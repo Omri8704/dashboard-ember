@@ -1,0 +1,28 @@
+<div class="product-bar settings-product">
+  <div class="product-label">
+    Campaigns
+  </div>
+
+  {{#link-to 'campaigns.index' class="nav-link"}}
+    <i class="fa fa-fw fa-bars"></i> List
+  {{/link-to}}
+
+  {{#if session.current_user.entity_admin }}
+    {{#if settings.current_entity.virtual_terminal}}
+      {{#link-to 'campaigns.virtual-terminal' class='nav-link' }}
+        <<i class="fa fa-fw fa-list-alt"></i> Create Donations
+      {{/link-to}}
+    {{/if}}
+
+    {{#if settings.current_entity.donation}}
+      {{#link-to 'campaigns.donations' class="nav-link" }}
+        <i class="fa fa-fw fa-usd"></i> Donations
+      {{/link-to}}
+    {{/if}}
+    
+  {{/if}}
+</div>
+
+<section class="main-content campaigns">
+  {{outlet}}
+</section>

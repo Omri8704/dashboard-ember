@@ -1,0 +1,72 @@
+{{#if label}}
+  <label class={{labelClass}}>{{label}}</label>
+{{/if}}
+
+{{#if inputGroupBeforeContent}}
+  <div class="input-group">
+    <div class="input-group-addon">{{inputGroupBeforeContent}}</div>
+    {{one-way-input
+      value=(or _defaultValue property)
+      type=type
+      disabled=disabled
+      update=(action 'updateProp')
+      keyUp=(action "updateFeedback")
+      focusOut=(action 'showFeedbackAction')
+      class=_classNames
+      placeholder=placeholder }}
+  </div>
+  {{#if (and showFeedback hasFeedback)}}
+    <span class="form-control-feedback"><i class="fa {{if hasError 'fa-times' 'fa-check'}}"></i></span>
+    {{#each errors as |error|}}
+      <span class="help-block">{{#if error.attribute }}{{error.attribute}} {{error.message}}{{else}}{{error}}{{/if}}</span>
+    {{/each}}
+    {{#each validation_errors as |error|}}
+      <span class="help-block">{{#if error.attribute }}{{error.attribute}} {{error.message}}{{else}}{{error}}{{/if}}</span>
+    {{/each}}
+  {{/if}}
+{{/if}}
+
+{{#if innerAddonHtml}}
+  <div class="inner-addon left-addon">
+    {{{innerAddonHtml}}}
+    {{one-way-input
+      value=(or _defaultValue property)
+      type=type
+      disabled=disabled
+      update=(action 'updateProp')
+      keyUp=(action "updateFeedback")
+      focusOut=(action 'showFeedbackAction')
+      class=_classNames
+      placeholder=placeholder }}
+  </div>
+  {{#if (and showFeedback hasFeedback)}}
+    <span class="form-control-feedback"><i class="fa {{if hasError 'fa-times' 'fa-check'}}"></i></span>
+    {{#each errors as |error|}}
+      <span class="help-block">{{#if error.attribute }}{{error.attribute}} {{error.message}}{{else}}{{error}}{{/if}}</span>
+    {{/each}}
+    {{#each validation_errors as |error|}}
+      <span class="help-block">{{#if error.attribute }}{{error.attribute}} {{error.message}}{{else}}{{error}}{{/if}}</span>
+    {{/each}}
+  {{/if}}
+{{/if}}
+
+{{#if baseInput}}
+  {{one-way-input
+    value=(or _defaultValue property)
+    type=type
+    disabled=disabled
+    update=(action 'updateProp')
+    keyUp=(action "updateFeedback")
+    focusOut=(action 'showFeedbackAction')
+    class=_classNames
+    placeholder=placeholder }}
+  {{#if (and showFeedback hasFeedback)}}
+    <span class="form-control-feedback"><i class="fa {{if hasError 'fa-times' 'fa-check'}}"></i></span>
+    {{#each errors as |error|}}
+      <span class="help-block">{{#if error.attribute }}{{error.attribute}} {{error.message}}{{else}}{{error}}{{/if}}</span>
+    {{/each}}
+    {{#each validation_errors as |error|}}
+      <span class="help-block">{{#if error.attribute }}{{error.attribute}} {{error.message}}{{else}}{{error}}{{/if}}</span>
+    {{/each}}
+  {{/if}}
+{{/if}}

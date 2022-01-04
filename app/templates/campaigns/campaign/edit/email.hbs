@@ -1,0 +1,15 @@
+<h1>{{campaign.name}}</h1>
+<div class="form-group col-md-6">
+	<label for="name">Name To</label>
+	{{input value=name_to}}
+
+</div>
+<div class="form-group col-md-6">
+	<label for="email">Email To</label>
+	{{input value=email_to}}
+</div>
+{{#if loading}}
+	<button>loading...</button>
+{{else}}
+	<button {{action 'send_email'}} >send!</button>
+{{/if}}

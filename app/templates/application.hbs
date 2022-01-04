@@ -1,0 +1,18 @@
+{{#application-component}}
+  {{#if showLayout}}
+    {{partial 'partials/side_nav'}}
+    <div class="dashboard-content-container">
+      <div class="container main-container">
+        {{outlet}}
+        <div class="spacer-3"></div>
+        <div class="spacer-3"></div>
+        <div class="spacer-3"></div>
+        <div class="spacer-3"></div>
+        <div class="spacer-3"></div>
+      </div>
+    </div>
+  {{else}}
+    {{outlet}}
+  {{/if}}
+{{/application-component}}
+{{ember-notify  messageStyle='bootstrap'}}

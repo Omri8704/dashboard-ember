@@ -1,0 +1,226 @@
+<section class='section-highlight'>
+  <h1>Donations</h1>
+  {{#if session.current_user.campaign_admin}}
+    <button {{action "toggleShowUploadForm"}} class="btn btn-primary">upload donations</button>
+  {{/if}}
+</section>
+
+
+{{#liquid-if showUploadForm}}
+  <div class="p-md-a">
+    {{donation-uploader show=showUploadForm campaigns=settings.current_entity.campaigns}}
+  </div>
+
+  <div class='p-md-a'>
+    {{multi-donation-uploader}}
+  </div>
+{{/liquid-if}}
+<div class="m-md-a">
+  {{#user-search results=users title="Search for a user's donation:" selectedUser=selectedUser getUsers="getUsers" toggleUser='toggleUser' as |results|}}
+
+    {{#unless selectedUser}}
+      <div class='table-responsive'>
+        <table class="donation-table">
+          <thead>
+            <tr>
+              <th><div>Name</div></th>
+              <th><div>Email</div></th>
+              <th><div>External Id</div></th>
+              <th><div>Last Donation Date</div></th>
+              <th><div></div></th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#if results}}
+              {{#each results as |user|}}
+                <tr {{action "toggleUser" user}} class="user" >
+                  <td>{{user.first_name}} {{user.last_name}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.external_id}}</td>
+                  <td></td>
+                  <td>
+                    <button class="btn">SELECT</button>
+                  </td>
+                </tr>
+              {{/each}}
+            {{else}}
+              <tr>
+                <td colspan="5" >
+                  {{#if searching}}
+                    <p>Searching...</p>
+                  {{else}}
+                    <p>Find Users</p>
+                  {{/if}}
+                </td>
+              </tr>
+            {{/if}}
+          </tbody>
+        </table>
+      </div>
+
+    {{/unless}}
+
+
+  {{/user-search}}
+</div>
+
+  <h2 class="p-md-l">
+    {{selectedUser.first_name}} {{selectedUser.last_name}} Donation Info
+  </h2>
+  <div class="panel m-md-a">
+    <div class="panel-body">
+      {{#if amploDonations}}
+        <div class="section-sub-heading">
+          Amplo Donations
+        </div>
+        <div class="spacer-2"></div>
+        <div class='table-responsive'>
+          <table id="donations" class="donation-table">
+            <thead>
+              <tr>
+                <th><div>Donor</div></th>
+                <th><div>Amount</div></th>
+                <th><div>Date</div> </th>
+                <th><div>Public</div></th>
+                <th><div>Donation Type</div></th>
+                <th><div>Status</div></th>
+                <th><div>Causes</div></th>
+                <th><div>Campaign</div></th>
+                <th><div></div></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each sortedDonations as |donation|}}
+                {{#if (not-eq donation.don_type "hist")}}
+                  <tr class="donation" >
+                    <td>{{donation.user.first_name}} {{donation.user.last_name}} {{donation.user.email}}</td>
+                    <td>${{donation.amount}}</td>
+                    <td>{{pretty-date donation.created_at settings.current_entity.date_format}}</td>
+                    <td>{{donation.public}}</td>
+                    <td>{{donation.don_type}}</td>
+                    <td>{{donation.status}}</td>
+                    <td>{{donation.cause_names}}</td>
+                    <td> {{#link-to 'campaigns.campaign.edit' donation.campaign}} {{donation.campaign.name}} {{/link-to}}</td>
+                    <td>
+                      {{#if (eq donation.refundable true)}}
+                        <button {{action 'confirmRefund' donation}} class="refund btn">REFUND</button>
+                      {{/if}}
+                    </td>
+                  </tr>
+                {{/if}}
+              {{/each}}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="9">
+                  {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      {{/if}}
+
+      {{#if historicalDonations}}
+        <div class="section-sub-heading">
+          Historical Donations
+        </div>
+        <div class="spacer-2"></div>
+        <div class='table-responsive'>
+          <table class="donation-table">
+            <thead>
+              <tr>
+                <th><div>Donor</div></th>
+                <th><div>Amount</div></th>
+                <th><div>Date</div> </th>
+                <th><div>Public</div></th>
+                <th><div>Donation Type</div></th>
+                <th><div>Status</div></th>
+                <th><div>Causes</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#each sortedDonations as |donation|}}
+                {{#if (eq donation.don_type "hist")}}
+                  <tr class="donation" >
+                    <td>{{donation.user.first_name}} {{donation.user.last_name}} {{donation.user.email}}</td>
+                    <td>${{donation.amount}}</td>
+                    <td>{{pretty-date donation.created_at settings.current_entity.date_format}}</td>
+                    <td>{{donation.public}}</td>
+                    <td>{{donation.don_type}}</td>
+                    <td>{{donation.status}}</td>
+                    <td>{{donation.cause_names}}</td>
+                  </tr>
+                {{/if}}
+              {{/each}}
+            </tbody>
+          </table>
+        </div>
+      {{/if}}
+
+    </div>
+  </div>
+
+  {{#if confirmRefundModal}}
+  {{#modal-dialog
+    close="confirmNewEmail"
+    containerClassNames='modal-wrap'
+    overlayClassNames='modal-overlay'}}
+    <div class='modal show fade in'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button class='close' {{action 'toggleConfirmRefundModal'}}><span aria-hidden="true"><i class="fa fa-times-circle-o"></i></span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Confirmation</h4>
+          </div>
+          <div class='modal-body'>
+            Are you sure you want to refund this donation?
+          </div>
+          <div class='modal-footer'>
+            <button {{action "refundDonation"}} class="refund-confirm btn btn-primary pull-right">Yes, Refund</button>
+            <button class="btn btn-info pull-right" {{action 'toggleConfirmRefundModal'}}>Go Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/modal-dialog}}
+{{/if}}
+
+{{#if savedRefund}}
+  {{#modal-dialog
+    close="confirmNewEmail"
+    containerClassNames='modal-wrap'
+    overlayClassNames='modal-overlay'}}
+    <div class='modal show fade in'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button class='close' {{action 'toggleSavedRefundModal'}}><span aria-hidden="true"><i class="fa fa-times-circle-o"></i></span><span class="sr-only">Close</span></button>
+            {{#if reason}}
+              <h4 class="modal-title">Refund Failed</h4>
+            {{else}}
+              <h4 class="modal-title">Congratulations!</h4>
+            {{/if}}
+          </div>
+          <div class='modal-body'>
+            {{#each reason as |error|}}
+              <p class='text-danger'>
+                {{#if error}}
+                  {{error.detail}}
+                {{else}}
+                  There was an error proccessing your refund.
+                {{/if}}
+              </p>
+              <!-- <p class="bg-danger">{{error}}</p> -->
+            {{else}}
+              Your refund was processed successfully.
+            {{/each}}
+          </div>
+          <div class='modal-footer'>
+            <button class="btn btn-primary pull-right" {{action 'toggleSavedRefundModal'}}>Go Back To Donations</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/modal-dialog}}
+{{/if}}

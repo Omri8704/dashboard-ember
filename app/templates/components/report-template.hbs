@@ -1,0 +1,58 @@
+<div class='section-highlight'>
+  <h1>
+    {{#if edit}}
+      Edit your
+    {{else}}
+      Create your
+    {{/if}}
+    Template
+    <span class="pull-right">{{help-documentation documentationId="platform-training/reporting/report-builder-templates"}}</span>
+  </h1>
+  <hr>
+
+  <h1 class="template-title">Template name</h1>
+  <div class="title-container">
+    {{input class="title-input" value=reportTemplate.name}}
+    <div>
+      {{#if edit}}
+        <button class='button--plain button--delete' {{action 'showConfirmation'}}>
+          <i class="fa fa-fw fa-trash"></i>
+          Delete Template
+        </button>
+      {{/if}}
+      <button class='button button--primary' {{action 'save'}}>
+        <i class="fa fa-fw fa-save"></i>
+        Save Template
+      </button>
+    </div>
+    {{#if expandConfirmation}}
+    <div class="delete-confirmation">
+      <p class="text">Are you sure you want to delete this template?</p>
+      <button class="button--plain button--cancel" {{action 'showConfirmation'}}>No, Cancel</button>
+      <button class="button--plain button--delete" {{action 'delete'}}>Yes, Delete</button>
+    </div>
+    {{/if}}
+  </div>
+</div>
+
+<h1 class="reporting--header">Data fields</h1>
+<p>
+  You can customize the data points to include in your report.
+  <hr>
+</p>
+{{report-fields
+  fields=fields
+  availableFields=availableFields
+  templateFormatters=templateFormatters
+  fieldFormatters=reportTemplate.formatter_ids_by_value
+  onCreateField=(action 'createField')
+  onRemoveField=(action 'removeField')
+  onCustomHeader=(action 'setCustomHeader')
+  onReorderFields=(action 'reorderFields')
+  onSelectFormatter=(action 'selectFormatter')
+}}
+<br/><br/>
+<button class='button button--primary' {{action 'save'}} style="float: right;">
+  <i class="fa fa-fw fa-save"></i>
+  Save Template
+</button>

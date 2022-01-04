@@ -1,0 +1,66 @@
+<section class='section-highlight'>
+  <h1> New Email </h1>
+</section>
+
+<div class="p-md-a">
+  <div class="panel info">
+    <div class="panel-heading">
+      <h4>Main Details</h4>
+    </div>
+
+    <form class="form" {{action "saveEmail" on="submit"}}>
+
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            {{banger-text-input
+              label="Email Name"
+              hasFeedback=(readonly selectedPromotion)
+              property=mailing.name
+              errors=mailing.validations.attrs.name.messages
+              placeholder="Email Name" }}
+          </div>
+
+          <div class="col-md-6">
+            {{#if (and selectedPromotion mailing.validations.attrs.promotion.messages)}}
+              <label class='text-danger'>Promotion</label>
+            {{else}}
+              <label>Promotion</label>
+            {{/if}}
+
+            {{#power-select
+              placeholder="search for a campaign"
+              search=(action "searchPromotions")
+              selected=mailing.promotion
+              onchange=(action 'updatePromotion')
+              as |promotion|
+            }}
+              {{promotion.name}}
+            {{/power-select}}
+
+            {{#if (and selectedPromotion mailing.validations.attrs.promotion.messages)}}
+              <span class="text-danger">{{mailing.validations.attrs.promotion.messages}}</span>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-md-12">
+            <button
+              disabled={{if mailing.isSaving "disabled"}}
+              class="btn btn-primary pull-right save-campaign">
+              {{#if mailing.isSaving}}
+                Saving...
+              {{else}}
+                Save Email
+              {{/if}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+  </div>
+</div>

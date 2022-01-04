@@ -1,0 +1,38 @@
+.product-bar {
+  @extend .flex-it;
+  padding: 10px 20px;
+  width: 100%;
+  height: 55px;
+  box-sizing: border-box;
+  background-color: $brand-primary;
+  color: $white;
+  margin: 0;
+  position: fixed;
+  z-index: 10;
+  font-size: 16px;
+  a.nav-link {
+    color: $white;
+    font-weight: 700;
+    display: inline-block;
+    cursor: pointer;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    padding: 6px 10px;
+    margin: 0 10px 0 0;
+    &:hover, &:focus {
+      text-decoration: none;
+    }
+    &:hover {
+      color: darken($white, 10%);
+    }
+    &.active {
+      background-color: darken($brand-primary, 10%);
+      border-radius: 3px;
+    }
+  }
+  .product-label {
+    font-size: 22px;
+    padding: 5px 22px 5px 0px;
+    line-height: 22px;
+  }
+}

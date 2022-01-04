@@ -1,0 +1,23 @@
+<section class="section-highlight">
+  <h1 class="header">Instant reports</h1>
+  <p>One-click reports are an easy way to retrieve your data!</p>
+  <section class="row">
+    <section class="col-xs-8 col-md-12">
+      {{#each available_reports as |report|}}
+        <section class="col-xs-12 col-md-6">
+          {{ report-generator-item
+             name=report.name
+             description=report.description
+             feature-flag=report.feature_flag
+             type=report.type
+             options=report.options
+          }}
+      </section>
+      {{/each}}
+    </section>
+  </section>
+
+    {{#unless available_reports}}
+      There are no available one-click reports.
+    {{/unless}}
+</section>

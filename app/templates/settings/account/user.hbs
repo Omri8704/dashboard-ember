@@ -1,0 +1,69 @@
+<h2>User Settings</h2>
+<div class="panel">
+  <div class="panel-body">
+    <div class="flex-it">
+
+      <div class="half-width p-md-r">
+
+        {{banger-text-input
+          property=model.first_name
+          errors=model.errors.first_name
+          validation_errors=model.validations.attrs.first_name.messages
+          label="First Name"
+          placeholder="First Name" }}
+        {{banger-text-input
+          property=model.last_name
+          errors=model.errors.last_name
+          validation_errors=model.validations.attrs.last_name.messages
+          label="Last Name"
+          placeholder="Last Name" }}
+        {{banger-text-input
+          property=model.email
+          errors=model.errors.email
+          validation_errors=model.validations.attrs.email.messages
+          label="Email"
+          placeholder="Email" }}
+        <h3>Update Password</h3>
+        {{banger-text-input
+          property=model.current_password
+          errors=model.errors.current_password
+          label="Current Password"
+          type="password"}}
+        {{banger-text-input
+          property=model.password
+          errors=model.errors.password
+          label="New Password"
+          type="password"}}
+        {{banger-text-input
+          property=model.password_confirmation
+          errors=model.errors.password_confirmation
+          label="New Password Confirmation"
+          type="password"}}
+        <h3>Two Factor Authentication</h3>
+        {{banger-text-input
+          property=model.primary_phone_number
+          errors=model.errors.primary_phone_number
+          label="Primary Phone Number"}}
+        <label>
+          Two Factor Authentication Enabled?
+          <br/>
+          {{input
+            type='checkbox'
+            checked=model.two_factor_authentication_enabled
+          }}
+        </label>
+      </div>
+      <div class="half-width">
+        <label>Image</label>
+        {{square-base64-cropper
+          property=model.image
+          image=model.image
+          submitButtonText="Done"}}
+      </div>
+
+    </div>
+    <div class="full-width">
+      <button class="btn btn-primary" onclick={{action "saveProfile"}}> Save </button>
+    </div>
+  </div>
+</div>

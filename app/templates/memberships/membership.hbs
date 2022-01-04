@@ -1,0 +1,116 @@
+<section class='section-highlight'>
+  <h1>User Memberships</h1>
+  {{#link-to 'memberships' class='btn btn-primary m-md-r'}}
+    <i class='fa fa-arrow-left'></i>&nbsp;Back
+  {{/link-to}}
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <div class='table-responsive'>
+      <table class="amplo-table">
+        <thead>
+          <tr>
+            <th><div></div></th>
+            <th><div>User</div></th>
+            <th><div>Dues</div></th>
+            <th><div>Start Date</div></th>
+            <th><div>End Date</div></th>
+            <th><div>Status</div></th>
+            <th><div>External ID</div></th>
+            <th><div>Is Renewal?</div></th>
+            <th><div>Actions</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each sortedUserMemberships as |user_membership index|}}
+            <tr>
+              <td>{{paginated-item-number page index}}</td>
+              <td>{{user_membership.user.first_name}}</td>
+              <td>
+                ${{user_membership.dues}}
+                {{#if (and user_membership.amount (gt user_membership.dues user_membership.amount) )}}
+                  Paid<br />${{user_membership.amount}} Un-Refunded
+                {{/if}}
+              </td>
+              <td>{{user_membership.start_date}}</td>
+              <td>{{user_membership.end_date}}</td>
+              <td class='text-capitalize'>{{user_membership.status}}</td>
+              <td>{{user_membership.external_id}}</td>
+              <td>
+                {{#if user_membership.is_renewal}}
+                  <i class="fa fa-check"></i>
+                {{else}}
+                  <i class="fa fa-close"></i>
+                {{/if}}
+              </td>
+              <td>
+                {{#if user_membership.refundable}}
+                  <a {{action "refundMembership" user_membership}}>Refund and/or Cancel</a>
+                {{/if}}
+              </td>
+            </tr>
+          {{/each}}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="9">
+              {{amplo-pagination
+                offset=offset
+                limit=limit
+                count=count
+                action="changeOffset"}}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+{{#if refunding_membership}}
+  {{#modal-dialog
+    close="closeDialog"
+    containerClassNames='modal-wrap'
+    overlayClassNames='modal-overlay'}}
+    <div class='modal show fade in'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button class='close' {{action 'closeDialog'}}><span aria-hidden="true"><i class="fa fa-times-circle-o"></i></span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Refund/Cancel Membership</h4>
+          </div>
+          <div class='modal-body'>
+            <p>
+              You are about to refund and/or cancel the membership for {{refunding_membership.user.email}}.  Issuing a refund will not necessarily cancel a membership.  Canceling a membership, which can be done independently of refunding, will set the membership end date to be today.
+            </p>
+            <div class="container">
+              <div class="row p-md-t">
+                <label class="col-md-6">
+                  {{input type="checkbox" checked=refunding_membership_cancel update=(action (mut refunding_membership_cancel)) }}
+                  Cancel Membership?
+                </label>
+              </div>
+              <div class="row p-md-t">
+                <label class="col-md-3">
+                  Refund Amount:
+                </label>
+                <div class="input-group col-md-3">
+                  <div class="input-group-addon">$</div>
+                  {{input type="number" value=refunding_membership_amount update=(action (mut refunding_membership_amount)) class="form-control" min="0" max=refundable_amount step="1"}}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class='modal-footer'>
+            <button {{action "submitRefund"}} disabled={{refunding}} class="amplo-spinner btn btn-primary pull-right confirm-save-donation">
+              Refund/Cancel
+            </button>
+            <button class="btn btn-default pull-right" {{action 'closeDialog'}}>Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/modal-dialog}}
+{{/if}}

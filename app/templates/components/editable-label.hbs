@@ -1,0 +1,8 @@
+{{#unless isEditing}}
+  <label>{{property}}</label>
+  <i class="fa fa-pencil" {{action "toggleEditable"}} ></i>
+{{else}}
+
+  {{input value=property }}
+  <i class="fa fa-check" {{action "toggleEditable"}} ></i>
+{{/unless}}

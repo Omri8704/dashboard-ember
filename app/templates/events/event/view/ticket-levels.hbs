@@ -1,0 +1,29 @@
+<h2 class="m-md-t m-md-l">Purchases By Ticket Type</h2>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+
+    <div class='table-responsive'>
+      <table class="amplo-table">
+        <thead>
+          <tr>
+            <th><div>Name</div></th>
+            <th><div>Type</div></th>
+            <th><div>Price</div></th>
+            <th><div>Sold</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each ticketLevels as |ticketLevel|}}
+            <tr>
+              <td>{{ticketLevel.name}}</td>
+              <td class='capitalize'>{{ticketLevel.category}}</td>
+              <td>${{ticketLevel.amount}}</td>
+              <td>{{ticketLevel.sold}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class='p-md-a'>
+  <div class="panel">
+    <div class="panel-heading">
+      <h2>Invite Leaders or Participants</h2>
+    </div>
+    <div class="panel-body">
+      {{campaign-invite-dropdown campaign=model.campaign}}
+    </div>
+  </div>
+</div>
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <table class="amplo-table">
+      <thead>
+        <tr>
+          <th><div>Name</div></th>
+          <th><div>Email</div></th>
+          <th><div>Has Logged In?</div></th>
+          <th><div>Last Logged In</div></th>
+          <th><div>Role</div></th>
+          <th><div>Resend Invitaion</div></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model.userCampaigns as |userCampaign|}}
+          <tr>
+            <td>
+              {{#link-to 'sprout.membership' userCampaign}}
+                {{userCampaign.fullName}}
+              {{/link-to}}
+            </td>
+            <td>{{userCampaign.user.email}}</td>
+            <td>
+              {{#if userCampaign.user.current_sign_in_at}}
+                <i class="fa fa-check fa-fw"></i>
+              {{else}}
+                <i class="fa fa-close fa-fw"></i>
+              {{/if}}
+            </td>
+            <td>{{time-ago userCampaign.user.current_sign_in_at}}</td>
+            <td>{{userCampaign.role}}</td>
+            <td><a {{action 'reSendInvite' userCampaign}}>Re-send Invitation</a></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+  </div>
+</div>
+
+

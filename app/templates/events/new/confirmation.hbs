@@ -1,0 +1,68 @@
+<div class='p-md-a'>
+  <div class='events-confirmation'>
+    <div class='half-width default-border-right default-border-bottom'>
+      <div class='events-confirmation__tile'>
+        <i class='brand-info-font-color fa fa-fw fa-1.5x fa-glass m-sm-r'></i>
+        <div>
+          <h3>Event Name</h3>
+          <span>{{event.name}}</span>
+        </div>
+      </div>
+    </div>
+    <div class='half-width default-border-bottom'>
+      <div class='events-confirmation__tile'>
+        <i class='brand-info-font-color fa fa-fw fa-1.5x fa-map m-sm-r'></i>
+        <div>
+          <h3>Location</h3>
+          {{#if event.location}}
+            <span>{{event.location}}</span>
+          {{else}}
+            <span>N/A</span>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='events-confirmation'>
+    <div class='half-width default-border-right'>
+      <div class='events-confirmation__tile'>
+        <i class='brand-info-font-color fa fa-fw fa-1.5x fa-plus-square m-sm-r'></i>
+        <div>
+          <h3>No. of Tickets Available</h3>
+          <span>{{ticketTypeStr}}</span>
+        </div>
+      </div>
+    </div>
+    <div class='half-width'>
+      <div class='events-confirmation__tile'>
+        <i class='brand-info-font-color fa fa-fw fa-1.5x fa-ticket m-sm-r'></i>
+        <div>
+          <h3>Available Tickets</h3>
+          <span>{{ticketTypeStr}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class='pull-right m-md-r'>
+  <button class='btn btn-default' {{action 'editEvent'}}>Edit Event</button>
+  {{#if eventSaving}}
+    <button class='btn btn-primary' disabled>
+      <i class='fa fa-spin fa-refresh'></i>
+    </button>
+  {{else}}
+    <button class='btn btn-primary' {{action 'saveEvent'}}>
+      Save Event
+    </button>
+  {{/if}}
+
+  {{#if liveSaving}}
+    <button class='btn btn-primary' disabled>
+      <i class='fa fa-spin fa-refresh'></i>
+    </button>
+  {{else}}
+    <button class='btn btn-primary' {{action 'liveEvent'}}>Make Event Live</button>
+  {{/if}}
+</div>

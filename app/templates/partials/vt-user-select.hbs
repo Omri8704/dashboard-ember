@@ -1,0 +1,43 @@
+<div class="m-md-a">
+  {{#user-search results=users title="Search for a user to apply a donation to:" selectedUser=donation.user getUsers="getUsers" toggleUser='toggleUser' as |results|}}
+
+    {{#unless donation.user}}
+      <table class="amplo-table">
+        <thead>
+          <tr>
+            <th><div>Name:</div></th>
+            <th><div>Email:</div></th>
+            <th><div>External Id:</div></th>
+            <th><div>Last Donation Date:</div></th>
+            <th><div></div></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#if results}}
+            {{#each results as |user|}}
+              <tr {{action "toggleUser" user}} class="amplo-table--user" >
+                <td>{{user.first_name}} {{user.last_name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.external_id}}</td>
+                <td></td>
+                <td>
+                  <button class="btn">SELECT</button>
+                </td>
+              </tr>
+            {{/each}}
+          {{else}}
+            <tr>
+              <td colspan="5" >
+                {{#if searching}}
+                  <p>Searching...</p>
+                {{else}}
+                  <p>Find Users</p>
+                {{/if}}
+              </td>
+            </tr>
+          {{/if}}
+        </tbody>
+      </table>
+    {{/unless}}
+  {{/user-search}}
+</div>

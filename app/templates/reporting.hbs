@@ -1,0 +1,26 @@
+<div class="product-bar settings-product">
+  <div class="product-label">
+    Reporting
+  </div>
+  {{#if settings.current_entity.instant_reporting}}
+    {{#link-to 'reporting.instant' class="nav-link"}}
+      <i class="fa fa-fw fa-download"></i> Instant Reports
+    {{/link-to}}
+  {{/if}}
+
+  {{#if settings.current_entity.insight_reporting}}
+    {{#link-to 'reporting.builder' class="nav-link"}}
+      <i class="fa fa-fw fa-table"></i> Report Builder
+    {{/link-to}}
+  {{/if}}
+
+  {{#if settings.current_entity.impact_reporting}}
+    {{#link-to 'reporting.impact' class="nav-link"}}
+      <i class="fa fa-fw fa-eye"></i> Campaign Impact Reporting
+    {{/link-to}}
+  {{/if}}
+</div>
+
+<section class="reporting-container advance-styles">
+  {{outlet}}
+</section>

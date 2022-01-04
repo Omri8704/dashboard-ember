@@ -1,0 +1,17 @@
+.login-page {
+  background-color:#8460EA;
+  color: $white;
+  height: 100%;
+  width: 100%;
+
+  .logo {
+    max-width: 300px;
+    width: auto;
+    margin-bottom: 1em;
+  }
+}
+
+.login-form {
+  padding: 20px;
+  background-color: $white;
+}

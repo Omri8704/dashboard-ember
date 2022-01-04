@@ -1,0 +1,33 @@
+<section class='section-highlight'>
+  <h1>
+    {{model.name}}
+    <span class="badge {{if (eq model.status "approved") "badge-success" "badge-info"}}">Status: {{model.status}}</span>
+  </h1>
+  {{#link-to 'emails.index' class='btn btn-primary pull-right m-sm-r'}}
+    <i class="fa fa-fw fa-arrow-left"></i>&nbsp; Back to List
+  {{/link-to}}
+  <a class="clone-email btn btn-warning pull-right m-sm-r" {{action "cloneEmail"}}>
+    <i class="fa fa-fw fa-copy"></i>&nbsp; Clone Email
+  </a>
+  {{#if (or (eq model.status "sent") (eq model.status "sending") )}}
+    {{#link-to 'settings.reports' class='btn btn-primary pull-right m-sm-r'}}
+      <i class='fa fa-fw fa-file'></i>&nbsp;Run Reports
+    {{/link-to}}
+  {{/if}}
+</section>
+
+{{#if (and (not-eq model.status "sent") (not-eq model.status "sending") )}}
+  <section class="email-steps-nav">
+    <span>Emails</span>
+    <span><i class="fa fa-chevron-right"></i></span>
+    {{#link-to 'emails.email.audience' tagName="span"}}Target Audience{{/link-to}}
+    <span><i class="fa fa-chevron-right"></i></span>
+    {{#link-to 'emails.email.template' tagName="span"}}select Template{{/link-to}}
+    <span><i class="fa fa-chevron-right"></i></span>
+    {{#link-to 'emails.email.message' tagName="span"}}compose message{{/link-to}}
+    <span><i class="fa fa-chevron-right"></i></span>
+    {{#link-to 'emails.email.finish' tagName="span"}}Save and finalize{{/link-to}}
+  </section>
+{{/if}}
+
+{{outlet}}

@@ -1,0 +1,23 @@
+
+<h2 class="p-md-l">details</h2>
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <div class="container">
+      {{event-form
+        event=event
+        entityTimeZone=entityTimeZone
+        submitAction=(action 'saveEvent')
+        startDateAction=(action 'startDate')
+        endDateAction=(action 'endDate')
+        registrationStart=(action 'registrationStart')
+        registrationEnd=(action 'registrationEnd')
+        fileUpload=(action 'fileUpload')
+        defaultDateFrom=event.start_date
+        defaultDateTo=event.end_date
+        defaultRegistrationStart=event.registration_start
+        defaultRegistrationEnd=event.registration_end
+        canShowErrors=(readonly canShowErrors)
+        buttonText="Continue"}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<section class='section-highlight'>
+  <h1>
+    Your {{membership.referral_count}} Converted Referrals
+  </h1>
+  <div>
+    {{#link-to 'sprout.membership.contacts' membership class='btn btn-primary m-xs-b m-xs-t'}}
+      <i class="fa fa-address-book"></i> Contacts
+    {{/link-to}}
+    {{#if (eq membership.role 'leader')}}
+      {{#link-to 'sprout.membership.leader' membership class='btn btn-primary m-xs-b m-xs-t'}}
+        <i class="fa fa-list"></i> Leaderboard
+      {{/link-to}}
+    {{/if}}
+  </div>
+</section>
+
+
+<div class='user-search-container'>
+  <h3>Your Shareable Referral Link</h3>
+  <div class="row">
+    <div class="col-md-6">
+      <p>Share your referral link (below) out to your personal network to get credit for referrals!</p>
+
+      <div class="input-group">
+        <input id="campaign-url" class="form-control" type="text"
+          value={{membership.referralLink}}
+        />
+        <span class="input-group-btn">
+          <button {{action "copyUrl"}} class="btn btn-primary">
+            <i class="fa fa-clipboard"></i> Copy URL To Clipboard
+          </button>
+        </span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<div class='table-responsive'>
+  <table class='user-campaign-table table'>
+    <thead>
+      <tr>
+        <td class='default-border-right'><div>Donor Name</div></td>
+        <td class='default-border-right'><div>Donor Email</div></td>
+        <td class='default-border-right'><div>Campaign</div></td>
+        <td class='default-border-right'><div>Referral URL</div></td>
+        <td class='default-border-right'><div>Landing URL</div></td>
+        <td class='default-border-right'><div>Amount</div></td>
+      </tr>
+    </thead>
+
+    <tbody>
+      {{#each membership.donation_conversions as |dc|}}
+        <tr>
+          <td>{{dc.donor_name}}</td>
+          <td>{{dc.donor_email}}</td>
+          <td>{{dc.user_campaign.campaign.name}}</td>
+          <td>{{dc.referer_url}}</td>
+          <td>{{dc.landing_url}}</td>
+          <td>{{dc.amount}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

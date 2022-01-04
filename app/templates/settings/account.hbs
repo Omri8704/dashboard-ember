@@ -1,0 +1,40 @@
+<div class="flex-it p-md-a">
+  <div class="side-panel m-md-r">
+    <h2>Account Settings</h2>
+    <div class="panel">
+      <div class="panel-body">
+        {{#link-to 'settings.account.index'}}
+          Change Entity
+        {{/link-to}}
+        <div class="spacer-1"></div>
+        {{#link-to 'settings.account.user'}}
+          User Settings
+        {{/link-to}}
+
+        {{#if canManageAdmins}}
+        <div class="spacer-1"></div>
+        {{#link-to 'settings.account.add-admin'}}
+        Add Admin
+        {{/link-to}}
+        {{/if}}
+
+        {{#if currentEntity.api_access}}
+          <div class="spacer-1"></div>
+          {{#link-to 'settings.account.api'}}
+            API Settings
+          {{/link-to}}
+        {{/if}}
+
+        {{#if currentUser.entity_admin}}
+          <div class="spacer-1"></div>
+          {{#link-to 'settings.account.entity'}}
+            Entity Settings
+          {{/link-to}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <div class="main-panel full-width">
+    {{outlet}}
+  </div>
+</div>

@@ -1,0 +1,153 @@
+@mixin health-tile-colors($color) {
+  background-color: $color;
+}
+
+.donations-raised-container{
+  h2{
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+
+    i.fa{
+      font-size: 14px;
+    }
+  }
+}
+
+.health-tiles-container, .donations-raised-container {
+  padding: 20px;
+  background: #ffffff;
+  display:flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: stretch;
+
+  .summary-cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .reportSummary {
+    flex-direction: row;
+    width: 15em;
+    margin: 1%;
+    box-shadow: none;
+    border: 0px;
+    h2 {
+      height: 3em;
+      margin: 0px;
+      padding: 6.5% 5% 5% 5%;
+      font-size: 1em;
+      line-height: 1.5;
+      color: $white;
+      text-align: center;
+      text-transform: uppercase;
+      a { line-height: 1; }
+    }
+
+    p {
+      color: $white;
+      font-size: 0.75em;
+      line-height: 1.15em;
+      text-shadow: none;
+    }
+
+    i {
+      text-shadow: none;
+      color: #fff;
+    }
+
+    .middle {
+      @extend .flex-it;
+      justify-content: center;
+      @extend .v-center-it;
+      height: 4em;
+      box-shadow: none;
+      border-top: 1px solid #f9f9f9;
+      border-bottom: 1px solid #f9f9f9;
+      padding: 0 5px;
+      i {
+        text-shadow: none;
+      }
+    }
+
+    .details {
+      padding: 9px;
+      height: 4em;
+      overflow: hidden;
+      p {
+        font-size: 0.85em;
+      }
+    }
+
+    .stats {
+      color: $white;
+      font-size: 2.25em;
+      font-weight: bold;
+      margin: 0 0 0 0.2em;
+    }
+
+
+
+    .empty:hover {
+      background-color: rgba(0, 0, 0, 0);
+    }
+
+    .fa-chevron-right {
+      font-size:0.85em;
+      color: $white;
+      padding: 0px;
+      margin-left: 10px;
+    }
+
+    .fa-chevron-up {
+      font-size:0.85em;
+      color: $white;
+      padding: 0px;
+      margin-left: 10px;
+    }
+
+    .fa-eye {
+      font-size:0.85em;
+      color: $white;
+      padding: 0px;
+      margin-left: 2px;
+      position: relative;
+      bottom: 1px;
+    }
+  }
+
+
+  .totals {
+    @include health-tile-colors($brand-primary);
+  }
+
+  .percentage {
+    @include health-tile-colors($brand-blue);
+  }
+
+  .emails {
+    @include health-tile-colors($brand-orange);
+  }
+
+  .interaction {
+    @include health-tile-colors($brand-yellow);
+  }
+
+  .viewReport {
+      cursor: pointer;
+      box-shadow: none;
+      text-shadow: none;
+      border: 0;
+      &:hover {
+        background-color: rgba(0,0,0,0.15)
+      }
+      a {
+        color: $white;
+        display: block;
+        &:hover { text-decoration: none; }
+      }
+    }
+}

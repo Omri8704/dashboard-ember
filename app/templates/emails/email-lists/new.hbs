@@ -1,0 +1,28 @@
+<section class='section-highlight'>
+  <h1> New Email List </h1>
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-heading">
+    Email List Name
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-6 form-group">
+        {{banger-text-input
+          class="event-name"
+          property=model.name
+          errors=model.validations.attrs.name.messages
+          hasFeedback=(readonly canShowErrors)
+          placeholder="Email List Name" }}
+
+
+      </div>
+      <div class="col-md-6 form-group">
+        <button {{action "createUserSegment"}} class="btn btn-primary">
+          create email list
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

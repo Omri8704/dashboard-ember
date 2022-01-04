@@ -1,0 +1,21 @@
+<section class='section-highlight'>
+  <h1>Import {{importType}}s</h1>
+</section>
+
+
+<div class='m-md-a text-center'>
+  {{file-drop fileAdded='handleFileUpload' removeFile='handleFileRemove' file=file}}
+
+  <div class='m-md-a'>
+    <button
+      class='btn btn-primary'
+      disabled={{if (or file uploading) false true}}
+      {{action 'uploadImportFile'}}
+    >
+      Import {{importType}}s
+    </button>
+  </div>
+  <p class="p-sm-t">
+    <a href="{{templateUrl}}{{importType}}.xlsx">Download {{importType}} Import Template</a>
+  </p>
+</div>

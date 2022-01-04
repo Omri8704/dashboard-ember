@@ -1,0 +1,109 @@
+<div class='user-campaign-table-header'>
+  <h3 class='header'>Participant&nbsp;Status</h3>
+
+  <div class='input-section p-sm-no-l'>
+    <div class="input-group">
+      <span class="input-group-addon" id="basic-addon1"><i class='fa fa-search'></i></span>
+      <input type="text" class='form-control' placeholder='Username' value={{searchText}} onInput={{action "searchByText" value="target.value"}} />
+    </div>
+  </div>
+</div>
+
+<div class='table-responsive'>
+  <table class='user-campaign-table table'>
+    <thead>
+      <tr>
+        <td class='default-border-right'><div>Participant</div></td>
+        <td class='default-border-right'><div class='text-center'>Conversions</div></td>
+        <td class='default-border-right'><div class='text-center'>URL Referrals</div></td>
+        <td class='default-border-right'><div class='text-center'>Emails Sent</div></td>
+        <td class='default-border-right'><div class='text-center'>SMS</div></td>
+        <td class='default-border-right'><div class='text-center'>Facebook</div></td>
+        <td class='default-border-right'><div class='text-center'>Emails Clicked</div></td>
+        <td class='default-border-right'><div class='text-center'>Emails Opened</div></td>
+        <td class='text-center'>
+          {{#if (eq user.membership.role 'leader')}}
+            <button class="btn btn-default btn-xs" {{action "toggleEmail"}}>Email All Participants</button>
+          {{/if}}
+        </td>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      <tr class="user-campaign-table-row-email">
+        <td colspan="11">
+          {{#liquid-if (and (eq user.membership.role 'leader') showEmail) }}
+            <div class="row user-campaign-table-row-email-form">
+              <div class="col-md-8 col-md-offset-2">
+                <h4>Composing an email to <b>All Participants</b></h4>
+                {{one-way-textarea class='form-control' placeholder="Email body" update=(action (mut emailBody))}}
+                <button class="btn btn-primary amplo-spinner" disabled={{sendingEmail}} {{action "sendEmail"}}>
+                  Send This Email
+                </button>
+              </div>
+            </div>
+          {{/liquid-if}}
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="11">
+          <div class='flex-it'>
+            <div class='table-icon-well--default good-border'>
+              <i class='fa fa-fw fa-trophy good-text'></i>
+            </div>
+            <h3 class='user-campaign-title good-text'>great effort - donation received</h3>
+          </div>
+        </td>
+      </tr>
+
+      {{#each goodEffort as |participant|}}
+        {{user-campaign-table-row participant=participant rowClass="good" user=user}}
+      {{else}}
+        <tr class='good'>
+          {{partial 'partials/components/user-campaign-table-no-user'}}
+        </tr>
+      {{/each}}
+
+      <tr>
+        <td colspan="11">
+          <div class='flex-it'>
+            <div class='table-icon-well--default average-border'>
+              <i class='fa fa-fw fa-shield average-text'></i>
+            </div>
+            <h3 class='user-campaign-title average-text'>satisfactory effort - emails sent</h3>
+          </div>
+        </td>
+      </tr>
+
+      {{#each averageEffort as |participant|}}
+        {{user-campaign-table-row participant=participant rowClass="average" user=user}}
+      {{else}}
+        <tr class='average'>
+          {{partial 'partials/components/user-campaign-table-no-user'}}
+        </tr>
+      {{/each}}
+
+
+      <tr>
+        <td colspan="11">
+          <div class='flex-it'>
+            <div class='table-icon-well--default poor-border'>
+              <i class='fa fa-fw fa-thumbs-down poor-text'></i>
+            </div>
+            <h3 class='user-campaign-title poor-text'>poor effort - minimal emails</h3>
+          </div>
+        </td>
+      </tr>
+
+      {{#each poorEffort as |participant|}}
+        {{user-campaign-table-row participant=participant rowClass="poor" user=user}}
+      {{else}}
+        <tr class='poor'>
+          {{partial 'partials/components/user-campaign-table-no-user'}}
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

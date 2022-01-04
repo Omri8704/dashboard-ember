@@ -1,0 +1,42 @@
+<section class="step-info">
+    <h2>Step 1 of 4: Target Audience
+      <span class="pull-right">{{help-documentation documentationId="platform-training/intelligent-email/creating-a-new-email"}}</span>
+    </h2>
+    <div class='flex-it v-center-it p-sm-t'>
+      <img class='m-sm-r' src='/assets/images/user.png' />
+      <p class='clear-m'>
+        Get started by choosing a Campaign or Event that you are promoting.
+        Then select an existing email list or create a new one.
+      </p>
+    </div>
+</section>
+
+<div data-test="audienceContainer" class="options">
+  <div class="panel m-md-a">
+    <div class="panel-body">
+
+      {{#multistep-widget currentStep=currentWizardStep stepCount=4 as |wizard|}}
+        {{#liquid-bind wizard.currentStep class='audience-wizard'}}
+          <div class="content">
+            {{#wizard.step name="1"}}
+              {{partial "emails/email/partials/audience-promotion"}}
+            {{/wizard.step}}
+
+            {{#wizard.step name="2"}}
+              {{partial "emails/email/partials/audience-filter"}}
+            {{/wizard.step}}
+
+            {{#wizard.step name="3"}}
+              {{partial "emails/email/partials/audience-users"}}
+            {{/wizard.step}}
+
+            {{#wizard.step name="4"}}
+              {{partial "emails/email/partials/audience-finished"}}
+            {{/wizard.step}}
+          </div>
+        {{/liquid-bind}}
+      {{/multistep-widget}}
+
+    </div>
+  </div>
+</div>

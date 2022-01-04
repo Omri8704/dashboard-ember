@@ -1,0 +1,118 @@
+<tr class={{rowClass}}>
+  <td>
+    <div class='flex-it'>
+      <div class='table-icon-well--default'>
+        <i class='fa fa-fw fa-user'></i>
+      </div>
+      <div class='table-text-well--user'>
+        <span>{{participant.fullName}}</span>
+
+        {{#if participant.user_donated_to_this_campaign}}
+          {{#tool-tipster
+            classNames='inline-b'
+            content='This person has donated to this campaign'
+            position='right'
+            delay=0
+            theme='tooltipster-noir'
+            updateAnimation=false
+          }}
+            <i class="fa fa-check"></i>
+          {{/tool-tipster}}
+        {{/if}}
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class='flex-it center-it'>
+      <div class='table-icon-well--conversions'>
+        <i class='fa fa-fw fa-check'></i>
+      </div>
+      <div class='table-text-well'>
+        <span>{{shorthand-number participant.conversions}}</span>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class='flex-it center-it'>
+      <div class='table-icon-well--conversions'>
+        <i class='fa fa-fw fa-retweet'></i>
+      </div>
+      <div class='table-text-well'>
+        <span>{{shorthand-number participant.referral_count}}</span>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class='flex-it center-it'>
+      <div class='table-icon-well--email'>
+        <i class='fa fa-fw fa-envelope'></i>
+      </div>
+      <div class='table-text-well'>
+        <span>{{shorthand-number participant.emails_sent}}</span>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class='flex-it center-it'>
+      <div class='table-icon-well--sms'>
+        <i class='fa fa-fw fa-phone'></i>
+      </div>
+      <div class='table-text-well'>
+        <span>{{shorthand-number participant.sms}}</span>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class='flex-it center-it'>
+      <div class='table-icon-well--facebook'>
+        <i class='fa fa-fw fa-facebook'></i>
+      </div>
+      <div class='table-text-well'>
+        <span>{{shorthand-number participant.facebook}}</span>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class='flex-it center-it'>
+      <div class='table-icon-well--email-clicked'>
+        <i class='fa fa-fw fa-hand-pointer-o'></i>
+      </div>
+      <div class='table-text-well'>
+        <span>{{shorthand-number participant.emails_clicked}}</span>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class='flex-it center-it'>
+      <div class='table-icon-well--email-opened'>
+        <i class='fa fa-fw fa-inbox'></i>
+      </div>
+      <div class='table-text-well'>
+        <span>{{shorthand-number participant.emails_opened}}</span>
+      </div>
+    </div>
+  </td>
+  <td>
+    {{#if (eq user.membership.role 'leader')}}
+      <div class='table-td-p text-center'>
+        <button class="btn btn-default btn-xs" {{action "toggleEmail"}}>Send Email</button>
+      </div>
+    {{/if}}
+  </td>
+</tr>
+
+<tr class="user-campaign-table-row-email">
+  <td colspan="9">
+    {{#liquid-if (and (eq user.membership.role 'leader') showEmail) }}
+      <div class="row user-campaign-table-row-email-form">
+        <div class="col-md-8 col-md-offset-2">
+          <h4>Composing an email to {{participant.fullName}}</h4>
+          {{one-way-textarea class='form-control' placeholder="Email body" update=(action (mut emailBody))}}
+          <button class="btn btn-primary amplo-spinner" disabled={{sendingEmail}} {{action "sendEmail"}}>
+            Send This Email
+          </button>
+        </div>
+      </div>
+    {{/liquid-if}}
+  </td>
+</tr>

@@ -1,0 +1,263 @@
+<div class="panel m-md-a">
+  <div class="panel-heading">
+    Generate Transaction Reports
+  </div>
+  <div class="panel-body">
+    <div class='m-sm-b'>
+      <button class='btn btn-primary no-margin' {{action 'newReport'}}>New Report Filter</button>
+
+      {{#amplo-dropdown
+        options=reportFilters
+        onChange=(action 'pickedReportFilter')
+        placeholderText=savedFilterText
+        disabled=(lt reportFilters.length 1)
+        as |option| }}
+        {{option.name}}
+      {{/amplo-dropdown}}
+    </div>
+    <div class='m-sm-t'>
+      <span>Select campaign type with</span>
+      {{#amplo-dropdown
+        options=beneficiaryTypes
+        onChange=(action 'selectRepType')
+        placeholderText=(if activeReport.rep_type activeReport.rep_type 'Select a Type')
+        disabled=savedReportActive
+        as |option| }}
+        {{option}}
+      {{/amplo-dropdown}}
+      <span>with the following filters</span>
+    </div>
+    <div class="spacer-2"></div>
+    <div class="section-sub-heading">
+      scope date range
+    </div>
+    <div class='m-md-a'>
+      {{#radio-button
+        value=1
+        groupValue=activeReport.num_days
+        changed='setDateInterval'}}
+        Last 24 Hours
+      {{/radio-button}} <br />
+      {{#radio-button
+        value=7
+        groupValue=activeReport.num_days
+        changed='setDateInterval'}}
+        Last Week
+      {{/radio-button}} <br />
+      {{#radio-button
+        value=30
+        groupValue=activeReport.num_days
+        changed='setDateInterval'}}
+        Last Month
+      {{/radio-button}} <br />
+      {{#radio-button
+        value=90
+        groupValue=activeReport.num_days
+        changed='setDateInterval'}}
+        Last 3 Months
+      {{/radio-button}} <br />
+      {{#radio-button
+        value=365
+        groupValue=activeReport.num_days
+        changed='setDateInterval'}}
+        Last Year
+      {{/radio-button}} <br />
+
+      {{#radio-button
+        value="custom"
+        groupValue=activeReport.num_days
+        changed='setDateInterval'}}
+        Custom
+      {{/radio-button}}
+
+      {{#if (eq dateInterval 'custom')}}
+        Date between
+        <div>
+          {{double-date
+            dateFromAction=(action 'dateFrom')
+            dateToAction=(action 'dateTo')
+          }}
+        </div>
+      {{/if}}
+    </div>
+
+    <div class="section-sub-heading">
+      scope data source
+    </div>
+
+    <div class='m-md-a'>
+
+      {{#radio-button
+        value="all"
+        groupValue=activeReport.select
+        changed='setSelectSource'}}
+        All {{activeReport.rep_type}}s
+      {{/radio-button}} <br />
+
+      {{#radio-button
+        value="active"
+        groupValue=activeReport.select
+        changed='setSelectSource'}}
+        All Active {{activeReport.rep_type}}s
+      {{/radio-button}} <br />
+
+      {{#radio-button
+        value="closed"
+        groupValue=activeReport.select
+        changed='setSelectSource'}}
+        All Closed {{activeReport.rep_type}}s
+      {{/radio-button}}  <br />
+
+      {{#radio-button
+        value="custom"
+        groupValue=activeReport.select
+        changed='setSelectSource'}}
+        Select Specific {{activeReport.rep_type}}s...
+      {{/radio-button}}
+
+      {{#liquid-if selectIndividualCampaigns}}
+        {{#amplo-dropdown
+          options=beneficiaryFilters
+          buttonClassNames='btn btn-primary amplo-dropdown-toggle'
+          onChange=(action 'filterBeneficiaries')
+          placeholderText=filterText
+          as |filter| }}
+          {{filter}}
+        {{/amplo-dropdown}}
+
+        <div class='m-sm-t m-sm-b'>
+
+        </div>
+
+        <div class='m-sm-t flex-it v-center-it'>
+          {{#tool-tipster
+            classNames='inline-b m-sm-r brand-info-font-color pointer'
+            content=toolTipText
+            position='bottom'
+            delay=0
+            maxWidth=500
+            theme='tooltipster-noir'
+            updateAnimation=false
+          }}
+            <i class='fa fa-info-circle fa-lg'></i>
+          {{/tool-tipster}}
+          {{#power-select-multiple
+            classNames='ember-power-select-container'
+            selected=selectedItems
+            search=(action 'searchItems')
+            searchField='name'
+            onchange=(action (mut selectedItems))
+            as |item|
+          }}
+            <span>{{item.name}}</span>
+          {{/power-select-multiple}}
+        </div>
+      {{/liquid-if}}
+    </div>
+
+    <div class="section-sub-heading">
+      scope gifts
+    </div>
+
+    <div class='m-md-a'>
+      {{#if (eq selectedType 'Campaign')}}
+        <div>Recurring gift status:
+          {{#amplo-dropdown
+            options=giftTypes
+            onChange=(action 'selectGiftType')
+            placeholderText=(if activeReport.recurring activeReport.recurring 'Select Gift Type')
+            as |gift| }}
+            {{gift}}
+          {{/amplo-dropdown}}
+        </div>
+      {{/if}}
+      <div class='m-sm-t'>
+        Donation type:
+        {{#amplo-dropdown
+          options=transactionTypes
+          onChange=(action 'selectedTransactionType')
+          placeholderText=(if displayedDonType displayedDonType 'Select a Type')
+          as |option| }}
+          {{option}}
+        {{/amplo-dropdown}}
+      </div>
+      <div class='m-sm-t'>
+        Include declined donations?
+        {{#radio-button
+          value='yes'
+          groupValue=activeReport.declined
+          changed='setDeclined'}}
+          Yes
+        {{/radio-button}}
+
+        {{#radio-button
+          value="no"
+          groupValue=activeReport.declined
+          changed='setDeclined'}}
+          No
+        {{/radio-button}}
+       </div>
+       <label>Report Name</label>
+       {{banger-text-input
+         property=activeReport.name
+         errors=activeReport.errors.name
+         placeholder="Report Name" }}
+
+    </div>
+
+    <hr />
+
+  <div class='m-sm-t'>
+    Include overview tab? (this makes the report slower)<br/>
+    {{#radio-button
+      value=true
+      groupValue=activeReport.disable_overview
+      changed='setDisableOverview'}}
+      No
+    {{/radio-button}}
+
+    {{#radio-button
+      value=false
+      groupValue=activeReport.disable_overview
+      changed='setDisableOverview'}}
+      Yes
+    {{/radio-button}}
+   </div>
+
+    <button
+      class='btn btn-primary no-margin'
+      disabled={{disableButton}}
+      {{action '_runReport'}}>
+
+     {{#if runReportLoading}}
+       <i class='fa fa-spinner fa-pulse'></i>
+     {{else}}
+        Run Report
+     {{/if}}
+    </button>
+
+    <button
+      class='btn btn-primary no-margin'
+      disabled={{disableButton}}
+      {{action 'saveReportFilter'}}>
+
+     {{#if saveReportLoading}}
+       <i class='fa fa-spinner fa-pulse'></i>
+     {{else}}
+        Save Report Filter
+     {{/if}}
+    </button>
+
+  </div>
+</div>
+
+{{#ember-notify messageStyle='bootstrap' source=notifySaveReport as |message close|}}
+  <a {{action close}} class='close'>x</a>
+  <span class='message'>{{message.text}}</span>
+{{/ember-notify}}
+
+{{#ember-notify messageStyle='bootstrap' source=notifyRunReport as |message close|}}
+  <a {{action close}} class='close'>x</a>
+  <span class='message'>{{message.text}}</span>
+  <span class='message'>Check on the progress {{#link-to 'settings.report-status'}}here{{/link-to}}</span>
+{{/ember-notify}}

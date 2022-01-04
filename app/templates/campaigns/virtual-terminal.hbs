@@ -1,0 +1,99 @@
+<section class='section-highlight'>
+  <h1>Virtual Terminal</h1>
+</section>
+
+
+{{partial "partials/vt-user-select"}}
+<h2 class="p-md-l">donation information</h2>
+
+<div class="panel m-md-a">
+  {{partial "partials/vt-campaign-selection"}}
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    {{partial "partials/vt-donation-info"}}
+    {{partial "partials/vt-billing-info"}}
+    {{partial "partials/vt-payment-info"}}
+    {{partial "partials/vt-additional-info"}}
+  </div>
+</div>
+
+<div class="p-md-a">
+  <div class="row">
+    <div class="col-md-12">
+      <button {{action "checkValidation"}} class="btn btn-primary pull-right save-donation">Save Donation</button>
+      <button {{action "cancelDonation"}} class="btn btn-default pull-right">Cancel</button>
+    </div>
+  </div>
+</div>
+
+{{outlet}}
+
+{{#if confirmDonation}}
+  {{#modal-dialog
+    close="confirmNewEmail"
+    containerClassNames='modal-wrap'
+    overlayClassNames='modal-overlay'}}
+    <div class='modal show fade in'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button class='close' {{action 'toggleConfirmDonation'}}><span aria-hidden="true"><i class="fa fa-times-circle-o"></i></span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Confirm Amount to Donate</h4>
+          </div>
+          <div class='modal-body'>
+            {{#if donation.amount}}
+              {{#if recurring}}
+                You have making a ${{commaAmount}} {{donation.interval}} Gift {{donation.occurrences}} times.
+              {{else}}
+                Are you sure you want to donate ${{commaAmount}}?
+              {{/if}}
+            {{else}}
+              Please Pick A donation Amount.
+            {{/if}}
+          </div>
+          <div class='modal-footer'>
+            {{#if donation.amount}}
+              <button {{action "createDonation"}} class="btn btn-primary pull-right confirm-save-donation">Save Donation</button>
+            {{else}}
+              <button class="btn btn-info pull-right" {{action 'toggleDonationValidModal'}}>Go Back</button>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/modal-dialog}}
+{{/if}}
+
+{{#if savedDonation}}
+  {{#modal-dialog
+    close="toggleSavedDonationModal"
+    containerClassNames='modal-wrap'
+    overlayClassNames='modal-overlay'}}
+    <div class='modal show fade in'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button class='close' {{action 'toggleSavedDonationModal'}}><span aria-hidden="true"><i class="fa fa-times-circle-o"></i></span><span class="sr-only">Close</span></button>
+            {{#if reason}}
+              <h4 class="modal-title">Transaction Failed</h4>
+            {{else}}
+              <h4 class="modal-title">Congratulations!</h4>
+            {{/if}}
+          </div>
+          <div class='modal-body'>
+            {{#each reason as |error|}}
+              <p class="bg-danger">{{error}}</p>
+            {{else}}
+              Your transaction was processed successfully.
+            {{/each}}
+          </div>
+          <div class='modal-footer'>
+            <button class="btn btn-primary pull-right" {{action 'toggleSavedDonationModal'}}>Go Back To Form</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/modal-dialog}}
+{{/if}}

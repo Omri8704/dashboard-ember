@@ -1,0 +1,61 @@
+<section class='section-highlight'>
+  <h1>Email Lists</h1>
+  {{#link-to 'emails.email-lists.new' class='btn btn-primary pull-right m-sm-r'}}
+    <i class='fa fa-plus'></i>&nbsp;New Email List
+  {{/link-to}}
+</section>
+<div class="flex-it align-center row p-md-l p-md-t">
+  <div class="col-md-1"><h2 class="clear-m text-primary">Filter:</h2></div>
+  <div class="col-md-4">
+    <div class="inner-addon left-addon">
+      <i class="fa fa-search"></i>
+      {{one-way-input
+        value=search
+        update=(action (mut search))
+        placeholder="Search Emails By Name"
+        class="form-control"}}
+    </div>
+  </div>
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+
+    <table class="amplo-table">
+      <thead>
+        <tr>
+          <th><div></div></th>
+          <th><div>Name</div></th>
+          <th><div>Mailing Count</div></th>
+          <th><div>Subscribed Count</div></th>
+          <th><div>Unsubscribed Count</div></th>
+          <th><div>Actions</div></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each model as |user-segment index|}}
+        <tr>
+          <td></td>
+          <td>{{#link-to 'emails.email-lists.email-list' user-segment class=''}}{{user-segment.name}}{{/link-to}}</td>
+          <td>{{user-segment.mailings.length}}</td>
+          <td>{{user-segment.subscribedUserCount}}</td>
+          <td>{{user-segment.unsubscribedUserCount}}</td>
+          <td>
+            {{#link-to
+              'emails.email-lists.email-list'
+              user-segment
+              class=''}}
+              View/ Edit
+            {{/link-to}} |
+            <a class="pointer" {{action 'destroySegment' user-segment}}>
+              Delete
+            </a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+
+    {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+  </div>
+</div>

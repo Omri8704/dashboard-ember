@@ -1,0 +1,33 @@
+<div class="image-cropper-container {{if circle 'circle'}} {{if editing 'new-image' 'no-new-image'}}">
+  {{#if editing }}
+    <img class="image-cropper" src="{{base64image}}">
+  {{else}}
+    {{#if hasBlock }}
+      {{yield (action "triggerFile")}}
+    {{else}}
+      <div class="clickable" {{action "triggerFile" }}>
+        <div class="vertical-center abs-center">
+          <img class='upload-no-img' src="/assets/images/uploader-no-image.png">
+        </div>
+      </div>
+      <img src="{{currentImage}}">
+    {{/if}}
+  {{/if}}
+</div>
+
+{{#if editing }}
+  <button {{action "cancel"}} class="btn btn-gray">{{cancelButtonText}}</button>
+  <button {{action "saveImage"}} class="btn btn-info">{{submitButtonText}}</button>
+{{/if}}
+
+{{#if error}}
+  <p class="text-danger">{{error}}</p>
+{{/if}}
+
+<form action="">
+  {{new-file-field
+    action="filePicked"
+    fileCorrectSize="fileCorrectSize"
+    fileTooBig="fileTooBig"
+    class="hidden file" }}
+</form>

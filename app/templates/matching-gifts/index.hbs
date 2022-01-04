@@ -1,0 +1,104 @@
+<section class='section-highlight'>
+  <h1>
+    Your Matching Gifts
+  </h1>
+  {{#link-to 'matching-gifts.new' class='btn btn-primary pull-right m-sm-r'}}
+  <i class='fa fa-plus'></i> Create Matching Gift
+  {{/link-to}}
+</section>
+
+<div class="flex-it align-center row p-md-l p-md-t">
+  <div class="col-md-1">
+    <h2 class="clear-m text-primary">Filter:</h2>
+  </div>
+
+  <div class="col-md-4">
+    <div class="inner-addon left-addon">
+      <i class="fa fa-search"></i>
+      {{one-way-input
+        autofocus=true
+        value=search_term_debounce
+        update=(action (mut search_term_debounce))
+        placeholder="Search for a Matching Gift"
+        class="form-control autofocus"}}
+    </div>
+  </div>
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <table class="amplo-table">
+      <thead>
+        <tr>
+          <th>
+            <div></div>
+          </th>
+          <th>
+            <div>Matching Gift Title</div>
+          </th>
+          <th>
+            <div>Campaign</div>
+          </th>
+          <th>
+            <div>Type</div>
+          </th>
+          <th>
+            <div>Start Date</div>
+          </th>
+          <th>
+            <div>End Date</div>
+          </th>
+          <th>
+            <div>Actions</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#if loading}}
+        <tr>
+          <td>
+            <div></div>
+          </td>
+          <td colspan=4>
+            <div>loading matching gifts...</div>
+          </td>
+        </tr>
+        {{else}}
+        {{#each matchingGifts as |match index|}}
+        <tr>
+          <td>{{paginated-item-number page index}}</td>
+          <td>{{#link-to 'matching-gifts.matching-gift.edit' match.id class='campaign-link'}}{{match.title}}{{/link-to}}</td>
+          <td>{{match.campaign_name}}</td>
+          <td>{{match.type}}</td>
+          <td>{{pretty-date match.start_date settings.current_entity.date_format}}</td>
+          <td>{{pretty-date match.end_date settings.current_entity.date_format}}</td>
+          <td>
+            {{#link-to 'matching-gifts.matching-gift.edit' match.id class='campaign-link'}}Edit{{/link-to}}
+          </td>
+        </tr>
+        {{else}}
+        <tr>
+          <td>
+            <div></div>
+          </td>
+          <td colspan=4>
+            <div>0 Matching Gifts.</div>
+          </td>
+        </tr>
+        {{/each}}
+        {{/if}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="5">
+            {{amplo-pagination
+              limit=limit
+              offset=offset
+              count=count
+              action='changeOffset'}}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<section class='section-highlight'>
+  <h1 class='capitalize'>
+    {{tilesSection.name}}
+  </h1>
+  {{help-documentation documentationId="platform-training/dashboard-training/campaign-tile-section-manager-overview"}}
+</section>
+
+<section class="panel m-md-a">
+  <div class="panel-body">
+    <div class='m-sm-b'>
+      You can choose what to display as your stat on the top stat and the bottom stat of the campaign tile:
+      <br/>
+      <label>Stat to display in the TOP stat of tile:</label>
+      {{#power-select
+        options=displayStatOptions
+        selected=(find-by "value" tilesSection.campaign_tile_metric_1_stat displayStatOptions)
+        onchange=(action "selectTileMetric1")
+        as |stat|}}
+        <strong>{{stat.label}}</strong>
+      {{/power-select}}
+      <br/>
+
+      <label>Stat to display in the BOTTOM stat of tile:</label>
+      {{#power-select
+        options=displayStatOptions
+        selected=(find-by "value" tilesSection.campaign_tile_metric_2_stat displayStatOptions)
+        onchange=(action "selectTileMetric2")
+        as |stat|}}
+        <strong>{{stat.label}}</strong>
+      {{/power-select}}
+
+
+    </div>
+  </div>
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <div>
+      <span>
+        Select campaigns to add to your campaign tiles section.<br/>
+      </span>
+    </div>
+    {{#power-select-multiple
+      options=displayMappableCampaigns
+      selected=selectedCampaigns
+      searchField="name"
+      onchange=(action "selectCampaign")
+      as |campaign|}}
+      <strong>{{campaign.name}}</strong>
+    {{/power-select-multiple}}
+
+    <div class='m-sm-t'>
+      <button
+        class='btn btn-primary'
+        disabled={{if (eq selectedCampaigns.length 0) true false}}
+        {{action 'addCampaignsToMapping'}}>
+        Add campaigns
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <div class='m-sm-b'>
+      <span>
+        A lower position will cause the campaign to appear before other campaigns
+
+      </span>
+    </div>
+    <table class="amplo-table">
+      <thead>
+        <tr>
+          <th>Campaigns</th>
+          <th>Status</th>
+          <th>Position</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each sortedCampaignMappings as |campaignMapping|}}
+          <tr>
+            <td>{{campaignMapping.campaignName}}</td>
+            <td>{{campaignMapping.campaignStatus}}</td>
+            <td>{{input  value=campaignMapping.position blur=(mut campaignMapping.position) focusOut=(action 'updateMapping' campaignMapping)}}</td>
+            <td>
+              <i class='pointer fa fa-trash' {{action 'destroyMapping' campaignMapping}}/>
+            </td>
+          </tr>
+        {{else}}
+          <tr>
+            <td colspan='5'><span>You do not have any Campaigns on this</span></td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+{{partial 'partials/components/integrations-nav-bar'}}
+
+<section class="main-content initiatives">
+  <section class='section-highlight'>
+    <h1>Manage Initiatives</h1>
+    <span class="pull-right">{{help-documentation documentationId="platform-training/reporting/working-with-snap-advance-integrations"}}</span>
+  </section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel-search">
+          <div class="panel-heading">
+            <h4>Create New Initiative</h4>
+          </div>
+          <div class="panel-body">
+            <form class="form">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group {{if (and hasFeedback newInitiative.validations.attrs.name.messages) 'has-error' }}">
+                    <label>Name</label>
+                    {{input type="text" value=new_name update=(action (mut new_name)) class="form-control" placeholder=""}}
+                    {{#if (and hasFeedback newInitiative.validations.attrs.name.messages)}}
+                      <span class='text-danger'>{{newInitiative.validations.attrs.name.messages}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group {{if (and hasFeedback newInitiative.validations.attrs.external_id.messages) 'has-error' }}">
+                    <label>External ID</label>
+                    {{input type="text" value=new_external_id update=(action (mut new_external_id)) class="form-control" placeholder=""}}
+                    {{#if (and hasFeedback newInitiative.validations.attrs.external_id.messages)}}
+                      <span class='text-danger'>{{newInitiative.validations.attrs.external_id.messages}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <p class='text-success'>{{success}}</p>
+                </div>
+                <div class="col-md-6">
+                  <button class='btn btn-info pull-right' {{action "addInitiative"}} >Create</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel info">
+          <div class="panel-heading">
+            <h4>Existing Initiatives</h4>
+          </div>
+          <div class="panel-body full">
+            <table class="amplo-table compact">
+              <thead>
+                <tr>
+                  <th><div>Name</div></th>
+                  <th><div>External ID</div></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each filteredInitiatives as |row|}}
+                <tr>
+                  <td>{{row.name}}</td>
+                  <td>{{row.external_id}}</td>
+                  <td>
+                    <a {{action "editInitiative" row}}>Edit</a> | <a {{action "deleteInitiative" row}}>Delete</a>
+                  </td>
+                </tr>
+                <tr class="drawer">
+                  <td colspan="10">
+                  {{#liquid-if (eq row.id editInitiative.id)}}
+                    <div class="panel-body">
+                      <form class="form">
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group {{if errors.first_name 'has-error' }}">
+                              <label>Name</label>
+                              {{input type="text" value=editInitiative.name update=(action (mut editInitiative.name)) class="form-control" placeholder=""}}
+                              {{#each errors.name as |error| }}
+                                <span id="helpBlock" class="help-block">{{error}}</span>
+                              {{/each}}
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group {{if errors.last_name 'has-error' }}">
+                              <label>External ID</label>
+                              {{input type="text" value=editInitiative.external_id update=(action (mut editInitiative.external_id)) class="form-control" placeholder=""}}
+                              {{#each errors.external_id as |error| }}
+                                <span id="helpBlock" class="help-block">{{error}}</span>
+                              {{/each}}
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p class='text-success'>{{success}}</p>
+                          </div>
+                          <div class="col-md-6">
+                            <button class='btn btn-info pull-right' {{action "updateInitiative"}} >Save</button>
+                            <button class='btn btn-default pull-right' {{action "cancelEdit"}} >Cancel</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  {{/liquid-if}}
+                  </td>
+                </tr>
+                {{/each}}
+              </tbody>
+            </table>
+
+            {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+</section>

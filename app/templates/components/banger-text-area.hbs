@@ -1,0 +1,17 @@
+{{#if label}}
+  <label class="control-label">{{label}}</label>
+{{/if}}
+
+{{one-way-textarea property
+  update=(action 'updateProp')
+  keyUp=(action "updateFeedback")
+  focusOut=(action 'showFeedbackAction')
+  class=_classNames
+  rows=rows
+  placeholder=placeholder }}
+{{#if showFeedback}}
+  <span class="form-control-feedback"><i class="fa {{if hasError 'fa-times' 'fa-check'}}"></i></span>
+  {{#each errors as |error|}}
+    <span class="help-block">{{error}}</span>
+  {{/each}}
+{{/if}}

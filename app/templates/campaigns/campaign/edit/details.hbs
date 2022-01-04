@@ -1,0 +1,231 @@
+
+<div class="p-md-a">
+  <div class="panel info">
+    <div class="panel-heading">
+      <h4>Main Campaign Details</h4>
+    </div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-md-6">
+          {{banger-text-input
+            property=campaign.name
+            errors=campaign.validations.attrs.name.messages
+            disabled=(not-eq session.current_user.entity_admin true)
+            label="Campaign Name"
+            placeholder="Campaign Name" }}
+        </div>
+        <div class="col-md-6">
+          {{banger-text-input
+            property=campaign.quote
+            errors=campaign.validations.attrs.quote.messages
+            label="Campaign Quote"
+            placeholder="Campaign Quote" }}
+          </div>
+      </div>
+      {{#if session.current_user.entity_admin}}
+        <div class="row">
+          <div class="col-md-3">
+            {{banger-text-input
+              property=campaign.goal
+              errors=campaign.validations.attrs.goal.messages
+              label="Campaign Goal"
+              placeholder="100000" }}
+          </div>
+
+          <div class="col-md-3">
+            <label class="control-label">Start Date</label>
+            {{date-time-picker
+              initialDate=campaign.start_date
+              defaultTimeZone=entityTimeZone
+              onSaveDateTime=(action (mut campaign.start_date))
+              entityDateFormat=settings.current_entity.date_format
+            }}
+          </div>
+
+          <div class="col-md-3 end-date">
+            <label class="control-label">End Date</label>
+            {{date-time-picker
+              initialDate=campaign.end_date
+              defaultTimeZone=entityTimeZone
+              onSaveDateTime=(action (mut campaign.end_date))
+              entityDateFormat=settings.current_entity.date_format
+            }}
+          </div>
+        </div>
+      {{/if}}
+
+      <div class="row m-lg-t">
+        <div class="col-md-6 form-group">
+          <div class="label-container">
+            {{editable-label property=campaign.descr_head}}
+          </div>
+          {{banger-text-area
+            property=campaign.description
+            placeholder='Campaign Description'
+            rows=4}}
+        </div>
+        <div class="col-md-6 form-group">
+          <div class="label-container">
+            {{editable-label property=campaign.how_donations_used_head}}
+          </div>
+          {{banger-text-area
+            property=campaign.how_donations_used
+            placeholder='e.g Texas High School Footbal Team'
+            rows=4}}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 form-group">
+          <div class="label-container">
+            {{editable-label property=campaign.why_donations_head}}
+          </div>
+          {{banger-text-area
+            property=campaign.why_donations
+            placeholder='The school has a limited budget...'
+            rows=4}}
+        </div>
+        <div class="col-md-6 form-group">
+          <div class="label-container">
+            {{editable-label
+              property=campaign.person_msg_head}}
+          </div>
+          {{banger-text-area
+            property=campaign.person_msg
+            placeholder='Thanks for supporting us!'
+            rows=4}}
+        </div>
+        <div class="col-md-6 form-group float-right">
+          <div class="label-container">
+            {{editable-label
+              property=campaign.campaign_receipt_text_head}}
+          </div>
+          {{banger-text-area
+            property=campaign.campaign_receipt_text
+            placeholder='Receipt email text'
+            rows=4}}
+        </div>
+      </div>
+
+      {{#if (or session.current_user.entity_admin isLeaderOfCurrentCampaign)}}
+        <div class="row">
+        {{#if (and session.current_user.entity_admin isInteraction)}}
+            <div class='col-md-3 form-group'>
+              {{banger-text-area
+                label='Reminder Text'
+                property=campaign.interactionRemindText}}
+            </div>
+            <div class='col-md-3 form-group'>
+              {{banger-text-input
+                label='Reminder Address Email'
+                prompt='e.g. university@amploadvancement.com'
+                errors=campaign.validations.attrs.interactionRemindFrom.messages
+                property=campaign.interactionRemindFrom}}
+            </div>
+        {{/if}}
+          <div class="col-md-3">
+            {{banger-text-input
+              property=campaign.searchable_keywords
+              errors=campaign.validations.attrs.searchable_keywords.messages
+              label="Searchable Keywords" }}
+          </div>
+          <div class="col-md-3">
+            {{banger-text-input
+              property=campaign.accounting_code
+              errors=campaign.validations.attrs.accounting_code.messages
+              label="Accounting Code" }}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 form-group">
+            {{banger-select
+              options=statuses
+              prompt="--select--"
+              property=campaign.status
+              errors=campaign.validations.attrs.status.messages
+              label="Status" }}
+          </div>
+
+          {{#if session.current_user.entity_admin}}
+            <div class="row">
+              <div class="col-md-6">
+                {{banger-text-input
+                  property=campaign.external_id
+                  errors=campaign.validations.attrs.external_id.messages
+                  label="External ID"
+                  placeholder="The id for this campaign in external systems, if any." }}
+              </div>
+            </div>
+          {{/if}}
+        </div>
+      {{/if}}
+
+      {{#if settings.current_entity.raisers_edge_integration }}
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <label>Causes</label>
+            {{#power-select-multiple
+              placeholder="Select causes"
+              options=causes
+              selected=campaign.causes
+              onchange=(action (mut campaign.causes))
+              renderInPlace=true
+              searchField="name"
+              as |option|}}
+              {{option.name}}
+            {{/power-select-multiple}}
+          </div>
+        </div>
+      {{/if}}
+
+      <div class='row'>
+        <div class='col-md-12'>
+          <h4>Sharing Options</h4>
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class="col-md-6">
+          <label>Custom SMS Text</label>
+          {{banger-text-area
+            property=campaign.custom_sms_text
+            rows=4}}
+        </div>
+        <div class="col-md-6">
+          <label>Custom Twitter Text</label>
+          {{banger-text-area
+            property=campaign.custom_twitter_text
+            rows=4}}
+        </div>
+      </div>
+
+      <div class='row'>
+        <div class="col-md-6">
+          <label>Leader invite text</label>
+          {{banger-text-area
+            property=campaign.leader_invite_text
+            rows=4}}
+        </div>
+        <div class="col-md-6">
+          <label>Participant Invite Text</label>
+          {{banger-text-area
+            property=campaign.participant_invite_text
+            rows=4}}
+        </div>
+      </div>
+
+    </div>
+    <div class="panel-footer">
+      <div class="row">
+        <div class="pull-right">
+          <button
+            disabled={{if campaign.isSaving "disabled"}}
+            class="{{if campaign.isSaving "disabled"}} btn btn-primary pull-right"
+            {{action "updateCampaign" campaign}}>
+            {{if campaign.isSaving "Saving..." "Save"}}
+            </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

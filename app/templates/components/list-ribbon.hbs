@@ -1,0 +1,17 @@
+<div class="search">
+  <i class="fa fa-search"></i>
+  {{input type="text" placeholder='Search Campaigns' value=filter enter="query"}}
+</div>
+<div class="list-view-campaigns">
+  <div class="left-button">
+    <i class="fa fa-angle-left"></i>
+  </div>
+  <div class="list-wrapping-container">
+    {{#each item in filteredModel }}
+      {{list-view-campaign campaign=item}}
+    {{/each}}
+  </div>
+  <div class="right-button">
+    <i class="fa fa-angle-right"></i>
+  </div>
+</div>

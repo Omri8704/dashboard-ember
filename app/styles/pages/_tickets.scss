@@ -1,0 +1,85 @@
+.ticket-drawer-bg {
+  background-color: #f6f6f6;
+}
+
+.ticket-levels {
+  margin: 20px;
+  border: 1px solid #b5b7c3;
+  border-radius: 2px;
+}
+
+.ticket-amplo-table {
+  @extend .amplo-table;
+  border: none;
+
+  td {
+    padding: 10px 20px;
+
+    &.ticket-drawer-bg {
+      overflow: initial;
+    }
+  }
+
+  tbody {
+    tr {
+      background: none;
+    }
+  }
+
+  thead {
+    tr {
+      background: #f6f6f6;
+    }
+  }
+
+  tbody {
+    &:last-child {
+      tr {
+        &:last-child {
+          td {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+.nested-table {
+  @extend .table;
+
+  background: #fff;
+  border: 1px solid #b5b7c3;
+}
+
+.ticket-body-item {
+  display: inline-block;
+}
+
+.ticket-drawer {
+  padding-right: 10px;
+}
+
+.ticket-level-icon {
+  color: $brand-info;
+  font-size: 1.25em;
+  cursor: pointer;
+}
+
+.ticket-drawer__title {
+  border-bottom: 1px solid #b5b7c3;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+.ticket-drawer__title-sub {}
+
+.ticket-drawer__body {
+  @include flexbox;
+
+  @include justify-content(space-around);
+
+  @media (max-width: 800px) {
+    display: block;
+  }
+}

@@ -1,0 +1,207 @@
+<form class="form" {{action "submit" on="submit"}}>
+  <div class="row">
+    <div class="col-md-6 form-group">
+      {{banger-text-input
+        class="event-name"
+        property=event.name
+        errors=event.validations.attrs.name.messages
+        hasFeedback=(readonly canShowErrors)
+        label="Name"
+        placeholder="Event Name" }}
+    </div>
+    <div class="col-md-6 form-group">
+      <label>Event Start Date</label>
+      {{date-time-picker
+        class='m-sm-b'
+        initialDate=defaultDateFrom
+        defaultTimeZone=entityTimeZone
+        onSaveDateTime=(action 'startDate')
+        entityDateFormat=settings.current_entity.date_format
+      }}
+
+      <label>Event End Date</label>
+      {{date-time-picker
+        class='m-sm-b'
+        initialDate=defaultDateTo
+        defaultTimeZone=entityTimeZone
+        onSaveDateTime=(action 'endDate')
+        entityDateFormat=settings.current_entity.date_format
+      }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 form-group">
+      <label>Registration Start Date</label>
+      {{date-time-picker
+        class='m-sm-b'
+        initialDate=defaultRegistrationStart
+        defaultTimeZone=entityTimeZone
+        onSaveDateTime=(action 'registrationStart')
+        entityDateFormat=settings.current_entity.date_format
+      }}
+      <label>Registration End Date</label>
+      {{date-time-picker
+        class='m-sm-b'
+        initialDate=defaultRegistrationEnd
+        defaultTimeZone=entityTimeZone
+        onSaveDateTime=(action 'registrationEnd')
+        entityDateFormat=settings.current_entity.date_format
+      }}
+    </div>
+    <div class="col-md-6 form-group">
+      {{banger-text-input
+        class="event-location"
+        property=event.location
+        hasFeedback=(readonly canShowErrors)
+        label="Event Location"
+        placeholder="ie. Space Needle" }}
+    </div>
+  </div>
+  <div class="row">
+    <div class='col-md-6 form-group'>
+      <div class="row">
+        <div class="col-xs-12">
+          <label>Description</label>
+          {{summer-note class='event-descr' content=event.description}}
+        </div>
+      </div>
+      {{#if settings.current_entity.raisers_edge_integration }}
+        <div class="row">
+          <div class="col-xs-6 form-group">
+            <label>Initiative</label>
+            {{#power-select
+              placeholder="Select initiative"
+              options=initiatives
+              selected=event.initiative
+              onchange=(action (mut event.initiative))
+              renderInPlace=true
+              searchField="name"
+              as |option|}}
+              {{option.name}}
+            {{/power-select}}
+          </div>
+          <div class="col-xs-6 form-group">
+            <label>Appeals</label>
+            {{#power-select-multiple
+              placeholder="Select appeals"
+              options=appeals
+              selected=event.appeals
+              onchange=(action (mut event.appeals))
+              renderInPlace=true
+              searchField="name"
+              as |option|}}
+              {{option.name}}
+            {{/power-select-multiple}}
+
+            {{#liquid-if (eq 1 event.appeals.length)}}
+              <p>If only one appeal is selected, it will be set as the default appeal.</p>
+            {{/liquid-if}}
+          </div>
+        </div>
+      {{/if}}
+    </div>
+    <div class="col-md-6">
+      <div class='row'>
+        <div class='col-xs-12 form-group'>
+          {{banger-text-input
+            class="event-address"
+            property=event.address
+            hasFeedback=(readonly canShowErrors)
+            label="Event Address"}}
+        </div>
+        <div class='col-xs-12'>
+          <div class='row'>
+            <div class="col-md-6 form-group">
+              {{banger-text-input
+                class="event-capacity"
+                type="number"
+                property=event.capacity
+                label="Capacity" }}
+              {{input
+                class="event-capacity"
+                type="checkbox"
+                checked=event.enforceCapacity
+              }}
+              <label>Enforce Capacity</label>
+              {{#tool-tipster
+                  classNames='inline-b pointer'
+                  content=toolTipText
+                  position='bottom'
+                  delay=0
+                  maxWidth=500
+                  theme='tooltipster-noir'
+                  updateAnimation=false
+                }}
+                  <i class='fa fa-info-circle fa-lg m-sm-r'></i>
+                {{/tool-tipster}}
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label>Categories</label>
+              {{#power-select-multiple
+                placeholder="Select Categories"
+                options=categories
+                selected=event.categories
+                onchange=(action (mut event.categories))
+                renderInPlace=true
+                as |category|}}
+                {{category}}
+              {{/power-select-multiple}}
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-6 form-group">
+          {{input name='no-registration' type='checkbox' checked=event.noRegistration}}
+          <label for='no-registration'>Event with no registration</label>
+        </div>
+        <div class="col-xs-6 form-group">
+          {{banger-text-input
+            class="position"
+            type="number"
+            property=event.position
+            label="Position" }}
+        </div>
+        <div class="col-xs-6 form-group">
+          <div>
+            <label>Background Image</label>
+          </div>
+          <div class='flex-it center-all'>
+            {{#if event.img}}
+              <img src="{{event.img}}" style="max-width:100%; max-height: 200px;" />
+            {{else}}
+              <i class='fa fa-6x fa-photo'></i>
+            {{/if}}
+          </div>
+          {{file-uploader class='m-sm-t' action='handleFileUpload'}}
+        </div>
+        <div class="col-xs-6 form-group">
+          <div>
+            <label>Logo</label>
+          </div>
+          {{square-base64-cropper
+              aspectRatio="1.5"
+              property=event.logo
+              submitButtonText="Done"
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div class='col-md-12'>
+      <div class='pull-right'>
+        {{#if saving}}
+          <button disabled type="submit" class="btn btn-primary">
+            <i class='fa fa-refresh fa-spin'></i>
+          </button>
+        {{else}}
+          <button type="submit" class="btn btn-primary">
+            {{buttonText}}
+          </button>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</form>
+{{yield}}

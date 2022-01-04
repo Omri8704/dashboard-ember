@@ -1,0 +1,9 @@
+<form class="form" {{action "submit" on="submit"}}>
+  {{banger-text-input class="ticket-level-name" property=ticketLevel.name errors=ticketLevel.errors.name label="Name" placeholder="Name" }}
+  {{banger-text-input class="ticket-level-amount" type="number" property=ticketLevel.amount errors=ticketLevel.errors.amount label="amount" placeholder="amount" }}
+  {{banger-text-input class="ticket-level-description" property=ticketLevel.description errors=ticketLevel.errors.description label="description" placeholder="description" }}
+  {{banger-text-input class="ticket-level-numTickets" type="number" property=ticketLevel.numTickets errors=ticketLevel.errors.numTickets label="Number of Tickets" placeholder="Number of Tickets" }}
+  <button class="btn btn-primary clear-m {{if ticketLevel.isSaving 'saving'}}" type="submit">{{if ticketLevel.isSaving "saving" "save ticket level"}}</button>
+  <button {{action "deleteAction"}} class="btn btn-danger">delete ticket level</button>
+  <p> saved status: {{savedStatus}}</p>
+</form>

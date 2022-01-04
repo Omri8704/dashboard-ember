@@ -1,0 +1,21 @@
+<div class="product-bar settings-product">
+    <div class="product-label">
+        Embedded forms
+    </div>
+
+    {{#link-to 'embedded-forms.index' class="nav-link"}}
+        <i class="fa fa-pencil-square-o"></i> Form Builder
+    {{/link-to}}
+
+    {{#link-to 'saved-forms.index' class="nav-link"}}
+      <i class="fa fa-save"></i> Saved Forms
+    {{/link-to}}
+
+</div>
+
+<iframe class="embed-iframe {{if loading 'hidden' }}" onload={{action "onLoadingIframe"}} src={{srcIframe}} style="height: 90vh;width: 89vw;"></iframe>
+<div class="loading">
+    {{#if loading}}
+        <h2 class="primary-color-text">loading...</h2>
+    {{/if}}
+</div>

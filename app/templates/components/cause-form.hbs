@@ -1,0 +1,95 @@
+<form class="form" {{action "submit" on="submit"}}>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        {{banger-text-input
+          property=cause.name
+          errors=cause.errors.name
+          validation_errors=cause.validations.attrs.name.messages
+          label="Name"
+          placeholder="Cause Name"}}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        {{banger-text-input
+          property=cause.code
+          errors=cause.errors.code
+          validation_errors=cause.validations.attrs.code.messages
+          label="Code"
+          placeholder="Cause Code"}}
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group {{if (and hasFeedback cause.validations.attrs.goal.messages) 'has-error' }}">
+        {{banger-text-input
+          property=cause.goal
+          errors=cause.errors.goal
+          validation_errors=cause.validations.attrs.goal.messages
+          label="Goal"
+          placeholder="Cause Goal"}}
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <label>Image</label>
+      {{square-base64-cropper
+        property=cause.img
+        submitButtonText="Done"}}
+    </div>
+
+    <div class="col-md-8">
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            {{banger-text-input
+              property=cause.position
+              errors=cause.errors.position
+              validation_errors=cause.validations.attrs.position.messages
+              label="Position"
+              placeholder="Cause Position"}}
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="form-group {{if (and hasFeedback cause.validations.attrs.descr.messages) 'has-error' }}">
+            <label>Description</label>
+            {{one-way-textarea class='form-control' placeholder="Describe the Cause here" update=(action (mut cause.descr))}}
+            {{#if (and hasFeedback cause.validations.attrs.descr.messages)}}
+              <span class='text-danger'>{{cause.validations.attrs.descr.messages}}</span>
+            {{/if}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row p-md-t">
+    <div class="col-md-6">
+      <p class='text-success'>{{success}}</p>
+    </div>
+    <div class="col-md-6" style="text-align: right;">
+
+      {{#if cancelEditAction}}
+        <button {{action "cancelEdit"}} class="btn btn-default">Cancel</button>
+      {{/if}}
+
+      {{#if saving}}
+        <button disabled type="submit" class="btn btn-primary">
+          <i class='fa fa-refresh fa-spin'></i>
+        </button>
+      {{else}}
+        <button type="submit" class="btn btn-primary">
+          {{buttonText}}
+        </button>
+      {{/if}}
+    </div>
+  </div>
+</form>
+
+{{yield}}

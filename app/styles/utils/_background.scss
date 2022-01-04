@@ -1,0 +1,23 @@
+// background utils
+.gray-bordered-bg {
+  background-color: $background;
+  border: 1px solid $default-border-color;
+}
+
+//the below classes aren't being 
+//used currently but they might be useful in the future?
+
+.gray-bg {
+  background-color: #d9dfe9;
+  display: inline-block;
+  width: 100%;
+}
+
+.white-bg {
+  background-color: #fff;
+}
+
+.amplo-primary-bg {
+  background-color: $brand-info;
+}
+

@@ -1,0 +1,64 @@
+<section class='section-highlight'>
+  <h1>New Matching Section</h1>
+</section>
+
+
+<div class="p-md-a">
+  <div class="panel info">
+    <h4 class="panel-heading">
+      <h4>Matching Section Details</h4>
+    </h4>
+
+    <form class="form" {{action "saveMatchingGiftsSection" on="submit"}}>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-4 form-group">
+            {{banger-text-input
+            class="campaign-name"
+            property=matchingGiftsSection.name
+            errors=matchingGiftsSection.validations.attrs.name.messages
+            label="Name"
+            placeholder="Name" }}
+          </div>
+          <div class="col-md-4 form-group">
+            {{banger-select
+            label="Selection Strategy"
+            property=matchingGiftsSection.match_selection_strategy
+            errors=matchingGiftsSection.validations.attrs.match_selection_strategy.messages
+            options=selectionStrategyOptions
+            prompt="--select--"
+            updateSelected=(action "updateSelectionStrategy")}}
+          </div>
+        </div>
+        {{#if isCampaign}}
+          <div class="row">
+            <div class="col-md-4 form-group">
+              {{banger-select
+              label="Campaign Scope"
+              property=matchingGiftsSection.campaign_id
+              propertyToSet='id'
+              options=campaignOptions
+              optionValuePath='id'
+              optionLabelPath='name'
+              prompt="--select--"}}
+            </div>
+          </div>
+        {{/if}}
+      </div>
+
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-md-12">
+            <button disabled={{if matchingGiftsSection.isSaving "disabled"}} class="btn btn-primary pull-right save-campaign">
+              {{#if matchingGiftsSection.isSaving}}
+              Saving...
+              {{else}}
+              Save Section
+              {{/if}}
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

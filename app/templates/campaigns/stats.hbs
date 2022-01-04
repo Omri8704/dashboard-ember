@@ -1,0 +1,71 @@
+<section class='section-highlight'>
+  <h1>Campaign Stats</h1>
+</section>
+
+<div class='p-md-a'>
+  Select Campaign:
+  {{#amplo-dropdown
+    classNames='m-md-l'
+    onChange=(action 'selectCampaign')
+    placeholderText='Select a Campaign'
+    options=campaigns as |option| }}
+    {{option.name}}
+  {{/amplo-dropdown}}
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    {{amplo-highcharts
+      content=chartData
+      chartOptions=chartOptions
+      theme=theme
+      showLoading=campaignEmailsLoading
+    }}
+  </div>
+</div>
+
+<div class="m-md-a stats stats--campaigns">
+  <h2>Stats</h2>
+  <div class="panel">
+    <div class="panel-body">
+       <div class="row">
+        <div class="col-md-3">
+          <div class="stat p-sm-t p-sm-b">
+          <i class="fa fa-envelope"></i>
+          <span>Total Sent:</span> {{totalSent}}
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat p-sm-t p-sm-b">
+            <i class="fa fa-fw fa-usd"></i>
+            Dollars Raised:
+            {{shorthand-number settings.current_entity.total_raised}}
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat p-sm-t p-sm-b">
+            <i class="fa fa-gift fa-lg"></i>
+            Gifts Received: {{shorthand-number total_gifts}}
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="stat p-sm-t p-sm-b">
+            <i class="fa fa-users fa-lg"></i>
+            Total donors: {{shorthand-number total_donors}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class='p-md-a'>
+  <h2>Campaigns</h2>
+
+  <div class="panel">
+    <div class="panel-body">
+      {{campaigns-table campaigns=campaigns}}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,117 @@
+  {{#if causes}}
+    <div class="section-sub-heading">
+      Campaign Funds
+    </div>
+    <div class="section-body">
+      <form action="" class="form-horizontal">
+        <p>Please select at least one fund.</p>
+        {{#each causes as |cause|}}
+          <div class="form-group">
+            <label class="control-label col-md-4">
+              {{input type="checkbox" checked=cause.isSelected}}
+              {{cause.name}}
+              {{#if cause.code}}
+                : {{cause.code}}
+              {{/if}}
+            </label>
+
+            {{#if cause.isSelected}}
+              <div class="input-group col-md-4">
+                <span class="input-group-addon">$</span>
+                {{input type='number' step='.01' min='1' class='form-control' value=cause.amount placeholder='Donation Amount' }}
+              </div>
+            {{/if}}
+          </div>
+        {{/each}}
+      </form>
+    </div>
+  {{/if}}
+  <div class="section-sub-heading">
+    transaction type
+  </div>
+  <div class="section-body">
+    <div class="row">
+      <div class="col-md-12">
+        <h5>One Time or Recurring:</h5>
+        {{#radio-button
+          value="oneTime"
+          groupValue=giftType
+          changed="giftTypeChanged"}}
+          One Time
+        {{/radio-button}}
+
+        {{#radio-button
+          value="recurring"
+          groupValue=giftType
+          changed="giftTypeChanged"}}
+          Recurring
+        {{/radio-button}}
+
+        {{#if recurring}}
+          <div class="row">
+            <label for="Interval" class="col-sm-2 control-label">Interval</label>
+            <div class="col-sm-3">
+              {{banger-select
+                property=donation.interval
+                options=intervals
+                canShowErrors=(readonly canShowErrors) }}
+            </div>
+          </div>
+          <div class="row">
+            <label for="occurrences" class="col-sm-2 control-label">Occurrences</label>
+            <div class="col-sm-3">
+              {{input type='number' value=donation.occurrences class="form-control"}}
+            </div>
+          </div>
+        {{/if}}
+      </div>
+    </div>
+
+    <div class='row'>
+      <label for="type" class="col-sm-2 control-label">Type:</label>
+      <div class='col-sm-3'>
+        {{banger-select
+          class="select-donation-type"
+          property=donation.don_type
+          errors=donation.validations.attrs.don_type.messages
+          propertyToSet='id'
+          options=donationTypes
+          optionValuePath='id'
+          optionLabelPath='name'
+          canShowErrors=(readonly canShowErrors)
+          prompt="--Select Donation Type--"}}
+      </div>
+    </div>
+
+    {{#unless disableDatePicker}}
+      <div class='row'>
+        <label for="date" class="col-sm-2 control-label">Date:</label>
+        <div class="col-sm-4">
+          {{date-time-picker
+            initialDate=donation.created_at
+            onSaveDateTime=(action (mut donation.created_at))
+          }}
+        </div>
+      </div>
+    {{/unless}}
+  </div>
+  <div class="section-sub-heading">
+    donation amount
+  </div>
+
+  <div class="section-body">
+    <div class="row">
+      <label for="amount" class="col-sm-2 control-label">Amount:</label>
+      {{#if selectedCauses}}
+        <p>${{donation.amount}}</p>
+      {{else}}
+        <div class='col-sm-3'>
+          {{banger-text-input
+            class="donation-amount"
+            hasFeedback=(readonly canShowErrors)
+            property=donation.amount
+            errors=donation.validations.attrs.amount.messages}}
+        </div>
+      {{/if}}
+    </div>
+  </div>

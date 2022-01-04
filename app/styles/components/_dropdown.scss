@@ -1,0 +1,92 @@
+$amplo-dropdown-border-color: #bdc7d2;
+$amplo-dropdown-border: 1px solid $amplo-dropdown-border-color;
+$amplo-dropdown-border-active: 1px solid $brand-info;
+$amplo-dropdown-separator: 1px solid #dfe6f0;
+$amplo-dropdown-radius: 3px !important; //to override some bootstrap specificty
+$amplo-dropdown-font: 'bentonsans-light', sans-serif;
+$amplo-dropdown-font-size: 12px;
+$amplo-dropdown-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.125);
+$amplo-dropdown-transition: all 0.15s ease-in-out;
+$amplo-dropdown-hover: $brand-info;
+
+.amplo-dropdown {
+  @extend .dropdown-menu;
+  display: inline;
+  max-height: 300px;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: $amplo-dropdown-radius;
+  border: none;
+  font-family: $amplo-dropdown-font;
+  font-size: $amplo-dropdown-font-size;
+
+  li {
+    padding: 8px 12px;
+    border-left: $amplo-dropdown-border;
+    border-right: $amplo-dropdown-border;
+
+    &:nth-child(even) {
+      background: #eff1f6;
+      border-top: $amplo-dropdown-separator;
+    }
+
+    &:first-child {
+      border-top-left-radius: $amplo-dropdown-radius;
+      border-top-right-radius: $amplo-dropdown-radius;
+      border-top: $amplo-dropdown-border;
+    }
+
+    &:last-child {
+      border-bottom-left-radius: $amplo-dropdown-radius;
+      border-bottom-right-radius: $amplo-dropdown-radius;
+      border-top: $amplo-dropdown-separator;
+      border-bottom: $amplo-dropdown-border;
+    }
+
+    &:hover {
+      background-color: $amplo-dropdown-hover;
+      color: #fff;
+    }
+  }
+}
+
+.amplo-dropdown-list {
+  display: inline-block;
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  vertical-align: middle;
+}
+
+.extra-long {
+  & .amplo-dropdown-list, &.amplo-dropdown-list, & .amplo-dropdown, &.amplo-dropdown {
+    max-width: 500px;
+    width: 500px;
+    text-align: left;
+  }
+}
+
+.amplo-dropdown-toggle {
+  border-radius: $amplo-dropdown-radius;
+  font-family: $amplo-dropdown-font;
+  font-size: $amplo-dropdown-font-size;
+  transition: $amplo-dropdown-transition;
+  outline: 0 !important;
+
+  // prevents outline from appearing briefly when a user double clicks quicky
+  &:focus, &:active {
+    border: $amplo-dropdown-border-active;
+    box-shadow: $amplo-dropdown-box-shadow;
+    outline: 0;
+  }
+}
+
+.open {
+  .amplo-dropdown-toggle {
+    box-shadow: $amplo-dropdown-box-shadow;
+    outline: 0;
+  }
+}

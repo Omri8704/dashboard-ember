@@ -1,0 +1,24 @@
+<div class="panel-heading">
+  <h4>Select Campaign</h4>
+</div>
+<div class="panel-body">
+  <div class="form row">
+    <div class="col-md-10">
+        {{#power-select
+          class="select-campaign"
+          searchField="name"
+          options=campaigns
+          selected=selectedCampaign
+          placeholder="Search for Campaign"
+          onblur=(action 'resetCampaignOptions')
+          onchange=(action 'selectCampaign')
+          oninput=(action 'searchCampaigns')
+          loadingMessage="Loading Campaigns..."
+          noMatchesMessage="No Matching Campaigns."
+          as |campaign|
+        }}
+          {{campaign.name}}
+        {{/power-select}}
+    </div>
+  </div>
+</div>

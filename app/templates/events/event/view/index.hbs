@@ -1,0 +1,75 @@
+<div class='events-overview'>
+  <ul class="list-unstyled events-side-nav">
+    <li class='events-item'>
+      <h3 class='color-white'>{{event.name}}</h3>
+    </li>
+    <li class='events-item'>
+      <h3 class='color-white'><i class='fa fa-fw fa-dollar'></i>Gross Amount</h3>
+      <span>${{totalAmount}}</span>
+    </li>
+    <li class='events-item'>
+      <h3 class='color-white'><i class='fa fa-fw fa-ticket'></i>Gross Tickets</h3>
+      <span>{{totalSold}}</span>
+    </li>
+    <li class='events-item'>
+      <h3 class='color-white'><i class='fa fa-fw fa-user'></i>Organizer Name</h3>
+      <span>Arnold</span>
+    </li>
+  </ul>
+
+  <div class='events-overview-wrap'>
+    <div class='events-middle'>
+      <div class='event-img'>
+        {{#if event.img}}
+          <img src={{event.img}} />
+        {{else}}
+          <img src='/assets/images/no-user-image-square.jpg' />
+        {{/if}}
+      </div>
+      <div>
+        <div class='flex-it m-md-b'>
+          <div>
+            <h3 class='events-underline'>Dates</h3>
+            <span>{{event.displayedStartDate}}  - {{event.displayedEndDate}}</span>
+          </div>
+        </div>
+        <h3>Gross Sales</h3>
+        {{#each ticketLevels as |ticketLevel|}}
+        <span class='brand-info-font-color'>{{ticketLevel.name}}: {{times ticketLevel.amount ticketLevel.sold}}</span>
+        {{/each}}
+      </div>
+    </div>
+
+    <div class='events-right-side-nav'>
+      <div class='m-sm-b'>
+        <h3 class='events-underline'>Remaining Tickets</h3>
+        {{bar-line fraction=fractionSold}}
+        <span class='brand-info-font-color'> {{totalSold}} / {{event.capacity}}</span>
+      </div>
+
+      <div class='m-sm-b'>
+        <h3 class='events-underline'>Event URL</h3>
+        <a href={{eventUrl}} target="_blank" class="" >{{eventUrl}}</a>
+      </div>
+
+      <div class='m-sm-b'>
+        <h3 class='events-underline'>Get Social</h3>
+        <div>
+          <i class='fa fa-lg fa-fw fa-facebook'></i>
+          <i class='fa fa-lg fa-fw fa-twitter'></i>
+          <i class='fa fa-lg fa-fw fa-pinterest'></i>
+        </div>
+      </div>
+
+      <div class='m-sm-b'>
+        <h3 class='events-underline'>Credit cards accepted</h3>
+        <div>
+          <i class='fa fa-lg fa-fw fa-cc-mastercard'></i>
+          <i class='fa fa-lg fa-fw fa-cc-visa'></i>
+          <i class='fa fa-lg fa-fw fa-cc-amex'></i>
+        </div>
+        <span class='brand-info-font-color'>Payment Settings</span>
+      </div>
+    </div>
+  </div>
+</div>

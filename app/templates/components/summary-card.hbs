@@ -1,0 +1,29 @@
+<h2>{{headerText}}</h2>
+<div class= "middle">
+  <span class="fa-stack fa-lg icon">
+    <i class={{iconClass}}></i>
+    <i class="fa fa-circle-thin fa-stack-2x"></i>
+  </span>
+  {{#if isMoney}}
+    <p class ="stats">${{shorthand-number total}}</p>
+  {{else}}
+    <p class ="stats">{{shorthand-number total}}</p>
+  {{/if}}
+</div>
+{{#liquid-if showing}}
+  <div class= "details">
+    <p>{{details}}</p>
+  </div>
+{{/liquid-if}}
+<h2 {{action 'toggleShow'}} class="viewReport">
+  {{#if hasBlock}}
+    {{yield showing}}
+  {{else}}
+    {{#if showing}}
+      <i class="fa fa-chevron-up"></i>
+    {{else}}
+        Details
+        <i class="fa fa-chevron-right"></i>
+    {{/if}}
+  {{/if}}
+</h2>

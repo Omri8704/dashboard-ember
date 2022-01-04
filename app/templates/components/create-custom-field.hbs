@@ -1,0 +1,80 @@
+
+
+<div class='row'>
+  <div class='col-xs-12'>
+    <div class="well">
+      <div class='row'>
+        <div class='col-xs-12'>
+          <div>
+            <label class='text-uppercase clear-m p-sm-b'>Label</label>
+          </div>
+          {{#amplo-dropdown
+            classNames='m-sm-b'
+            options=customFieldTypes
+            onChange=(action 'customFieldTypeSelected')
+            placeholderText='Select A Type'
+            as |option| }}
+            {{option}}
+          {{/amplo-dropdown}}
+        </div>
+      </div>
+
+
+      <div class='row'>
+        <div class='col-xs-12'>
+          <div>
+            {{banger-text-input
+              property=customField.label
+              errors=customField.validations.attrs.label.messages
+              hasFeedback=(readonly canShowFeedback)
+              resetErrors=resetErrors
+              label="Name"
+              labelClass="control-label text-uppercase"
+              placeholder="e.g. Shirt Sizes"}}
+          </div>
+
+          {{#if (eq customFieldType 'Dropdown')}}
+            <h5>Value</h5>
+            {{#each customValues as |customValue idx|}}
+              <div class='flex-it align-start m-md-b'>
+                {{banger-text-input
+                  classNames='clear-m'
+                  errors=customValue.validations.attrs.name.messages
+                  property=customValue.name}}
+                <span class="line-button fa-stack">
+                  <i class="fa fa-minus fa-stack-1x" {{action 'removeCustomValue' customValue}}></i>
+                  <hr class='line'>
+                </span>
+              </div>
+            {{/each}}
+
+            <div class='flex-it align-start'>
+                {{banger-text-input
+                  classNames='clear-m'
+                  resetErrors=resetErrors
+                  errors=customValue.validations.attrs.name.messages
+                  property=customValue.name}}
+
+              <span class="line-button fa-stack">
+                <i class="fa fa-plus fa-stack-1x" {{action 'addCustomValue'}}></i>
+                <hr class='line'>
+              </span>
+            </div>
+          {{/if}}
+        </div>
+      </div>
+      {{#if customFieldType}}
+        <div class='m-md-t'>
+          {{#if savingCustomField}}
+            <button class='btn btn-primary clear-m' disabled><i class='fa fa-refresh fa-spin'></i></button>
+          {{else}}
+            <button class='btn btn-primary clear-m' {{action 'addCustomField'}}>Add Custom Field</button>
+          {{/if}}
+        </div>
+      {{/if}}
+
+    </div>
+  </div>
+
+  {{yield}}
+</div>

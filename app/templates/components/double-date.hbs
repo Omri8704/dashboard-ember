@@ -1,0 +1,18 @@
+<div class='p-md-r'>
+  <div class="form-group" data-test-from-container>
+    <label for='date-from'>{{startLabel}}</label>
+      {{date-time-picker
+        initialDate=defaultDateFrom
+        onSaveDateTime=dateFromAction
+      }}
+  </div>
+</div>
+<div class='double-date-container'>
+  <div class="form-group" data-test-to-container>
+    <label for='date-to'>{{endLabel}}</label>
+      {{date-time-picker
+        initialDate=defaultDateTo
+        onSaveDateTime=dateToAction
+      }}
+  </div>
+</div>

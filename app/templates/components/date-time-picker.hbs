@@ -1,0 +1,55 @@
+<div class='input-group pointer' {{action 'toggleEditing'}}>
+  <span class='form-control date-time-picker-form-control' data-test-date-text>{{displayedDateTime}}</span>
+  <span class='input-group-addon' >
+    <span class='glyphicon glyphicon-calendar'></span>
+  </span>
+</div>
+{{#liquid-if editing class='date-time-picker-editing'}}
+  <div class='date-time-picker-container'>
+    {{#liquid-if (eq currentStep 1) class='date-time-picker-step'}}
+      {{#power-calendar
+        class='date-time-picker-calendar'
+        center=calenderCenter
+        selected=selectedDate
+        onCenterChange=(action 'setCalenderCenter' value='date')
+        onSelect=(action 'selectDate' value='moment')
+        as |calendar|
+      }}
+        {{calendar.nav}}
+        {{calendar.days}}
+      {{/power-calendar}}
+
+    {{else}}
+      <div class='time-picker-container'>
+        {{time-picker
+          min=0
+          max=23
+          time=selectedHour
+          onChange=(action (mut selectedHour))
+        }}
+        <span class='fa-lg time-picker-blink'>:</span>
+        {{time-picker
+          min=0
+          max=59
+          time=selectedMinute
+          onChange=(action (mut selectedMinute))
+        }}
+
+        {{#amplo-dropdown
+          classNames='p-sm-l'
+          options=timeZones
+          onChange=(action (mut selectedTimeZone))
+          placeholderText=(display-time-zone selectedTimeZone)
+          as |timeZone| }}
+          {{display-time-zone timeZone}}
+
+        {{/amplo-dropdown}}
+      </div>
+    {{/liquid-if}}
+
+    <div class='m-sm-t buttons'>
+      <button class='button button--secondary' {{action 'saveDateTime'}}>Select</button>
+      <button class='button--basic' {{action 'resetState'}}>Cancel</button>
+    </div>
+  </div>
+{{/liquid-if}}

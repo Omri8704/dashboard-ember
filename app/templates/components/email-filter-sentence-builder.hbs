@@ -1,0 +1,39 @@
+<div class='brand-info-font-color'>
+  <span>Search within {{model.userScope}} where a participant</span>
+  {{#each model.formattedAttrs as |formatted index|}}
+    {{#if (last-of-array model.formattedAttrs.length index)}}
+      <span>{{formatted}}</span>
+    {{else}}
+      <span>{{formatted}} {{model.formattedAnyAll}}</span>
+    {{/if}}
+  {{/each}}
+
+  {{#if (eq model.formattedAttrs.length 0) }}
+    <span>exists</span>
+  {{/if}}
+
+  {{#if model.tags}}
+    <span>{{model.formattedAnyAll}}</span>
+  {{/if}}
+
+  {{#each model.tags as |tag index|}}
+    {{#if (last-of-array model.tags.length index)}}
+      <span>has tag {{tag}}</span>
+    {{else}}
+      <span>has tag {{tag}} {{model.formattedAnyAll}}</span>
+    {{/if}}
+  {{/each}}
+
+  {{#if (and model.start_date model.end_date)}}
+    <span>from {{model.formattedStartDate}} to {{model.formattedEndDate}}</span>
+  {{else}}
+    {{#if model.start_date}}
+      <span>from {{model.formattedStartDate}} to today</span>
+    {{/if}}
+    {{#if model.end_date}}
+      <span>until {{model.formattedEndDate}}</span>
+    {{/if}}
+  {{/if}}
+  <span>inside {{model.promotionScope}}</span>
+
+</div>

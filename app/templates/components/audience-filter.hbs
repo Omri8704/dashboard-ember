@@ -1,0 +1,78 @@
+{{#if mailing_filter.mailing }}
+  <div class='p-sm-b'>
+    {{#amplo-dropdown class="extra-long"
+      options=scopeFilters
+      onChange=(action 'scopeSelected')
+      placeholderText=selectedScopeText as |option|}}
+      {{option}}
+    {{/amplo-dropdown}}
+  </div>
+  <br />
+{{/if }}
+<div class='p-sm-b'>
+  <span>{{#if mailing_filter.mailing }}Additionally, {{/if}}Prospects Must Match</span>
+  {{#amplo-dropdown
+    options=anyAll
+    onChange=(action (mut mailingFilter.any_all))
+    placeholderText=mailingFilter.any_all as |option|}}
+    {{option}}
+  {{/amplo-dropdown}}
+  <span>of the Following:</span>
+</div>
+<div class='p-sm-b'>
+  {{#each pickedFilterAttributesFormatted as |pickedAttr|}}
+    <div class='p-sm-b'>
+      {{mailing-filter-selector
+        selectAttribute=(action "changeFilter")
+        crudAction=(action "deleteFilter")
+        emptyFilter=false
+        mailingFilter=this
+        attribute=pickedAttr
+        options=nonPickedAttributes }}
+    </div>
+  {{/each}}
+
+  {{#if (not-eq nonPickedAttributes.length 0)}}
+    {{mailing-filter-selector
+      selectAttribute=(action "selectNewFilter")
+      crudAction=(action "addFilter")
+      attribute=newAttr
+      options=nonPickedAttributes }}
+  {{/if}}
+
+  {{#liquid-if (and (eq mailingFilter.scope 'entity') pickedFilterAttributesFormatted )}}
+    <br />
+    <div class='p-sm-b'>
+      {{#tool-tipster
+        classNames='inline-b'
+        content='For example, a date here would restrict an email sent to all prospects who have registered to only those who have registered for an event between these dates'
+        position='right'
+        delay=0
+        theme='tooltipster-noir'
+        updateAnimation=false
+      }}
+        <p>And only match the above filters between these dates (optional): <i class="fa fa-question-circle"></i></p>
+      {{/tool-tipster}}
+
+      {{double-date
+         dateFromAction=(action 'dateFrom')
+         dateToAction=(action 'dateTo')
+         defaultDateFrom=mailingFilter.start_date
+         defaultDateTo=mailingFilter.end_date }}
+    </div>
+  {{/liquid-if}}
+</div>
+
+<div class='p-sm-b p-sm-t'>
+  <p>And has the following tags (optional):</p>
+  {{#power-select-multiple
+    classNames='ember-power-select-container'
+    placeholder="Select Tags"
+    options=tags
+    selected=mailingFilter.tags
+    onchange=(action (mut mailingFilter.tags))
+    renderInPlace=true
+    as |tag|}}
+      {{tag}}
+  {{/power-select-multiple}}
+</div>

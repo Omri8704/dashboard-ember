@@ -1,0 +1,35 @@
+<section class='section-highlight'>
+  <h1>Generate Reports</h1>
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-heading">
+    Weekly Report Subscription
+  </div>
+  <div class="panel-body">
+    <div class='m-sm-b'>
+      <p>
+        Use the form below to subscribe to a weekly transaction report.
+        By subscribing, you will get a report in your inbox every Monday.  That
+        report will be a transaction report against the 7 day period starting of
+        last week, ending the last Sunday at midnight, and include all Campaigns
+        for this Entity.  To unsubscribe, un-check the box and click save.
+      </p>
+
+      <label style="font-size: 120%;">
+        {{input type="checkbox" name="reportsSubscribed" rows="6" checked=reportsSubscribed}}
+        Subscribe to Weekly Reports
+      </label><br />
+      <button class="btn btn-primary" {{action "subscribeReport"}} >Save</button>
+    </div>
+  </div>
+</div>
+
+{{report-filter
+  campaigns=(readonly campaigns)
+  events=(readonly events)
+  reportFilters=reportFilters
+  newReport=reportFilter
+  searchReports=(action 'searchReports')
+  saveReport=(action 'saveReport')
+  runReport=(action 'runReport')}}

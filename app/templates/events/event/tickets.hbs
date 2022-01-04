@@ -1,0 +1,233 @@
+<h2 class="m-md-l">Create Tickets</h2>
+
+<div class='container'>
+  <button class='btn btn-primary clear-m' {{action 'addTicketLevel' 'paid'}}>
+    <i class='fa fa-plus-circle p-xs-r'></i>Paid Ticket
+  </button>
+  <button class='btn btn-primary clear-m' {{action 'addTicketLevel' 'free'}}>
+    <i class='fa fa-plus-circle p-xs-r'></i>Free Ticket
+  </button>
+</div>
+
+<div class='ticket-levels'>
+  <div class='table-responsive'>
+    <table class='ticket-amplo-table'>
+      <thead>
+        <tr>
+          <td>Ticket Name</td>
+          <td>Quantity Available</td>
+          <td>Price</td>
+          <td>Actions</td>
+        </tr>
+      </thead>
+      {{#each ticketLevels as |ticket|}}
+        {{#row-drawer tagName='tbody' as |rowDrawer triggerClick showItem|}}
+          <tr>
+            <td>
+              {{banger-text-input
+                class='m-sm-t m-sm-b'
+                property=ticket.name
+                errors=ticket.validations.attrs.name.messages
+                hasFeedback=(readonly canShowErrors)
+                placeholder="Ex. Alumni Level One Advance Purchase"
+              }}
+            </td>
+            <td>
+              {{banger-text-input
+                class='m-sm-t m-sm-b'
+                property=ticket.numTickets
+                errors=ticket.validations.attrs.numTickets.messages
+                hasFeedback=(readonly canShowErrors)
+                placeholder="Ex. 100"
+              }}
+            </td>
+            <td>
+              <div class="input-group m-sm-t m-sm-b">
+                {{#if (eq ticket.category 'free')}}
+                  <div class="input-group">
+                    <div class="input-group-addon">$</div>
+                    <input class='form-control' disabled />
+                  </div>
+                {{else}}
+                  {{banger-text-input
+                    class='clear-m'
+                    inputGroupBeforeContent='$'
+                    property=ticket.amount
+                    errors=ticket.validations.attrs.amount.messages
+                    hasFeedback=(readonly canShowErrors)
+                    placeholder="25.00"
+                  }}
+                {{/if}}
+              </div>
+            </td>
+            <td>
+              <i {{action triggerClick}} class='ticket-level-icon fa fa-gear'></i>
+              <i {{action 'removeTicketLevel' ticket}} class='ticket-level-icon p-sm-l fa fa-trash'></i>
+            </td>
+          </tr>
+          {{#if showItem}}
+            <tr>
+              <td class='ticket-drawer-bg' colspan='4'>
+                <div class='ticket-drawer'>
+                  <h3 class='ticket-drawer__title'>Settings</h3>
+                  <div class='ticket-drawer__body'>
+                    <div>
+                      <h5 class='ticket-drawer__title-sub'>Ticket Description</h5>
+                      {{one-way-textarea class='form-control' value=ticket.description update=(action (mut ticket.description))}}
+                      <div>
+                        {{input type='checkbox' checked=ticket.hideDescription}}
+                        <label>Hide Ticket Description on Events page</label>
+                      </div>
+                      <div class='m-sm-t input-group'>
+                        {{banger-text-input
+                          label='Accounting Code'
+                          property=ticket.accountingCode
+                        }}
+                      </div>
+
+                      {{#if settings.current_entity.raisers_edge_integration }}
+                        <div class='m-sm-t input-group' style="width: 100%;">
+                          <label>Cause</label>
+                          {{#power-select
+                            placeholder="Select cause"
+                            options=causes
+                            selected=ticket.cause
+                            onchange=(action (mut ticket.cause))
+                            renderInPlace=true
+                            searchField="name"
+                            as |option|}}
+                            {{option.name}}
+                          {{/power-select}}
+                        </div>
+                      {{/if}}
+
+                    </div>
+                    <div>
+                      <h5 class='ticket-drawer__title-sub'>Sales Channels (How will your users get tickets?)</h5>
+                      <div>
+                        <input type='checkbox' />
+                        <label>Online Sales(web)</label>
+                      </div>
+                      <div>
+                        <input type='checkbox' />
+                        <label>At the door sales</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    {{#if toggleDropdown}}
+                      <h2 class='ticket-drawer__title m-lg-b p-sm-t pointer' {{action "toggleDropdown"}}>
+                        Add A Custom Field
+                        <i class='inline-b p-xs-l fa fa-angle-down'></i>
+                      </h2>
+                    {{else}}
+                      <h2 class='ticket-drawer__title m-lg-b p-sm-t pointer' {{action 'toggleDropdown'}}>
+                        Add A Custom Field
+                        <i class="inline-b p-xs-l fa fa-angle-right"></i>
+                      </h2>
+                    {{/if}}
+                  </div>
+
+                  {{#liquid-if toggleDropdown}}
+                    <div class="row m-sm-l">
+                      <div class="col-xs-12 col-md-6 m-lg-b">
+                        <p>Select an existing Custom Field:</p>
+
+
+                        {{#amplo-dropdown
+                          classNames='m-sm-b'
+                          options=filteredCustomFields
+                          onChange=(action 'addExistingCustomField' ticket)
+                          placeholderText='Select An Existing Custom Field'
+                          as |field| }}
+                          {{field.name_for_dropdown}}
+                        {{/amplo-dropdown}}
+
+                        <hr class="m-sm-t"/>
+
+                        <p>Or create a new one:</p>
+
+                        {{#create-custom-field
+                          class='m-sm-t'
+                          store=store
+                          ticketLevel=ticket
+                          customFieldTypes=customFieldTypes
+                          addCustomField=(action 'addCustomField')}}
+                        {{/create-custom-field}}
+                      </div>
+                      <div class='col-xs-12 col-md-6 m-lg-b'>
+                        <h2>Added Custom Fields</h2>
+                        <table class='nested-table'>
+                          <thead>
+                            <tr>
+                              <td>Name</td>
+                              <td>Type</td>
+                              <td>Values</td>
+                              <td></td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {{#each ticket.entityCustomFields as |customField|}}
+                              <tr>
+                                <td>{{customField.label}}</td>
+                                <td>
+                                  {{#if (eq customField.htmlControl 'boolean')}}
+                                    <span>Checkbox</span>
+                                  {{/if}}
+                                  {{#if (eq customField.htmlControl 'select')}}
+                                    <span>Dropdown</span>
+                                  {{/if}}
+                                  {{#if (eq customField.htmlControl 'input')}}
+                                    <span>Free Text</span>
+                                  {{/if}}
+                                </td>
+
+                                <td>
+                                  {{#if customField.entityCustomValues}}
+                                    {{array-to-comma-separated-string customField.entityCustomValues 'name'}}
+                                  {{else}}
+                                    <span>N/A</span>
+                                  {{/if}}
+                                </td>
+                                <td>
+                                  <i class='fa fa-trash pointer' {{action 'deleteCustomField' customField ticket}}></i>
+                                </td>
+                              </tr>
+                            {{/each}}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                  {{/liquid-if}}
+
+                  <hr class="clear-m p-sm-b p-sm-t" />
+
+                  {{#if savingTicketLevel}}
+                    <button class='btn btn-primary pull-right' disabled><i class='fa fa-refresh fa-spin'></i></button>
+                  {{else}}
+                    <button class='btn btn-primary pull-right' {{action 'saveCustomFields' ticket}}>Save Ticket Level</button>
+                  {{/if}}
+                  {{displayedErrors}}
+
+                </div>
+              </td>
+            </tr>
+          {{/if}}
+        {{/row-drawer}}
+      {{else}}
+        <tr> <td> currently no ticket levels </td> </tr>
+      {{/each}}
+    </table>
+  </div>
+</div>
+
+  <div class='pull-right m-md-r'>
+    <button class='btn btn-secondary' {{action 'cancelTickets'}}>Cancel</button>
+    {{#if savingTickets}}
+      <button class='btn btn-primary' disabled><i class='fa fa-spin fa-refresh'></i></button>
+    {{else}}
+      <button class='btn btn-primary' {{action 'saveTickets'}}>Save &amp; Continue</button>
+    {{/if}}
+  </div>

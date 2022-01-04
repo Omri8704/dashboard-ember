@@ -1,0 +1,63 @@
+<section class='section-highlight'>
+  <h1>Your Campaign Tile Sections</h1>
+  {{help-documentation documentationId="platform-training/dashboard-training/campaign-tile-section-manager-overview"}}
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <p><strong>"Automatic"</strong> sections will display the campaign family automatically and cannot be edited.</p>
+    <p><strong>"Manual"</strong> sections will display the campaigns you select.</p>
+    <table class="amplo-table">
+      <thead>
+        <tr>
+          <th><div>Tile Section Name</div></th>
+          <th><div>Pages</div></th>
+          <th><div>Type</div></th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#if (not-eq tilesSections.length 0)}}
+          {{#each tilesSections as |tilesSection|}}
+            <tr>
+              <td>
+                <span class='capitalize'>
+                  {{#if (eq tilesSection.campaignSelectionStrategy "manual")}}
+                    {{#link-to 'editor.tiles-section' tilesSection.id class="nav-link" }}
+                      {{tilesSection.name}}
+                    {{/link-to}}
+                  {{else}}
+                    {{tilesSection.name}}
+                  {{/if}}
+                </span>
+              </td>
+              <td>
+                {{#each tilesSection.entityPages as |page index|}}
+                  <span class='capitalize'>
+                    <a href="//{{settings.current_entity.host}}/pages/{{page.id}}"
+                       target="_blank">
+                      {{page.title}}
+                    </a>
+                    {{#unless (last-of-array tilesSection.entityPages.length index)}}
+                    ,
+                    {{/unless}}
+                  </span>
+                {{else}}
+                  N/A
+                {{/each}}
+              </td>
+              <td>
+                {{tilesSection.campaignSelectionStrategy}}<br/>
+                <a {{action 'updateSelectionStrategy' tilesSection}} class="pointer">Change type</a>
+              </td>
+            </tr>
+          {{/each}}
+        {{else}}
+          <tr>
+            <td><span>You do not have any Campaign Tile Sections</span></td>
+            <td><span></span></td>
+          </tr>
+        {{/if}}
+      </tbody>
+    </table>
+  </div>
+</div>

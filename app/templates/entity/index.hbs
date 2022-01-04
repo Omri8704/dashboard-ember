@@ -1,0 +1,33 @@
+<h2>{{model.name}} Dashboard</h2>
+<div class="row text-center">
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{#link-to  "dashboard" model }}
+          <i class="fa fa-database"></i>
+          <p>Dashboard</p>
+        {{/link-to}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{#link-to  "campaigns" model }}
+          <i class="fa fa-bullhorn"></i>
+          <p>Campaigns</p>
+        {{/link-to}}
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        {{#link-to  "email" model }}
+          <i class="fa fa-envelope"></i>
+          <p>Email</p>
+        {{/link-to}}
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<h4>Edit Your Default System Email Templates</h4>
+<p>
+  Pick a template from the list below and use our Template Editor to modify
+  the default email templates that are sent out on a per-transaction basis (for example,
+  the Donation receipt emails can be customzed here).
+</p>
+
+<div class="rich-table p-md-l p-md-r">
+  <div class="rich-table-item p-md-l p-md-r p-sm-b default-border-bottom">
+    <div class="left-items">
+      <h3 style="width: 125px">preview</h3>
+      <h3>Info</h3>
+    </div>
+    <div class="right-items">
+      <h3>Actions</h3>
+    </div>
+  </div>
+
+  {{#each templates as |template| }}
+    {{#if template.amplo_template_id }}
+      {{#if template.display_in_dashboard}}
+        <div class="rich-table-item default-border-bottom p-md-a">
+          <div class="left-items">
+            <img class='template-image' src={{if template.icon template.icon "/assets/images/template-icon.png"}}  />
+            <div class='p-sm-l'>
+              <h3>
+                {{#link-to 'emails.settings.template' template.id}}
+                  {{humanize-string template.dashboard_display_name}}
+                {{/link-to}}
+              </h3>
+              <div>{{template.description}}</div>
+            </div>
+          </div>
+
+          <div class="right-items">
+            {{#link-to 'emails.settings.template' template.id}}
+              <i class="fa fa-fw fa-pencil"></i> Edit
+            {{/link-to}}
+          </div>
+        </div>
+      {{/if}}
+    {{/if}}
+  {{/each}}
+</div>

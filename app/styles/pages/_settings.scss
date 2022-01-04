@@ -1,0 +1,21 @@
+.side-panel {
+  width: 230px;
+  min-width: 230px;
+}
+
+.entity-card {
+  border-radius: 3px;
+  background-color: rgba($gray--one, .15);
+  padding: 10px;
+  margin: 10px 10px 0 0;
+  width: calc(50% - 10px);
+  min-width: calc(50% - 10px);
+  border: 1px solid $default-border-color;
+  &:hover {
+    background: rgba($gray--one, .45);
+  }
+  img {
+    width: 50px;
+    height: auto;
+  }
+}

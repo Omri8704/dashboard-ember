@@ -1,0 +1,57 @@
+<div class="panel-body">
+  <div class='p-sm-b'>
+    <p data-test="promotion">ARE YOU PROMOTING A CAMPAIGN OR EVENT?</p>
+
+    {{#power-select
+      placeholder="Search for a Campaign or Event"
+      search=(action "searchPromotions")
+      selected=model.mailing.promotion
+      onchange=(action 'updatePromotion')
+      as |promotion|
+    }}
+      {{promotion.name}}
+    {{/power-select}}
+  </div>
+
+  <div class='p-sm-b'>
+    <p data-test="user-segment" >SELECT AN EMAIL LIST.
+    ({{#link-to "emails.email-lists.new"}}Need to create a new email list?{{/link-to}})
+    </p>
+
+    {{#power-select
+      placeholder="Search for an Email List"
+      search=(action "searchUserSegments")
+      selected=model.mailing.userSegment
+      onchange=(action (mut model.mailing.userSegment))
+      as |userSegment| }}
+
+      {{userSegment.name}}
+
+    {{/power-select}}
+
+  </div>
+</div>
+
+<div class='panel-footer'>
+  <div class='row'>
+    <div class='col-sm-12'>
+
+      {{#if mailing.promotion}}
+        <button
+          class="btn btn-primary pull-right"
+          {{action wizard.transition-to-next }}>
+          Next Step
+          <i class="fa fa-arrow-circle-right f-1.5x"></i>
+        </button>
+      {{else}}
+        <button
+          class="btn btn-primary pull-right disabled"
+          disabled>
+          Next Step
+          <i class="fa fa-arrow-circle-right f-1.5x"></i>
+        </button>
+      {{/if}}
+
+    </div>
+  </div>
+</div>

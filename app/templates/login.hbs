@@ -1,0 +1,40 @@
+<div class="flex-it center-all login-page">
+  <div class="login-container">
+    <img class="logo" src="/assets/images/snap-advance-logo-logo-400.png" />
+    <div class="login-form">
+      <form {{action 'authenticate' on='submit'}}>
+
+        <div class="row">
+          <div class="col-md-12">
+            {{banger-text-input
+              class="email"
+              property=identification
+              label="Email"
+              placeholder="Enter Email address" }}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            {{banger-text-input
+              class="password"
+              property=password
+              type="password"
+              label="Password"
+              placeholder="" }}
+          </div>
+        </div>
+
+        {{#if errorMessage}}
+          <p class="text-danger">{{errorMessage}}</p>
+        {{/if}}
+
+        <button
+          id="loginButton"
+          class="btn btn-primary"
+          type="submit">LOGIN</button>
+      </form>
+
+    </div>
+  </div>
+</div>

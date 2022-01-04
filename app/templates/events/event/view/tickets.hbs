@@ -1,0 +1,53 @@
+<h2 class="m-md-l m-md-t">Recent Ticket Purchases</h2>
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <div class='table-responsive'>
+      <table class="amplo-table border-none">
+        <thead>
+          <tr>
+            <th><div>First Name</div></th>
+            <th><div>Last Name</div></th>
+            <th><div>Email Address</div></th>
+            <th><div>Date</div></th>
+            <th><div>Ticket Level</div></th>
+            <th><div>Group</div></th>
+            <th><div>&nbsp;</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#each tickets as |ticket|}}
+            <tr>
+              {{#if ticket.attendee}}
+                <td>{{ticket.attendee.first_name}}</td>
+                <td>{{ticket.attendee.last_name}}</td>
+                <td>{{ticket.attendee.email}}</td>
+              {{else}}
+                <td>{{ticket.purchaser.first_name}}</td>
+                <td>{{ticket.purchaser.last_name}}</td>
+                <td>{{ticket.purchaser.email}}</td>
+              {{/if}}
+              <td>{{pretty-date ticket.createdAt settings.current_entity.date_format}}</td>
+              <td>{{ticket.ticketLevel}}</td>
+              <td>{{ticket.group}}</td>
+              <td>
+                {{#if ticket.refunded }}
+                  Refunded
+                {{else}}
+                  <a {{action 'refundTicket' ticket}}>Refund Ticket</a>
+                  {{#if ticket.group }}
+                    | <a {{action 'refundTicketGroup' ticket}}>Refund Group</a>
+                  {{/if}}
+                {{/if}}
+              </td>
+            </tr>
+          {{else}}
+            <tr>
+              <td colspan=7>No tickets sold</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+  </div>
+</div>

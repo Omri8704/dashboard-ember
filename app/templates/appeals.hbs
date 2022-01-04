@@ -1,0 +1,154 @@
+{{partial 'partials/components/integrations-nav-bar'}}
+
+<section class="main-content initiatives">
+  <section class='section-highlight'>
+    <h1>Manage Appeals</h1>
+    <span class="pull-right">{{help-documentation documentationId="platform-training/reporting/working-with-snap-advance-integrations"}}</span>
+  </section>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="panel-search">
+          <div class="panel-heading">
+            <h4>Create New Appeal</h4>
+          </div>
+          <div class="panel-body">
+            <form class="form">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group {{if (and hasFeedback newAppeal.validations.attrs.name.messages) 'has-error' }}">
+                    <label>Name</label>
+                    {{input type="text" value=new_name update=(action (mut new_name)) class="form-control" placeholder=""}}
+                    {{#if (and hasFeedback newAppeal.validations.attrs.name.messages)}}
+                      <span class='text-danger'>{{newAppeal.validations.attrs.name.messages}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group {{if (and hasFeedback newAppeal.validations.attrs.label.messages) 'has-error' }}">
+                    <label>Label</label>
+                    {{input type="text" value=new_label update=(action (mut new_label)) class="form-control" placeholder=""}}
+                    {{#if (and hasFeedback newAppeal.validations.attrs.label.messages)}}
+                      <span class='text-danger'>{{newAppeal.validations.attrs.label.messages}}</span>
+                    {{/if}}
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label>External ID</label>
+                    {{input type="text" value=new_external_id update=(action (mut new_external_id)) class="form-control" placeholder=""}}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <p class='text-success'>{{success}}</p>
+                </div>
+                <div class="col-md-12">
+                  <button class='btn btn-info pull-right' {{action "addAppeal"}} >Create</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <div class="inner-addon left-addon">
+          <i class="fa fa-search"></i>
+            {{one-way-input
+              id="search_appeals"
+              value=inputSearch
+              update=(action 'updateSearch')
+              placeholder="Search Appeals By Name or Label or External ID"
+              class="form-control"}}
+        </div>
+        <div class="panel info">
+          <div class="panel-heading">
+            <h4>Existing Appeals</h4>
+          </div>
+          <div class="panel-body" style="padding: 15px 0;">
+            <table class="amplo-table compact">
+              <thead>
+                <tr>
+                  <th><div>Name</div></th>
+                  <th><div>Label</div></th>
+                  <th><div>External ID</div></th>
+                  <th>Tracking URL</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each filteredAppeals as |row|}}
+                  <tr>
+                    <td>{{row.name}}</td>
+                    <td>{{row.label}}</td>
+                    <td>{{row.external_id}}</td>
+                    <td title="Donations made via this link will be tracked as a conversion by this appeal.">
+                      <div style="overflow-x: scroll; padding: 1rem 0; display: block;">
+                        <span>{{base_href}}/?appeal_id={{row.id}}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <a {{action "editAppeal" row}}>Edit</a> | <a {{action "deleteAppeal" row}}>Delete</a>
+                    </td>
+                  </tr>
+                  <tr class="drawer">
+                    <td colspan="10">
+                      {{#liquid-if (eq row.id editAppeal.id)}}
+                        <div class="panel-body">
+                          <form class="form">
+                            <div class="row">
+                              <div class="col-md-4">
+                                <div class="form-group {{if errors.first_name 'has-error' }}">
+                                  <label>Edit Name</label>
+                                  {{input type="text" value=editAppeal.name update=(action (mut editAppeal.name)) class="form-control" placeholder=""}}
+                                  {{#each errors.name as |error| }}
+                                    <span id="helpBlock" class="help-block">{{error}}</span>
+                                  {{/each}}
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group {{if errors.last_name 'has-error' }}">
+                                  <label>Edit Label</label>
+                                  {{input type="text" value=editAppeal.label update=(action (mut editAppeal.label)) class="form-control" placeholder=""}}
+                                  {{#each errors.label as |error| }}
+                                    <span id="helpBlock" class="help-block">{{error}}</span>
+                                  {{/each}}
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group {{if errors.last_name 'has-error' }}">
+                                  <label>Edit External ID</label>
+                                  {{input type="text" value=editAppeal.external_id update=(action (mut editAppeal.external_id)) class="form-control" placeholder=""}}
+                                  {{#each errors.external_id as |error| }}
+                                    <span id="helpBlock" class="help-block">{{error}}</span>
+                                  {{/each}}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-6">
+                                <p class='text-success'>{{success}}</p>
+                              </div>
+                              <div class="col-md-6">
+                                <button class='btn btn-info pull-right' {{action "updateAppeal"}} >Save</button>
+                                <button class='btn btn-default pull-right' {{action "cancelEdit"}} >Cancel</button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      {{/liquid-if}}
+                    </td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+
+            {{amplo-pagination limit=limit offset=offset count=count action='changeOffset'}}
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>

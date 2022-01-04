@@ -1,0 +1,48 @@
+
+.date-time-picker-container {
+  max-width: 400px;
+  padding: 10px;
+}
+
+.date-time-picker-editing {
+  max-width: 400px;
+
+  z-index: 3; // needs to sit above input group form control elements
+}
+
+.date-time-picker-step {
+  @extend .flex-it;
+  @extend .align-center;
+
+  height: 170px;
+}
+
+.date-time-picker-calendar {
+  width: 250px;
+  font-size: 12px;
+}
+
+.date-time-picker-form-control {
+  height: auto;
+}
+
+.time-picker-container {
+  @include flexbox();
+  @include align-items(center);
+  @include flex-wrap();
+
+  .time-picker-blink {
+    visibility: hidden;
+    animation: 1.2s linear infinite blink;
+  }
+
+  @keyframes blink {
+    20% {
+      visibility: hidden;
+    }
+    80% {
+      visibility: visible;
+    }
+  }
+
+}

@@ -1,0 +1,32 @@
+<div class="panel">
+  <div class="panel-heading">
+    <h4>{{title}}</h4>
+  </div>
+  <div class="panel-body">
+    {{#if selectedUser}}
+      <div class="form row">
+        <div class="col-md-4">
+          <p>
+            You have selected {{selectedUser.first_name}} {{selectedUser.last_name}} as the user.
+            <a href="" {{action "toggleUser"}}>
+              switch user
+              <i class="fa fa-times-circle-o"></i>
+            </a>
+          </p>
+        </div>
+      </div>
+      {{else}}
+
+      <div class="form row">
+        <div class="col-md-4">
+        <p class="text-primary">
+          Search And Select a user:
+        </p>
+          {{input value=searchQuery class="form-control" }}
+        </div>
+      </div>
+      <div class="spacer-2"></div>
+    {{/if}}
+    {{yield results}}
+  </div>
+</div>

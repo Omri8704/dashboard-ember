@@ -1,0 +1,124 @@
+<section class='section-highlight'>
+  <h1>Emails
+    <span class="pull-right" style="margin-right: 1rem;">{{help-documentation documentationId="platform-training/intelligent-email"}}</span>
+  </h1>
+  {{#link-to 'emails.new' class='btn btn-primary pull-right m-sm-r'}}
+    <i class='fa fa-plus'></i>&nbsp;New Email
+  {{/link-to}}
+</section>
+
+<div class="m-md-a">
+  <div class="row flex-it center-it stats">
+    <div class="stat">
+      <i class="fa fa-envelope"></i>
+      <span>Total Sent:</span> {{shorthand-number totals.total_email_sent}}
+    </div>
+    <div class="stat">
+      <i class="fa fa-fw fa-envelope-open"></i>
+      <span>Total Opens:</span> {{shorthand-number totals.total_opens}}
+    </div>
+    <div class="stat">
+      <i class="fa fa-mouse-pointer"></i>
+      <span>Total Clicks:</span> {{shorthand-number totals.total_clicks}}
+    </div>
+  </div>
+</div>
+
+<section class="m-md-a">
+  <h3>
+    All Mailing Data&nbsp;&nbsp;
+    <div class="btn-group">
+      <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{chartDataResolution}} Day View <i class="fa fa-fw fa-caret-down"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a {{action "changeChartResolution" 7}}>Last 7 Days</a></li>
+        <li><a {{action "changeChartResolution" 30}}>Last 30 Days</a></li>
+        <li><a {{action "changeChartResolution" 90}}>Last 90 Days</a></li>
+        <li><a {{action "changeChartResolution" 365}}>Last Year</a></li>
+      </ul>
+    </div>
+  </h3>
+</section>
+
+<section class="email-stats m-md-r m-md-l m-md-b">
+  {{amplo-highcharts
+    content=chartData
+    chartOptions=chartOptions
+    theme=theme
+  }}
+</section>
+
+
+
+<div class="flex-it align-center row p-md-l p-md-t">
+  <div class="col-md-1"><h2 class="clear-m text-primary">Filter:</h2></div>
+  <div class="col-md-4">
+    {{one-way-select
+      status
+      options=statuses
+      update=(action 'changeStatus')
+      class='form-control blue-select'}}
+  </div>
+
+  <div class="col-md-4">
+    <div class="inner-addon left-addon">
+      <i class="fa fa-search"></i>
+      {{one-way-input
+        value=inputQuery
+        update=(action 'updateQuery')
+        placeholder="Search Emails By Name"
+        class="form-control"}}
+    </div>
+  </div>
+</div>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    <table class="amplo-table">
+      <thead>
+        <tr>
+          <th class="amplo-table-header"><div></div></th>
+          <th class="amplo-table-header"><div>Name</div></th>
+          <th class="amplo-table-header"><div>Status</div></th>
+          <th class="amplo-table-header"><div>Total Sends</div></th>
+          <th class="amplo-table-header"><div>Promotion Type</div></th>
+          <th class="amplo-table-header"><div>Promotion</div></th>
+          <th class="amplo-table-header"><div>Actions</div></th>
+        </tr>
+      </thead>
+      <tbody class="emails-list">
+        {{#each model.mailings as |email index|}}
+          <tr>
+            <td class="amplo-table-data">{{paginated-item-number page index}}</td>
+            <td class="amplo-table-data">{{#link-to 'emails.email' email class='email-link'}}{{email.name}}{{/link-to}}</td>
+            <td class="amplo-table-data">{{email.status}}</td>
+            <td class="amplo-table-data">{{email.total_sends}}</td>
+            <td class="amplo-table-data">{{email.promotion_type}}</td>
+            <td class="amplo-table-data">{{email.promotion.name}}</td>
+            <td class="amplo-table-data">
+              <div class="amplo-table-actions">
+                {{#link-to 'emails.email' email class='email-link'}}{{#tool-tipster content="Edit"}}<i class='fa fa-edit pointer'></i>{{/tool-tipster}}{{/link-to}} |
+                {{#tool-tipster content="Clone"}}<i {{action "cloneEmail" email}} class='fa fa-clone pointer'></i>{{/tool-tipster}} 
+                {{#unless (or (eq email.status "sending") (eq email.status "sent"))}}
+                  |{{#tool-tipster content="Remove"}}<i {{action "removeEmail" email}} class='fa fa-trash pointer'></i>{{/tool-tipster}}
+                {{/unless}}
+              </div>
+            </td>
+          </tr>
+        {{/each}}
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="6">
+            {{amplo-pagination
+              limit=limit
+              offset=offset
+              count=count
+              action='changeOffset'}}
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

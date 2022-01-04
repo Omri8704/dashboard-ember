@@ -1,0 +1,51 @@
+
+  <div class="section-sub-heading">
+    additional notes (optional)
+  </div>
+
+  <div class="section-body">
+    <div class="row">
+      <label for="note" class="col-sm-2 control-label">Enter Notes:</label>
+      <div class='col-sm-3'>
+        {{banger-text-area
+          property=donation.note
+          rows=6}}
+      </div>
+    </div>
+
+    {{#if settings.current_entity.affinities }}
+      <div class="row">
+        <label for="affinities" class='col-sm-2 control-label'>Affinities:</label>
+        <div class="col-sm-3 form-group">
+          {{#power-select-multiple
+            placeholder="Select Affinities"
+            options=affinities
+            selected=donation.affinities
+            onchange=(action (mut donation.affinities))
+            renderInPlace=true
+            as |option|}}
+            {{option}}
+          {{/power-select-multiple}}
+        </div>
+      </div>
+
+      {{#if settings.current_entity.affinities_grad_year }}
+        <div class="row">
+          <label for="grad_year" class='col-sm-2 control-label'>Grad Year:</label>
+          <div class="col-sm-3 form-group">
+            <select onchange={{action (mut donation.grad_year) value="target.value"}} class="form-control">
+              <option value=''>N/A</option>
+              {{#each (range 2023 1900) as |i|}}
+                <option value={{i}}>{{i}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </div>
+      {{/if}}
+    {{/if}}
+
+    <div class="row">
+      <label for="public" class="col-sm-2 control-label">Public:</label>
+      {{input type="checkbox" name="public" rows="6" checked=donation.public}}
+    </div>
+  </div>

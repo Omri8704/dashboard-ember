@@ -1,0 +1,13 @@
+<span {{action "toggleSubNav"}}>
+  <p><i class="fa fa-fw {{icon}}"></i> {{text}}
+  <span class="dropdown">
+    <i class="fa {{if subNavOpen 'fa-chevron-up' 'fa-chevron-down'}}"></i>
+  </span>
+  </p>
+</span> 
+
+{{#liquid-if subNavOpen}}
+  <ul class="subdrop">
+    {{yield}}
+  </ul>
+{{/liquid-if}}

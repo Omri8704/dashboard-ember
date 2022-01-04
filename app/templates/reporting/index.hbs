@@ -1,0 +1,36 @@
+<section class='section-highlight reporting-home'>
+  <h1 class="header">Welcome to your Reporting homepage</h1>
+
+  {{#if settings.current_entity.instant_reporting}}
+    <div class="navigation-container">
+      <h3>
+        {{#link-to 'reporting.instant' tagName='a' class="button button--primary"}}
+        <i class="fa fa-fw fa-download"></i> Instant Reports
+        {{/link-to}}
+      </h3>
+      <p>One-click reports are an easy way to retrieve your data!</p>
+    </div>
+  {{/if}}
+
+  {{#if settings.current_entity.insight_reporting}}
+    <div class="navigation-container">
+      <h3>
+          {{#link-to 'reporting.builder' tagName='a' class="button button--primary"}}
+            <i class="fa fa-fw fa-table"></i> Report Builder
+          {{/link-to}}
+      </h3>
+      <p>Run repeating or one-time .csv reports customized for your needs.</p>
+    </div>
+  {{/if}}
+
+  {{#if settings.current_entity.impact_reporting}}
+    <div class="navigation-container">
+      <h3>
+          {{#link-to 'reporting.impact' tagName='a' class="button button--primary"}}
+            <i class="fa fa-fw fa-eye"></i> Campaign Impact Reporting
+          {{/link-to}}
+      </h3>
+      <p>View real-time statistics of every campaign</p>
+    </div>
+  {{/if}}
+</section>

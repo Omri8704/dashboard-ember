@@ -1,0 +1,96 @@
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex-column() {
+  -webkit-flex-direction: column;
+  -moz-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+@mixin flex($values) {
+  -webkit-box-flex: $values;
+  -moz-box-flex:  $values;
+  -webkit-flex:  $values;
+  -ms-flex:  $values;
+  flex:  $values;
+}
+
+@mixin order($val) {
+  -webkit-box-ordinal-group: $val;
+  -moz-box-ordinal-group: $val;
+  -ms-flex-order: $val;
+  -webkit-order: $val;
+  order: $val;
+}
+
+@mixin flex-basis($basis) {
+  -webkit-flex-basis: $basis;
+  -moz-flex-basis: $basis;
+  -ms-flex-basis: $basis;
+  flex-basis: $basis;
+}
+
+@mixin flex-grow($grow) {
+  -webkit-flex-grow: $grow;
+  -moz-flex-grow: $grow;
+  -ms-flex-grow: $grow;
+  flex-grow: $grow;
+}
+
+@mixin flex-wrap() {
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+@mixin align-items($prop) {
+  -webkit-align-items: $prop;
+  align-items: $prop;
+}
+@mixin justify-content($prop) {
+  -webkit-justify-content: $prop;
+  justify-content: $prop;
+}
+
+@mixin flex-center() {
+  @include justify-content(center)
+}
+
+@mixin flex-vertical-center() {
+  -webkit-align-items: center;
+  align-items: center;
+}
+
+@mixin bottom-inset-up-arrow($color){
+		position: relative;
+    &:before{
+    	content: "";
+    	position: absolute;
+			width: 0;
+			height: 0;
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			border-bottom: 8px solid $color;
+			left: calc(50% - 8px);
+			bottom: 0;
+    }
+}
+
+@mixin panelize($color){
+  border:1px solid darken($color, 20%);
+  box-shadow: inset 0 1px lighten($color, 20%);
+  background-image: -webkit-linear-gradient($color, darken($color, 10%));
+  background-image: linear-gradient($color, darken($color, 10%));
+  border-radius:5px;
+  padding: 10px
+}
+
+@mixin panelize-divider($color){
+  border-top: 1px solid darken($color, 20%);
+  box-shadow: inset 0 1px lighten($color, 20%);
+}

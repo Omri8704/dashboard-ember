@@ -1,0 +1,77 @@
+            <div class="section-heading">
+              <div class="row">
+
+                <div class="col-md-4">
+                  <h3>Search Users</h3>
+                </div>
+
+                <div class="col-md-offset-4 col-md-4">
+                  <div class="inner-addon left-addon">
+                    <i class="fa fa-search"></i>
+                    {{input value=userSearchQuery key-up="searchUsers" class="form-control" placeholder="Search for an email address or name"}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <table class="amplo-table">
+              <thead>
+                <tr>
+                  <th class="select-field" ><div>Select All</div></th>
+                  <th><div>User Name</div></th>
+                  <th><div>Email</div></th>
+                  <th><div>External id</div></th>
+                </tr>
+              </thead>
+              <tbody>
+                {{#each notSelectedUsers as |user|}}
+                  <tr {{action 'selectUser' user}} class="amplo-table--user">
+                    <td class="select-field" >
+                      <input type="checkbox" value="incomplete" class="checkbox" name="check"/>
+                    </td>
+                    <td>{{user.first_name}} {{user.last_name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.external_id}}</td>
+                  </tr>
+                {{/each}}
+              </tbody>
+            </table>
+            <div {{action 'toggleExpandSelected'}} class="section-sub-heading">
+              <p class="expand-table-button">{{selectedUsers.length}} {{pluralize-word selectedUsers.length 'person' 'people'}} will receive this message. <span>(click to expand)</span></p>
+            </div>
+            {{#liquid-if selectedUsersExpanded}}
+              <table class="amplo-table">
+                <thead>
+                  <tr>
+                    <th><div>Deselect All</div></th>
+                    <th><div>User Name</div></th>
+                    <th><div>Email</div></th>
+                    <th><div>External ID</div></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {{#each selectedUsers as |user|}}
+                    <tr {{action 'deselectUser' user}} class="amplo-table--user" >
+                      <td>
+                        <input type="checkbox" value="complete" checked class="checkbox" name="check"/>
+                      </td>
+                      <td>{{user.first_name}} {{user.last_name}}</td>
+                      <td>{{user.email}}</td>
+                      <td>{{user.external_id}}</td>
+                    </tr>
+                  {{/each}}
+                </tbody>
+              </table>
+            {{/liquid-if}}
+            <div class='panel-footer'>
+              <div class="bottom-CTA">
+                <div class="row">
+                  <div class="col-md-12">
+                    <button
+                      {{action wizard.transition-to "4" }}
+                      class="btn btn-info pull-right">
+                      finished <i class="fa fa-arrow-circle-right f-1.5x"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>

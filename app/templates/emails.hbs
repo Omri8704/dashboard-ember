@@ -1,0 +1,25 @@
+<div class="product-bar settings-product">
+  <div class="product-label">
+    Emails
+  </div>
+  {{#link-to 'emails.index' class="nav-link"}}
+    <i class="fa fa-fw fa-bars"></i> List
+  {{/link-to}}
+
+  {{#link-to 'emails.templates' class='nav-link' }}
+    <i class="fa fa-fw fa-file-text-o"></i> Email Templates
+  {{/link-to}}
+
+  {{#link-to 'emails.email-lists' class="nav-link" }}
+    <i class="fa fa-fw fa-users"></i> Email Lists
+  {{/link-to}}
+
+  {{#link-to 'emails.settings' class="nav-link" }}
+    <i class="fa fa-fw fa-gears"></i> System Emails
+  {{/link-to}}
+
+</div>
+
+<div id="emails" class="main-content emails">
+  {{outlet}}
+</div>

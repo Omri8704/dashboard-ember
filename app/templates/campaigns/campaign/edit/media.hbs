@@ -1,0 +1,126 @@
+<div class="p-md-a">
+  <div class="row campaign-media">
+    <div class="col-md-12">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4>Campaign Banner Image</h4>
+        </div>
+        <div class="panel-body banner">
+          {{#if session.current_user.entity_admin}}
+            {{square-base64-cropper
+              aspectRatio="3.388"
+              property=campaign.banner
+              submitButtonText="Done"
+              saveAction="saveCampaign" }}
+          {{else}}
+            <img src="{{campaign.banner}}" alt='campaign banner' style='width:100%;'/>
+          {{/if}}
+          <br />
+          {{banger-text-input
+            property=campaign.banner_alt_text
+            label="Alt Text"
+            placeholder="Alt Text" }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row campaign-media">
+
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4>Campaign Image</h4>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-4">
+              {{square-base64-cropper
+                property=campaign.logo
+                circle=true
+                submitButtonText="save"
+                saveAction="saveCampaign" }}
+            </div>
+            <div class="col-md-8">
+              <br>
+              <br>
+              <p>Add a fundraiser image. For best results make sure the photo is at least 500x500 pixels in a .png or .jpg format.</p>
+
+              {{banger-text-input
+                property=campaign.logo_alt_text
+                label="Alt Text"
+                placeholder="Alt Text" }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h4>Video and Image Gallery</h4>
+        </div>
+        <div class="panel-body">
+          <p>Images should be atleast 680px x 400px (jpg, png). Specify videos by supplying the full YouTube or Vimeo URL.</p>
+          {{campaign-gallery-creator  campaign=campaign}}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row campaign-media">
+
+    {{#each campaignVideos as |campaignVideo|}}
+      <div class="col-md-3">
+        <div class="panel panel-info">
+          <div class="panel-body campaign-video">
+            <i class="fa fa-video-camera"></i>
+            <p>{{campaignVideo.name}}</p>
+            <div>
+              {{banger-text-input
+                property=campaignVideo.position
+                type="number"
+                label="Position"
+                placeholder="Position Number" }}
+              </div>
+              <div {{action "updateVideo" campaignVideo}} class='btn btn-primary'>
+                Save
+              </div>
+              <br />
+            <i class="fa fa-times-circle" {{action "removeVideo" campaignVideo}} ></i>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+
+    {{#each campaignImages as |campaignImage|}}
+      <div class="col-md-3">
+        <div class="panel panel-info">
+          <div class="panel-body">
+            <img src="{{campaignImage.name}}" width="100%" alt="" class="m-xs-b">
+            <div>
+            {{banger-text-input
+              property=campaignImage.alt_text
+              label="Alt Text"
+              placeholder="Alt Text" }}
+            </div>
+            <div>
+            {{banger-text-input
+              property=campaignImage.position
+              type="number"
+              label="Position"
+              placeholder="Position Number" }}
+            </div>
+            <div {{action "udateImage" campaignImage}} class='btn btn-primary'>
+              Save
+            </div>
+            <br/>
+            <i class="fa fa-times-circle" {{action "removeImage" campaignImage}} ></i>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<section class="impact-home">
+  <section class='section-highlight'>
+    <h1>Campaign Impact Reporting
+      <span class="pull-right">{{help-documentation documentationId="platform-training/reporting/snap-advance-impact-reporting-overview"}}</span>
+    </h1>
+    <p>Get a near real-time view into the impact of your major campaigns, from donors to dollars.</p>
+  </section>
+
+  <div class="flex-it align-center row p-md-l p-md-t">
+    <div class="col-md-1"><h2 class="clear-m text-primary">Filter:</h2></div>
+    <div class="col-md-4">
+      {{one-way-select
+        status
+        options=statuses
+        prompt="All Campaigns"
+        update=(action (mut status))
+        class='form-control blue-select'}}
+    </div>
+
+    <div class="col-md-4">
+      <div class="inner-addon left-addon">
+        <i class="fa fa-search"></i>
+        {{one-way-input
+          autofocus=true
+          value=search_term_debounce
+          update=(action (mut search_term_debounce))
+          placeholder="Search for a Campaign"
+          class="form-control autofocus"}}
+      </div>
+    </div>
+  </div>
+
+  <div class="panel m-md-a">
+    <div class="panel-body">
+      <table class="amplo-table">
+        <thead>
+          <tr>
+            <th><div></div></th>
+            <th><div>Parent Campaign Name</div></th>
+            <th><div>Status</div></th>
+          </tr>
+        </thead>
+        <tbody>
+          {{#if loading}}
+            <tr>
+              <td><div></div></td>
+              <td colspan=4 ><div>loading campaigns...</div></td>
+            </tr>
+          {{else}}
+            {{#each campaigns as |campaign index|}}
+              <tr>
+                <td>{{paginated-item-number page index}}</td>
+                <td>{{#link-to 'reporting.impact.show' campaign.id class='campaign-link'}}{{campaign.name}}{{/link-to}}</td>
+                <td>{{campaign.status}}</td>
+              </tr>
+            {{else}}
+              <tr>
+                <td><div></div></td>
+                <td colspan=4 ><div>0 Campaigns.</div></td>
+              </tr>
+            {{/each}}
+          {{/if}}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">
+              {{amplo-pagination
+                limit=limit
+                offset=offset
+                count=count
+                action='changeOffset'}}
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</section>

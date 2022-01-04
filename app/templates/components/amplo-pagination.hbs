@@ -1,0 +1,32 @@
+<nav>
+  <ul class="pagination">
+    {{#unless (eq  _currentPage 0) }}
+      <li {{action 'previousPage' }} class="page-item" aria-label="Previous">
+        <i class="fa fa-chevron-left"></i>
+        <span class="sr-only">Previous</span>
+      </li>
+    {{else}}
+      <li class="page-item disabled" aria-label="Previous">
+        <i class="fa fa-chevron-left"></i>
+        <span class="sr-only">Previous</span>
+      </li>
+    {{/unless}}
+    {{#each pageLinks as |link|}}
+      <li {{action 'updatePage' link.pageNumber}} class="page-item {{if link.active 'active'}}">
+        {{plus-one link.pageNumber}}
+      </li>
+    {{/each}}
+
+    {{#unless lastPage }}
+      <li {{action 'nextPage' }} class="page-item" aria-label="Next">
+        <i class="fa fa-chevron-right"></i>
+        <span class="sr-only">Next</span>
+      </li>
+    {{else}}
+      <li class="page-item disabled" aria-label="Next">
+          <i class="fa fa-chevron-right"></i>
+          <span class="sr-only">Next</span>
+      </li>
+    {{/unless}}
+  </ul>
+</nav>

@@ -1,0 +1,37 @@
+.default-border-right {
+  border-right: 1px solid $default-border-color;
+}
+
+.default-border-left {
+  border-left: 1px solid $default-border-color;
+}
+
+.default-border-top {
+  border-top: 1px solid $default-border-color;
+}
+.default-border-bottom {
+  border-bottom: 1px solid $default-border-color;
+}
+.default-border-a {
+  border: 1px solid $default-border-color;
+}
+
+.border-none {
+  border: none !important;
+}
+
+.border-top-none {
+  border-top: none !important;
+}
+
+.no-bottom-border {
+  border-bottom: none;
+}
+
+.border-radius-xs-a {
+  border-radius: 2px;
+}
+
+.border-radius-sm-a {
+  border-radius: 5px;
+}

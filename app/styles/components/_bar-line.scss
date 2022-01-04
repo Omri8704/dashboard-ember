@@ -1,0 +1,14 @@
+.bar-line {
+  height: 10px;
+  width: 0;
+
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+
+  background-color: #6EB095;
+}
+
+.bar-line-outer {
+  border: 1px solid $default-border-color;
+  border-radius: 4px;
+}

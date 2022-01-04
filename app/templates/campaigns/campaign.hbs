@@ -1,0 +1,41 @@
+<section class='section-highlight'>
+  <div>
+    <h1>
+      {{campaign.name}}
+      <span class="badge {{if (eq campaign.status "active") "badge-success" }}">{{campaign.status}}</span>
+    </h1>
+  </div>
+
+  <div>
+    {{#link-to 'campaigns.campaign.recruit' class='btn btn-default m-xs-t m-xs-b'}}
+      <i class="fa fa-address-card-o"></i> Recruit
+    {{/link-to}}
+
+    {{#if runReportEnabled}}
+      <button {{action "runReport"}} class="btn btn-primary m-xs-b m-xs-t">
+        <i class="fa fa-floppy-o"></i>
+        Run Report
+      </button>
+    {{/if}}
+
+    <a
+      href="//{{settings.current_entity.host}}/campaigns/{{campaign.slug}}"
+      target="_blank"
+      class="btn btn-success m-xs-b m-xs-t">
+      <i class="fa fa-eye"></i>
+      View Campaign
+    </a>
+    {{#if isEditActive }}
+      <button {{action "saveCampaign"}} class="btn btn-primary m-xs-b m-xs-t">
+        <i class="fa fa-floppy-o"></i>
+        Save Campaign
+      </button>
+    {{else}}
+      {{#link-to 'campaigns.campaign.edit' class='btn btn-primary m-xs-t m-xs-b'}}
+        <i class="fa fa-pencil"></i> Edit Campaign
+      {{/link-to}}
+    {{/if}}
+  </div>
+</section>
+
+{{outlet}}

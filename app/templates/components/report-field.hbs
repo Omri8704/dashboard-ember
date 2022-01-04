@@ -1,0 +1,81 @@
+<td class="{{if expandDetails 'details-spacer'}}">
+  <div class="td-flex-wrapper">
+    <div class="field-info">
+      <p>{{prettyFieldName}}</p>
+      <p>
+        {{#if selectedFormatter}}
+          {{formatter-converter selectedFormatter.value field.field.example}}
+        {{else}}
+          {{field.field.example}}
+        {{/if}}
+      </p>
+      <p>{{field.header}}</p>
+      <p>
+        {{#if selectedFormatter}}
+          {{selectedFormatter.name}}
+        {{/if}}
+      </p>
+    </div>
+    <div class="actions">
+      <a class="action pointer"{{action "showDetails"}}>
+        <i class="fa fa-fw {{if shouldShowDetails 'fa-chevron-down' 'fa-chevron-left'}}"></i>
+        details
+      </a>
+      <a class="action handle pointer">
+        <i class="fa fa-fw fa-arrow-up"></i>
+        <i class="fa fa-fw fa-arrow-down"></i>
+        sort
+      </a>
+      </div>
+      {{#if shouldShowDetails}}
+      <div class="details">
+        <p class="description"><strong>Description:</strong> {{field.field.description}}</p>
+        <div class="edit-container">
+          <div class="field-custom-header">
+            <h5>Appears on report under</h5>
+            {{input
+              class="field-title-input"
+              placeholder=prettyFieldName
+              value=(readonly field.header)
+              change=(action 'setCustomHeader')
+            }}
+          </div>
+
+          {{#if hasFormatters}}
+          <div class="field-formatters" style="margin-top: 20px;">
+            <h5>Available Formatters</h5>
+            <div class="field-formatters-options" style="display: flex; flex-direction: row; justify-content: flex-start; border-top: 1px solid #ccc; padding-top: 15px;">
+              {{one-way-select
+                selectedFormatter
+                options=availableFormatters
+                optionLabelPath="name"
+                includeBlank=true
+                prompt="Select optional display format"
+                update=(action "handleSelectFormatter")
+                class='form-control blue-select'
+              }}
+
+              {{#if selectedFormatter}}
+                <button class="button button--primary button--primary-table" {{action "handleSelectFormatter" null}}>Remove Formatter</button>
+              {{/if}}
+            </div>
+
+            {{#if selectedFormatter}}
+            <div class="field-formatters--selection-option" style="display: flex; justify-content: flex-start; flex-direction: column; margin-top: 15px;">
+              <h4>Selected Formatter: {{selectedFormatter.name}}</h4>
+              <h5>{{selectedFormatter.description}}</h5>
+              <p><em>eg: {{formatter-converter selectedFormatter.value field.field.example}}</em></p>
+            </div>
+            {{/if}}
+          </div>
+          {{/if}}
+        </div>
+        <br/>
+        <a class="action pointer remove"
+           onclick={{action 'remove'}}>
+          Remove field from report
+        </a>
+    </div>
+    {{/if}}
+  </div>
+</td>

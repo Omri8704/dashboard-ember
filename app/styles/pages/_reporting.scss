@@ -1,0 +1,17 @@
+.reporting-container .section-highlight.reporting-home {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  .header {
+    margin-bottom: 1em;
+  }
+  .navigation-container {
+    width: 35%;
+    min-width: 30em;
+    margin-bottom: 3em;
+    a.button {
+      margin-left: 0;
+    }
+  }
+}

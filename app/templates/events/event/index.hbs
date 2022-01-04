@@ -1,0 +1,15 @@
+<div class="container">
+  <br />
+  {{#if savedNotice}}
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <button {{action "removeNotice"}} type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      {{savedNotice}}
+    </div>  
+  {{/if}}
+  {{#event-form event=event 
+                submitAction="updateEvent"
+                saving=saving
+                buttonText="Update Event"}}
+
+  {{/event-form}}
+</div>

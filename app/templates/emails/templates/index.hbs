@@ -1,0 +1,95 @@
+<section class='section-highlight'>
+  <h1>Email Templates</h1>
+  {{#link-to 'emails.templates.create' class='btn btn-primary pull-right m-sm-r'}}
+    <i class='fa fa-plus'></i>&nbsp;New Template
+  {{/link-to}}
+</section>
+
+<div class="panel m-md-a">
+  <div class="panel-body">
+    {{#if entityEmailTemplates}}
+      <div class="rich-table p-md-l p-md-r">
+        <div class="rich-table-item p-md-l p-md-r p-sm-b default-border-bottom">
+          <div class="left-items">
+            <h3 style="width: 125px">preview</h3>
+            <h3>Info</h3>
+          </div>
+          <div class="right-items">
+            <h3>Actions</h3>
+          </div>
+        </div>
+
+        {{#each entityEmailTemplates as |emailTemplate| }}
+          <div class="rich-table-item default-border-bottom p-md-a">
+            <div class="left-items">
+              <img class='template-image' src={{if emailTemplate.icon emailTemplate.icon "/assets/images/template-icon.png"}} placeholder={{emailTemplate.name}} />
+              <div class='p-sm-l'>
+                <h3>
+                  {{#link-to 'emails.templates.edit' emailTemplate.id }}
+                    {{emailTemplate.name}}
+                  {{/link-to}}
+                </h3>
+
+                <div>
+                  {{#if (gt emailTemplate.mailings.length 0)}}
+                    <span>Other emails using this template: </span>
+                    {{#each emailTemplate.mailings as |mailing index|}}
+                      {{#link-to 'emails.email.message' mailing}}
+                        {{#if (last-of-array emailTemplate.mailings.length index)}}
+                          {{mailing.name}}
+                        {{else}}
+                          {{mailing.name}},
+                        {{/if}}
+                      {{/link-to}}
+                    {{/each}}
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+
+            <div class="right-items">
+              {{#link-to 'emails.templates.edit' emailTemplate.id}}
+                <i class="fa fa-fw fa-pencil"></i> Edit
+              {{/link-to}}
+              <br />
+              <a class="pointer" {{action "cloneTemplate" emailTemplate }}>
+                <i class="fa fa-fw fa-clone"></i> Clone
+              </a>
+              <br />
+              <a class='pointer' {{action "deleteTemplate" emailTemplate}}>
+                <i class="fa fa-fw fa-trash"></i> Delete
+              </a>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    {{amplo-pagination
+      limit=limit
+      count=templateCount
+      offset=offset
+      action='changeOffset'}}
+
+  {{else}}
+    {{#each defaultEmailTemplates as |emailTemplate|}}
+      <div class="template-list-item">
+        <div class="template">
+          <h3>{{emailTemplate.name}}</h3>
+          <div
+            {{action "cloneTemplate" emailTemplate}}
+            class="email-template-image-container">
+
+            <img
+              class='template-image'
+              src={{emailTemplate.icon}}
+              placeholder={{emailTemplate.name}} />
+
+            <div class="email-template-hover">
+              <a href="">Use {{emailTemplate.name}}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  {{/if}}
+</div>
+</div>
