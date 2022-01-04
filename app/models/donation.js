@@ -38,6 +38,8 @@ export default DS.Model.extend(Validations, {
     defaultValue: true
   }),
   status: string,
+  first_name: string,
+  last_name: string,
   refundable: boolean,
   don_type: string,
   note: string,

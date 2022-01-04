@@ -1,10 +1,56 @@
+<!-- IMPORTANT: REMOVE THESE SCRIPTS FOR PRODUCTION dashboard.js FILE -->
+<script>
+  function cdgo_edit(i,t) {
+    let id = t.closest('tr').getAttribute('data-id')
+    $(`#col_${i}_${id}`).hide();
+    $(`#alt_${i}_${id}`).show();
+  }
+
+  function cdgo_displayname_cancel(i,t) {
+    let id = t.closest('tr').getAttribute('data-id')
+    $(`#col_${i}_${id}`).show();
+    $(`#alt_${i}_${id}`).hide();
+  }
+
+  function cdgo_displayname_submit(i,t) {
+    let id = t.closest('tr').getAttribute('data-id')
+    $(`#col_${i}_${id}`).show();
+    $(`#alt_${i}_${id}`).hide();
+    alert(`submit ${id}`)
+  }
+
+  function cdgo_public(i, t, bool) {
+    let id = t.closest('tr').getAttribute('data-id')
+    $(`#col_${i}_${id}`).show();
+    $(`#alt_${i}_${id}`).hide();
+    alert(`${bool} ${id}`)
+  }
+
+  function cdgo_campaign_cancel(i,t) {
+    let id = t.closest('tr').getAttribute('data-id')
+    $(`#col_${i}_${id}`).show();
+    $(`#alt_${i}_${id}`).hide();
+  }
+
+  function cdgo_campaign_submit(i,t) {
+    let id = t.closest('tr').getAttribute('data-id')
+    $(`#col_${i}_${id}`).show();
+    $(`#alt_${i}_${id}`).hide();
+    alert(`submit ${id}`)
+  }
+
+  function cdgo_resend_receipt(t) {
+    let id = t.closest('tr').getAttribute('data-id')
+    alert(`send receipt ${id}`)
+  }
+</script>
+
 <section class='section-highlight'>
   <h1>Donations</h1>
   {{#if session.current_user.campaign_admin}}
     <button {{action "toggleShowUploadForm"}} class="btn btn-primary">upload donations</button>
   {{/if}}
 </section>
-
 
 {{#liquid-if showUploadForm}}
   <div class="p-md-a">
@@ -79,6 +125,7 @@
             <thead>
               <tr>
                 <th><div>Donor</div></th>
+                <th><div>Display Name</div></th>
                 <th><div>Amount</div></th>
                 <th><div>Date</div> </th>
                 <th><div>Public</div></th>
@@ -92,19 +139,56 @@
             <tbody>
               {{#each sortedDonations as |donation|}}
                 {{#if (not-eq donation.don_type "hist")}}
-                  <tr class="donation" >
+                  <tr class="donation" data-id="{{donation.id}}">
                     <td>{{donation.user.first_name}} {{donation.user.last_name}} {{donation.user.email}}</td>
+                    <td>
+                      <div id="col_1_{{donation.id}}">
+                        <i class="fa fa-edit pointer" onclick="cdgo_edit(1,this)"></i>&nbsp;
+                        <span id="display_name_{{donation.id}}">{{donation.first_name}} {{donation.last_name}}</span>
+                      </div>
+                      <div id="alt_1_{{donation.id}}" style="display:none;color:black">
+                       <input id="input_first_name_{{donation.id}}" data="{{donation.first_name}}" value="{{donation.first_name}}"><br>
+                       <input id="input_last_name_{{donation.id}}" data="{{donation.last_name}}" value="{{donation.last_name}}"><br>
+                       <button onclick="cdgo_displayname_cancel(1,this)">Cancel</button>
+                       <button onclick="cdgo_displayname_submit(1,this)">Submit</button>
+                      </div>
+                    </td>
                     <td>${{donation.amount}}</td>
                     <td>{{pretty-date donation.created_at settings.current_entity.date_format}}</td>
-                    <td>{{donation.public}}</td>
+                    <td>
+                      <div id="col_2_{{donation.id}}">
+                        <i class="fa fa-edit pointer" onclick="cdgo_edit(2,this)"></i>&nbsp;
+                        <span id="public_{{donation.id}}">{{donation.public}}</span>
+                      </div>
+                      <div id="alt_2_{{donation.id}}" style="display:none;color:black">
+                        <button onclick="cdgo_public(2, this, true)">True</button><br>
+                        <button onclick="cdgo_public(2, this, false)">False</button>
+                      </div>
+                    </td>
                     <td>{{donation.don_type}}</td>
                     <td>{{donation.status}}</td>
                     <td>{{donation.cause_names}}</td>
-                    <td> {{#link-to 'campaigns.campaign.edit' donation.campaign}} {{donation.campaign.name}} {{/link-to}}</td>
+                    <td>
+                      <div id="col_3_{{donation.id}}">
+                        <i class="fa fa-edit pointer" onclick="cdgo_edit(3,this)"></i>&nbsp;
+                        {{#link-to 'campaigns.campaign.edit' donation.campaign}}<span id="campaign_name_{{donation.id}}">{{donation.campaign.name}}</span>{{/link-to}}
+                      </div>
+                      <div id="alt_3_{{donation.id}}" style="display:none">
+                        Campaign ID<br>
+                        <span style="color:black">
+                          <input id="input_beneficiary_id_{{donation.id}}" data="{{donation.campaign.id}}" value="{{donation.campaign.id}}"><br>
+                          <button onclick="cdgo_campaign_cancel(3, this)">Cancel</button>
+                          <button onclick="cdgo_campaign_submit(3, this)">Submit</button>
+                        </span>
+                      </div>
+                    </td>
                     <td>
                       {{#if (eq donation.refundable true)}}
-                        <button {{action 'confirmRefund' donation}} class="refund btn">REFUND</button>
+                        <i {{action 'confirmRefund' donation}} class="fa fa-exclamation-triangle"></i>
+                      {{else}}
+                        <i class="fa fa-exclamation-triangle" style="visibility:hidden"></i>
                       {{/if}}
+                      <i class="fa fa-paper-plane-o" style="margin-left:12px" onclick="cdgo_resend_receipt(this)"></i>
                     </td>
                   </tr>
                 {{/if}}
