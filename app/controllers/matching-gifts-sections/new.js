@@ -3,7 +3,7 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   notify: Ember.inject.service(),
   settings: Ember.inject.service(),
-  selectionStrategyOptions: ['campaign', 'manual'],
+  selectionStrategyOptions: ['automatic', 'manual'],
 
   matchingGifts: (function () {
     return this.store.findAll('matching-gift');
@@ -14,7 +14,7 @@ export default Ember.Controller.extend({
   }).property(),
 
   isCampaign: (function () {
-    return this.get('matchingGiftsSection.match_selection_strategy') == 'campaign';
+    return false; // campaign has been deprecated
   }).property(),
 
   campaignOptions: Ember.computed('settings.current_entity.campaigns', function () {

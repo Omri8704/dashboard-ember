@@ -6,10 +6,10 @@ export default Ember.Controller.extend({
   notify: Ember.inject.service(),
   matchingGiftsSection: Ember.computed.alias('model'),
   session: Ember.inject.service(),
-  selectionStrategyOptions: ['campaign', 'manual'],
+  selectionStrategyOptions: ['automatic', 'manual'],
 
   isCampaign: (function () {
-    return this.get('matchingGiftsSection.match_selection_strategy') == 'campaign';
+    return false; // campaign has been deprecated
   }).property(),
 
   campaignOptions: Ember.computed('settings.current_entity.campaigns', function () {
