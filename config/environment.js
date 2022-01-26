@@ -46,13 +46,13 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    // ENV.host = 'http://local.amploadvance.com:3003/';
+    // ENV.host = 'http://localhost:3003/';
     ENV.host = '';
     ENV.contentSecurityPolicy = {
       'default-src': "'none'",
       'script-src': "'self' 'unsafe-inline' 'unsafe-eval' https://loader.getbee.io/v1/api/ https://cdn.mxpnl.com www.google-analytics.com", // Allow scripts from https://cdn.mxpnl.com
       'font-src': "'self' https://maxcdn.bootstrapcdn.com/ https://gw-advance-prod-us-east-1.s3.amazonaws.com/", // Allow fonts to be loaded from http://fonts.gstatic.com
-      'connect-src': "'self'  https://*.getbee.io/ http://local.amploadvance.com:3003 http://local.amploadvance.com:4200 www.google-analytics.com https://*.amazonaws.com",
+      'connect-src': "'self'  https://*.getbee.io/ http://localhost:3003 http://localhost:4200 www.google-analytics.com https://*.amazonaws.com",
       'img-src': "'self' https://*.s3.amazonaws.com http://lorempixel.com data:",
       'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com https://maxcdn.bootstrapcdn.com/", // Allow inline styles and loaded CSS from http://fonts.googleapis.com
       'media-src': "'self'",
@@ -64,7 +64,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'development') {
-    ENV.host = 'http://local.amploadvance.com:3003/';
+    ENV.host = 'http://localhost:3003/';
 
     ENV['ember-cli-mirage'] = {
       enabled: false
@@ -83,7 +83,7 @@ module.exports = function(environment) {
       'default-src': "'none'",
       'script-src': "'self' https://cdn.mxpnl.com", // Allow scripts from https://cdn.mxpnl.com
       'font-src': "'self' https://maxcdn.bootstrapcdn.com/ https://gw-advance-prod-us-east-1.s3.amazonaws.com/", // Allow fonts to be loaded from http://fonts.gstatic.com
-      'connect-src': "'self' http://local.amploadvance.com:3003",
+      'connect-src': "'self' http://localhost:3003",
       'img-src': "'self' 'https://*.s3.amazonaws.com' 'http://lorempixel.com'",
       'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com https://maxcdn.bootstrapcdn.com/", // Allow inline styles and loaded CSS from http://fonts.googleapis.com
       'media-src': "'self'"
