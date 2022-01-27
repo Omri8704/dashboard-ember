@@ -29,6 +29,14 @@
             prompt="--select--"
             updateSelected=(action "updateSelectionStrategy")}}
           </div>
+          <div class="col-md-4 form-group">
+            {{banger-text-input
+            label="Section Admin Email"
+            property=matchingGiftsSection.email_failed_charge
+            errors=matchingGiftsSection.validations.attrs.email_failed_charge.messages
+            options=selectionStrategyOptions
+            placeholder="example@domain.com" }}
+          </div>
         </div>
         {{#if isCampaign}}
           <div class="row">
