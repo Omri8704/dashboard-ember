@@ -71,7 +71,7 @@
           <div class='modal-body'>
             <p>
               You are about to send the "<b>{{mailing.name}}</b>" email using the
-              "<b>{{mailing.emailTemplate.name}}</b>" template out to an audience of approximately <b class="callout">{{estimate}} Users</b>
+              "<b>{{mailing.emailTemplate.name}}</b>" template out to an audience of approximately <b class="callout-dashboard">{{estimate}} Users</b>
               {{#if mailing.sent_at }}
                 <b>{{time-ago-in-words mailing.sent_at}}</b> (<b>{{pretty-date mailing.sent_at settings.current_entity.date_format}}</b>)
               {{else}}
