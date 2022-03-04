@@ -38,9 +38,9 @@ export default Ember.Controller.extend({
 
     addCustomField(ticketLevel, customField) {
       customField.set('entity', this.get('settings.current_entity'))
+      ticketLevel.get('entityCustomFields').addObject(customField)
 
       return customField.save().then( () => {
-        ticketLevel.get('entityCustomFields').addObject(customField)
         get(this, 'notify').success('Custom field saved successfully!')
         //TODO temp for embedded records bug where after saving ember data doesn't reconcile
         // the new record with an id and the old record without the id
