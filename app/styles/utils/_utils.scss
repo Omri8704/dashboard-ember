@@ -10,6 +10,10 @@
   text-transform: capitalize !important;
 }
 
+.none-text-transform {
+  text-transform: none !important;
+}
+
 .color-white {
   color: #fff;
 }
@@ -82,16 +86,17 @@
   width: 200px;
   height: 200px;
 }
-.max-width{
+
+.max-width {
   width: 100%;
   min-width: 100%;
 }
 
-.as-input{
+.as-input {
   display: block;
   width: 100%;
 
-  button{
+  button {
     width: 100%;
     text-align: left;
 

@@ -8,6 +8,9 @@ export default Controller.extend({
   limit: 10,
   offset: 0,
   segmentFilter: null,
+  openFilesPassword: Ember.computed('session', function () {
+    return this.get('session.current_user.open_files_password')
+  }),
   count: Ember.computed('users', function(){
     return this.get('users.meta.count')
   }),

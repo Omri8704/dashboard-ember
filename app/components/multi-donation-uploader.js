@@ -7,6 +7,11 @@ import request from '../utils/ajax-promise'
 export default Ember.Component.extend({
   notify: Ember.inject.service(),
   settings: Ember.inject.service(),
+  session: Ember.inject.service(),
+
+  openFilesPassword: Ember.computed('session', function () {
+    return this.get('session.current_user.open_files_password')
+  }),
 
   setError(error) {
     this.set('donationError', error);

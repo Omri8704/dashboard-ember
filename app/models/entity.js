@@ -57,6 +57,7 @@ export default Model.extend({
   credit_card_processor: string,
   cc_proc_login: string,
   cc_proc_key: string,
+  open_files_password: string,
   send_email_from_host: string,
   can_update_entity: bool,
   can_create_campaign: bool,

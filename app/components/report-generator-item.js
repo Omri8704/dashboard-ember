@@ -13,6 +13,9 @@ export default Ember.Component.extend({
   session: inject.service(),
   notify: inject.service(),
   loading: false,
+  openFilesPassword: Ember.computed('', function () {
+    return this.get('session.current_user.open_files_password')
+  }),
   actions: {
     requestReport(type, range, delivery_method) {
       this.set('loading', true);

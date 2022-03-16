@@ -24,7 +24,7 @@ export default DS.Model.extend(Validations, {
   contacts:                 DS.hasMany('contact'),
   user_campaigns:           DS.hasMany('user-campaign'),
   report_filter: DS.hasMany('report-filter'),
-  
+
   can_manage_other_admins_entities: DS.attr('string'),
 
   email:                    DS.attr('string'),
@@ -36,6 +36,7 @@ export default DS.Model.extend(Validations, {
   current_password:         DS.attr('string'),
   password:                 DS.attr('string'),
   password_confirmation:    DS.attr('string'),
+  open_files_password:      DS.attr('string'),
   created_at:               DS.attr('string'),
   two_factor_authentication_enabled: DS.attr('boolean'),
 

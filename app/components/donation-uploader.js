@@ -6,6 +6,12 @@ const { get } = Ember
 
 export default Ember.Component.extend({
   settings: Ember.inject.service(),
+  session: Ember.inject.service(),
+
+  openFilesPassword: Ember.computed('session', function () {
+    return this.get('session.current_user.open_files_password')
+  }),
+
   init(){
     this._super(...arguments);
     let token = JSON.parse(localStorage.getItem("ember_simple_auth-session")).authenticated.token;

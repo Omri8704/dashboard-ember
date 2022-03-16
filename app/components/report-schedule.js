@@ -80,6 +80,10 @@ export default Ember.Component.extend({
     return this.get('nakedCampaigns').find( (campaign) => campaign.get('id') === id)
   },
 
+  openFilesPassword: Ember.computed('settings', function () {
+    return this.get('settings.current_entity.open_files_password')
+  }),
+
   init() {
     this._super(...arguments)
 

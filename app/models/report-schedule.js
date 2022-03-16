@@ -32,7 +32,8 @@ export default DS.Model.extend(Validations, {
   donationPeriod: DS.attr('string'),
   donationPeriodTimestampRangeStartsAt: DS.attr('string'),
   donationPeriodTimestampRangeEndsAt: DS.attr('string'),
-  donationBeneficiaryIds: DS.attr({ defaultValue: function() { return [] } }),
+  donationBeneficiaryIds: DS.attr({ defaultValue: function () { return [] } }),
+  openFilesPassword: DS.attr('string'),
 
   lastRunAt: DS.attr('string'),
 
