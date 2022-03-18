@@ -25,7 +25,7 @@ export default Component.extend({
     this.$('.wysiwyg-textarea').summernote({
       height: _height,
       focus: _focus,
-      toolbar: [['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']], ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['height', ['height']], ['table', ['table']], ['insert', ['link', 'picture', 'video', 'hr']]],
+      toolbar: [['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']], ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['height', ['height']], ['table', ['table']], ['insert', ['link', 'picture', 'video', 'hr']], ['codeview', ['codeview']]],
       airMode: _airMode
     });
 

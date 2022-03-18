@@ -60,10 +60,6 @@ module.exports = function(defaults) {
       enabled: !!isProductionLikeBuild
     },
     nodeAssets: {
-      summernote: {
-        srcDir: 'dist',
-        import: ['summernote.js', 'summernote.css']
-      },
       cropper: {
         srcDir: 'dist',
         import: ['cropper.js', 'cropper.min.css']
