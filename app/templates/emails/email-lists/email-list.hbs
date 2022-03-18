@@ -48,6 +48,7 @@
 
           {{#liquid-unless drawer class="email-list-selectors"}}
             <h3 class="control-label m-md-b m-sm-t p-sm-b default-border-bottom pointer"><a {{action (pipe (toggle "addingUser" this) (toggle "drawer" this)) }}><i class="fa fa-search"></i> Search and Add Individual Users <i class="fa fa-chevron-right"></i></a></h3>
+            <label>Password for open the attachment files: {{ openFilesPassword }}</label>
             <h3 class="control-label m-md-b m-sm-t p-sm-b default-border-bottom pointer"><a {{action (pipe (toggle "addingFile" this) (toggle "drawer" this)) }}><i class="fa fa-upload"></i> Upload Users By File <i class="fa fa-chevron-right"></i></a></h3>
             <h3 class="control-label m-sm-b m-sm-t p-sm-b default-border-bottom pointer"><a {{action (pipe (toggle "addingFilter" this) (toggle "drawer" this)) }}><i class="fa fa-filter"></i> Select Users By Filter <i class="fa fa-chevron-right"></i></a></h3>
           {{/liquid-unless}}

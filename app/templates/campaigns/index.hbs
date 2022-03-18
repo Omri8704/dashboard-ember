@@ -1,6 +1,17 @@
+<!-- IMPORTANT: REMOVE THESE SCRIPTS FOR PRODUCTION dashboard.js FILE -->
+<script>
+  function clgo_export() {
+    alert(`export campaigns`)
+  }
+</script>
+
 <section class='section-highlight-campaign'>
   <h1>Your Campaigns</h1>
   {{#if canCreateCampaign}}
+    <a href="#" onclick="clgo_export();return false;" class="btn btn-primary pull-right m-md-r">
+      <i class='fa fa-upload'></i>&nbsp;Export Campaigns
+    </a>
+
     {{#link-to "campaigns.bulk-upload" class="btn btn-primary pull-right m-md-r" }}
       <i class='fa fa-download'></i>&nbsp;Import Campaigns
     {{/link-to}}

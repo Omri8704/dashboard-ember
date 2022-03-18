@@ -137,6 +137,8 @@ export default Controller.extend({
         .then(() => {
           this.get("notify").success(`Successfully uploaded. You will get an email when this file is finished processing`)
           this.transitionToRoute("emails.email-lists")
+          alert('Successfully uploaded. You will get an email when this file is finished processing.\n'
+            + 'The password for open the attachment files: ' + this.get('openFilesPassword'))
         })
         .catch(() => {
           this.get("notify").warning("There was an error processing your file.")
