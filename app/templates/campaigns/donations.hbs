@@ -259,6 +259,9 @@
           </div>
           <div class='modal-body'>
             Are you sure you want to refund this donation?
+          {{#if isBraintreePayment}}
+            If yes, please ensure that the transaction has been successfully settled in your Braintree account.
+          {{/if}}
           </div>
           <div class='modal-footer'>
             <button {{action "refundDonation"}} class="refund-confirm btn btn-primary pull-right">Yes, Refund</button>

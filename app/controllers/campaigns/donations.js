@@ -60,6 +60,12 @@ export default Controller.extend({
   resetOffset() {
     this.set("offset", 0);
   },
+
+  isBraintreePayment: computed("settings.current_entity.features_enabled", function () {
+    const featuresEnabled = this.get("settings.current_entity.features_enabled")
+    return featuresEnabled.includes('braintree_payment');
+  }),
+
   actions: {
     changeOffset(offset){
       this.set("offset", offset)
