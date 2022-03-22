@@ -131,14 +131,15 @@ export default Controller.extend({
     filePicked(file) {
       this.set("file", file)
     },
+    toggleUploadedModal() {
+      this.toggleProperty('uploadedModal')
+      this.transitionToRoute("emails.email-lists")
+    },
     uploadUsersS3() {
       this.set("uploading", true)
       this.get('model').bulkUploadS3(this.get("file"), this.get('use_new'))
         .then(() => {
-          this.get("notify").success(`Successfully uploaded. You will get an email when this file is finished processing`)
-          this.transitionToRoute("emails.email-lists")
-          alert('Successfully uploaded. You will get an email when this file is finished processing.\n'
-            + 'The password for open the attachment files: ' + this.get('openFilesPassword'))
+          this.toggleProperty("uploadedModal");
         })
         .catch(() => {
           this.get("notify").warning("There was an error processing your file.")

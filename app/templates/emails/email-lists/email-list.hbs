@@ -187,3 +187,30 @@
     </div>
   </div>
 </section>
+
+{{#if uploadedModal}}
+  {{#modal-dialog
+    close="confirmNewEmail"
+    containerClassNames='modal-wrap'
+    overlayClassNames='modal-overlay'}}
+    <div class='modal show fade in'>
+      <div class='modal-dialog'>
+        <div class='modal-content'>
+          <div class='modal-header'>
+            <button class='close' {{action 'toggleUploadedModal' }}><span aria-hidden="true"><i
+                  class="fa fa-times-circle-o"></i></span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title">Successfully uploaded</h4>
+          </div>
+          <div class='modal-body'>
+            You will get an email when this file is finished processing.
+            The password for open the attachment files: {{openFilesPassword}}
+          </div>
+          <div class='modal-footer'>
+            <button class="btn btn-info pull-right" {{action 'toggleUploadedModal' }}>Go Back</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/modal-dialog}}
+{{/if}}
+
