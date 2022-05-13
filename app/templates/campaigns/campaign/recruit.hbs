@@ -1,3 +1,10 @@
+<!-- IMPORTANT: REMOVE THESE SCRIPTS FOR PRODUCTION dashboard.js FILE -->
+<script>
+  function clgo_export_user_campaigns() {
+    alert(`export user_campaigns`)
+  }
+</script>
+
 <div class='p-md-a'>
   <div class="panel">
     <div class="panel-heading">
@@ -8,6 +15,13 @@
     </div>
   </div>
 </div>
+
+<div class="text-right">
+  <a href="#" onclick="clgo_export_user_campaigns();return false;" class="btn btn-primary m-md-r">
+    <i class='fa fa-upload'></i>&nbsp;Export Leaders and Participants
+  </a>
+</div>
+
 <div class="panel m-md-a">
   <div class="panel-body">
     <table class="amplo-table">
