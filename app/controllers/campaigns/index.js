@@ -8,6 +8,12 @@ const {
 } = Ember
 
 export default Controller.extend({
+  session: Ember.inject.service(),
+
+  openFilesPassword: Ember.computed('session', function () {
+    return this.get('session.current_user.open_files_password')
+  }),
+
   queryParams: ['limit', 'offset', 'search_term', 'status'],
   limit: 10,
   offset: 0,
