@@ -6,6 +6,11 @@ import {
 
 export default Ember.Controller.extend({
   notify: Ember.inject.service(),
+  session: Ember.inject.service(),
+
+  openFilesPassword: Ember.computed('session', function () {
+    return this.get('session.current_user.open_files_password')
+  }),
 
   queryParams: ['limit', 'offset'],
   limit: 10,
