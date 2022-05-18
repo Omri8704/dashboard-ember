@@ -144,7 +144,11 @@
                     <td>
                       <div id="col_1_{{donation.id}}">
                         <i class="fa fa-edit pointer" onclick="cdgo_edit(1,this)"></i>&nbsp;
-                        <span id="display_name_{{donation.id}}">{{donation.first_name}} {{donation.last_name}}</span>
+                        {{#if (or donation.first_name donation.last_name)}}
+                          <span id="display_name_{{donation.id}}">{{donation.first_name}} {{donation.last_name}}</span>
+                        {{else}}
+                          <span id="display_name_{{donation.id}}">{{donation.user.first_name}} {{donation.user.last_name}}</span>
+                        {{/if}}
                       </div>
                       <div id="alt_1_{{donation.id}}" style="display:none;color:black">
                        <input id="input_first_name_{{donation.id}}" data="{{donation.first_name}}" value="{{donation.first_name}}"><br>
