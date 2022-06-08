@@ -7,50 +7,6 @@
   {{/link-to}}
 </section>
 
-<div class="m-md-a">
-  <div class="row flex-it center-it stats">
-    <div class="stat">
-      <i class="fa fa-envelope"></i>
-      <span>Total Sent:</span> {{shorthand-number totals.total_email_sent}}
-    </div>
-    <div class="stat">
-      <i class="fa fa-fw fa-envelope-open"></i>
-      <span>Total Opens:</span> {{shorthand-number totals.total_opens}}
-    </div>
-    <div class="stat">
-      <i class="fa fa-mouse-pointer"></i>
-      <span>Total Clicks:</span> {{shorthand-number totals.total_clicks}}
-    </div>
-  </div>
-</div>
-
-<section class="m-md-a">
-  <h3>
-    All Mailing Data&nbsp;&nbsp;
-    <div class="btn-group">
-      <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{chartDataResolution}} Day View <i class="fa fa-fw fa-caret-down"></i>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a {{action "changeChartResolution" 7}}>Last 7 Days</a></li>
-        <li><a {{action "changeChartResolution" 30}}>Last 30 Days</a></li>
-        <li><a {{action "changeChartResolution" 90}}>Last 90 Days</a></li>
-        <li><a {{action "changeChartResolution" 365}}>Last Year</a></li>
-      </ul>
-    </div>
-  </h3>
-</section>
-
-<section class="email-stats m-md-r m-md-l m-md-b">
-  {{amplo-highcharts
-    content=chartData
-    chartOptions=chartOptions
-    theme=theme
-  }}
-</section>
-
-
-
 <div class="flex-it align-center row p-md-l p-md-t">
   <div class="col-md-1"><h2 class="clear-m text-primary">Filter:</h2></div>
   <div class="col-md-4">
@@ -91,7 +47,7 @@
         {{#each model.mailings as |email index|}}
           <tr>
             <td class="amplo-table-data">{{paginated-item-number page index}}</td>
-            <td class="amplo-table-data">{{#link-to 'emails.email' email class='email-link'}}{{email.name}}{{/link-to}}</td>
+            <td class="amplo-table-data">{{email.name}}</td>
             <td class="amplo-table-data">{{email.status}}</td>
             <td class="amplo-table-data">{{email.total_sends}}</td>
             <td class="amplo-table-data">{{email.promotion_type}}</td>
@@ -99,7 +55,7 @@
             <td class="amplo-table-data">
               <div class="amplo-table-actions">
                 {{#link-to 'emails.email' email class='email-link'}}{{#tool-tipster content="Edit"}}<i class='fa fa-edit pointer'></i>{{/tool-tipster}}{{/link-to}} |
-                {{#tool-tipster content="Clone"}}<i {{action "cloneEmail" email}} class='fa fa-clone pointer'></i>{{/tool-tipster}} 
+                {{#tool-tipster content="Clone"}}<i {{action "cloneEmail" email}} class='fa fa-clone pointer'></i>{{/tool-tipster}}
                 {{#unless (or (eq email.status "sending") (eq email.status "sent"))}}
                   |{{#tool-tipster content="Remove"}}<i {{action "removeEmail" email}} class='fa fa-trash pointer'></i>{{/tool-tipster}}
                 {{/unless}}
