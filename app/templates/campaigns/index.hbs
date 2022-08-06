@@ -3,19 +3,11 @@
   function clgo_export() {
     alert(`export campaigns`)
   }
-
-  function clgo_export_user_campaigns(id) {
-    alert(`export user campaigns - ${id}`)
-  }
 </script>
 
 <section class='section-highlight-campaign'>
   <h1>Your Campaigns</h1>
   {{#if canCreateCampaign}}
-      <a href="#" onclick="clgo_export_user_campaigns('all');return false;" class="btn btn-primary m-md-r">
-        <i class='fa fa-upload'></i>&nbsp;Export Ambassadors
-      </a>
-
       <a href="#" onclick="clgo_export();return false;" class="btn btn-primary pull-right m-md-r">
         <i class='fa fa-upload'></i>&nbsp;Export Campaigns
       </a>
@@ -29,11 +21,6 @@
       {{/link-to}}
   {{/if}}
 </section>
-{{#if canCreateCampaign}}
-  <div style="text-align:right; font-weight:bold; margin-top: -10px; padding-right: 40px;">
-    Password to open file attachments: {{ openFilesPassword }}
-  </div>
-{{/if}}
 
 <div class="flex-it align-center row p-md-l p-md-t">
   <div class="col-md-1"><h2 class="clear-m text-primary">Filter:</h2></div>
