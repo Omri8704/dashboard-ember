@@ -39,6 +39,11 @@
     alert(`submit ${id}`)
   }
 
+  function cdgo_refund_lookup(t) {
+    let id = t.closest('tr').getAttribute('data-id')
+    alert(`refund lookup ${id}`)
+  }
+
   function cdgo_resend_receipt(t) {
     let id = t.closest('tr').getAttribute('data-id')
     alert(`send receipt ${id}`)
@@ -188,7 +193,7 @@
                     </td>
                     <td>
                       {{#if (eq donation.refundable true)}}
-                        <i {{action 'confirmRefund' donation}} class="fa fa-exclamation-triangle"></i>
+                        <i class="fa fa-exclamation-triangle" onclick="cdgo_refund_lookup(this)"></i>
                       {{else}}
                         <i class="fa fa-exclamation-triangle" style="visibility:hidden"></i>
                       {{/if}}
