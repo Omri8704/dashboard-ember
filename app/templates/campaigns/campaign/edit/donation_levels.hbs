@@ -5,10 +5,10 @@
         <div class="panel panel-info max-width">
           <div class="panel-heading">
             <h4>
-              Donation Level {{plus-one index}}
+              Incentive Level {{plus-one index}}
               {{#tool-tipster
                 classNames='pull-right'
-                content="Delete Donation Level."
+                content="Delete Incentive Level."
                 position='top'
                 delay=0
                 theme='tooltipster-noir'
@@ -21,13 +21,7 @@
 
           <div class="panel-body">
             <div class="row image-container">
-              <div class="col-md-5">
-                {{square-base64-cropper
-                  property=donationLevel.image
-                  submitButtonText="Done"
-                  circle=true }}
-              </div>
-              <div class="col-md-7" style="position:relative;">
+              <div class="col-md-12" style="position:relative;">
                 {{banger-text-input
                   property=donationLevel.amount
                   errors=donationLevel.validations.attrs.amount.messages
@@ -40,35 +34,19 @@
                   label="Donation Reward"
                   placeholder="e.g You will receive a t-shirt" }}
 
-                {{#tool-tipster
-                content="<p style='width:200px;'>Set how many months you want to split the gift over. For example if you Enter 10= The donor will split their $100 gift over 10 months and pay $10/Month</p>"
-                  position='top'
-                  contentAsHTML=true
-                  delay=0
-                  theme='tooltipster-noir'
-                  updateAnimation=false}}
-                  {{banger-text-input
-                    property=donationLevel.occurrences
-                    errors=donationLevel.validations.attrs.occurrences.messages
-                    label="Subscription Split"
-                    placeholder="ie. 12" }}
-                {{/tool-tipster}}
-
-                <div class="label-container">
-                  {{editable-label property=donationLevel.impact_head}}
-                </div>
                 {{banger-text-input
                   property=donationLevel.impact
                   errors=donationLevel.validations.attrs.impact.messages
+                  label="Description"
                   placeholder="e.g New football jerseys for our team" }}
-                  {{#if donationLevel.hasDirtyAttributes }}
 
-                    <button {{action "saveCampaign" donationLevel}}
-                      disabled={{if donationLevel.isSaving "disabled"}}
-                      class="btn btn-info pull-right">
-                      {{if campaign.isSaving "saving" "update"}}
-                    </button>
-                  {{/if}}
+                {{#if donationLevel.hasDirtyAttributes }}
+                  <button {{action "saveCampaign" donationLevel}}
+                    disabled={{if donationLevel.isSaving "disabled"}}
+                    class="btn btn-info pull-right">
+                    {{if campaign.isSaving "saving" "update"}}
+                  </button>
+                {{/if}}
               </div>
             </div>
           </div>
@@ -79,16 +57,11 @@
     <div class="flex-item form-group">
       <div class="panel panel-new-record max-width">
         <div class="panel-heading">
-          <h4>Create New Donation Level</h4>
+          <h4>Create New Incentive Level</h4>
         </div>
         <div class="panel-body">
           <div class="row image-container">
-            <div class="col-md-5">
-              {{square-base64-cropper
-                property=newDonationLevel.image
-                circle=true }}
-            </div>
-            <div class="col-md-7">
+            <div class="col-md-12">
               {{banger-text-input
                 property=newDonationLevel.amount
                 errors=newDonationLevel.validations.attrs.amount.messages
@@ -101,29 +74,14 @@
                 label="Donation Reward"
                 placeholder="e.g You will receive a t-shirt" }}
 
-                {{#tool-tipster
-                content="<p style='width:200px;'>Set how many months you want to split the gift over. For example if you Enter 10= The donor will split their $100 gift over 10 months and pay $10/Month</p>"
-                  position='top'
-                  contentAsHTML=true
-                  delay=0
-                  theme='tooltipster-noir'
-                  updateAnimation=false}}
-                  {{banger-text-input
-                    property=newDonationLevel.occurrences
-                    errors=newDonationLevel.validations.attrs.occurrences.messages
-                    label="Subscription Split"
-                    placeholder="ie. 12" }}
-                {{/tool-tipster}}
-
-              <div class="label-container">
-                {{editable-label property=newDonationLevel.impact_head}}
-              </div>
               {{banger-text-input
                 property=newDonationLevel.impact
                 errors=newDonationLevel.validations.attrs.impact.messages
+                label="Description"
                 placeholder="e.g New football jerseys for our team" }}
-                <button {{action "addDonationLevel" newDonationLevel}}
-                  class="btn btn-info pull-right">Add Donation Level</button>
+
+              <button {{action "addDonationLevel" newDonationLevel}}
+                class="btn btn-info pull-right">Add Incentive Level</button>
             </div>
           </div>
         </div>
