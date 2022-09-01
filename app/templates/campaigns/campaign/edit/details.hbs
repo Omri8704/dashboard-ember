@@ -14,13 +14,6 @@
             label="Campaign Name"
             placeholder="Campaign Name" }}
         </div>
-        <div class="col-md-6">
-          {{banger-text-input
-            property=campaign.quote
-            errors=campaign.validations.attrs.quote.messages
-            label="Campaign Quote"
-            placeholder="Campaign Quote" }}
-          </div>
       </div>
       {{#if session.current_user.entity_admin}}
         <div class="row">
