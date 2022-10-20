@@ -17,12 +17,12 @@
           validation_errors=model.validations.attrs.last_name.messages
           label="Last Name"
           placeholder="Last Name" }}
-        {{banger-text-input
-          property=model.email
-          errors=model.errors.email
-          validation_errors=model.validations.attrs.email.messages
-          label="Email"
-          placeholder="Email" }}
+        <label>
+          Email
+        </label>
+        <div style="margin-left:16px; margin-bottom:15px;">
+          {{model.email}}
+        </div>
         <h3>Update Password</h3>
         {{banger-text-input
           property=model.current_password
