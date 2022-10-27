@@ -40,6 +40,11 @@
                   label="Description"
                   placeholder="e.g New football jerseys for our team" }}
 
+                {{banger-text-input
+                  property=donationLevel.qpq_amount
+                  label="QPQ amount"
+                  placeholder="e.g $8" }}
+
                 {{#if donationLevel.hasDirtyAttributes }}
                   <button {{action "saveCampaign" donationLevel}}
                     disabled={{if donationLevel.isSaving "disabled"}}
@@ -79,6 +84,11 @@
                 errors=newDonationLevel.validations.attrs.impact.messages
                 label="Description"
                 placeholder="e.g New football jerseys for our team" }}
+
+              {{banger-text-input
+                property=newDonationLevel.qpq_amount
+                label="QPQ amount"
+                placeholder="e.g $8" }}
 
               <button {{action "addDonationLevel" newDonationLevel}}
                 class="btn btn-info pull-right">Add Incentive Level</button>

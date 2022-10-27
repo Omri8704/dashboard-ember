@@ -11,6 +11,7 @@ const Validations = buildValidations({
 export default DS.Model.extend(Validations, {
   campaign:     DS.belongsTo("campaign"),
   amount:       DS.attr("number"),
+  qpq_amount:   DS.attr("number"),
   impact:       DS.attr("string"),
   impact_head:  DS.attr("string",{defaultValue: "Your Donation Impact"}),
   reward:       DS.attr("string"),
