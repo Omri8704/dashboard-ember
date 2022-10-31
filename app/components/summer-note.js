@@ -21,12 +21,13 @@ export default Component.extend({
     const _focus = this.get('focus');
     const _airMode = this.get('airMode');
 
-
+    const _placeholder = this.get('placeholder');
     this.$('.wysiwyg-textarea').summernote({
       height: _height,
       focus: _focus,
       toolbar: [['font', ['bold', 'italic', 'underline', 'superscript', 'subscript', 'strikethrough', 'clear']], ['fontsize', ['fontsize']], ['color', ['color']], ['para', ['ul', 'ol', 'paragraph']], ['height', ['height']], ['table', ['table']], ['insert', ['link', 'picture', 'video', 'hr']], ['codeview', ['codeview']]],
-      airMode: _airMode
+      airMode: _airMode,
+      placeholder: _placeholder
     });
 
     this.$('.note-editable').attr('contenteditable', !this.get('disabled'));

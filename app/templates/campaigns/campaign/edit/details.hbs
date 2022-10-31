@@ -47,58 +47,103 @@
         </div>
       {{/if}}
 
-      <div class="row m-lg-t">
-        <div class="col-md-6 form-group">
-          <div class="label-container">
-            {{editable-label property=campaign.descr_head}}
+      {{#if isCampaignDashboardToolbar}}
+        <div class="row m-lg-t">
+          <div class="col-md-6 form-group">
+            <div class="label-container">
+              {{editable-label property=campaign.descr_head}}
+            </div>
+            {{summer-note content=campaign.description placeholder="Campaign Description"}}
           </div>
-          {{banger-text-area
-            property=campaign.description
-            placeholder='Campaign Description'
-            rows=4}}
-        </div>
-        <div class="col-md-6 form-group">
-          <div class="label-container">
-            {{editable-label property=campaign.how_donations_used_head}}
+          <div class="col-md-6 form-group">
+            <div class="label-container">
+              {{editable-label property=campaign.how_donations_used_head}}
+            </div>
+            {{summer-note content=campaign.how_donations_used placeholder="e.g., Texas High School Footbal Team"}}
           </div>
-          {{banger-text-area
-            property=campaign.how_donations_used
-            placeholder='e.g Texas High School Footbal Team'
-            rows=4}}
         </div>
-      </div>
 
-      <div class="row">
-        <div class="col-md-6 form-group">
-          <div class="label-container">
-            {{editable-label property=campaign.why_donations_head}}
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <div class="label-container">
+              {{editable-label property=campaign.why_donations_head}}
+            </div>
+            {{summer-note content=campaign.why_donations placeholder="The school has a limited budget..."}}
           </div>
-          {{banger-text-area
-            property=campaign.why_donations
-            placeholder='The school has a limited budget...'
-            rows=4}}
-        </div>
-        <div class="col-md-6 form-group">
-          <div class="label-container">
-            {{editable-label
-              property=campaign.person_msg_head}}
+          <div class="col-md-6 form-group">
+            <div class="label-container">
+              {{editable-label
+                property=campaign.person_msg_head}}
+            </div>
+            {{summer-note content=campaign.person_msg placeholder="Thanks for supporting us!"}}
           </div>
-          {{banger-text-area
-            property=campaign.person_msg
-            placeholder='Thanks for supporting us!'
-            rows=4}}
-        </div>
-        <div class="col-md-6 form-group float-right">
-          <div class="label-container">
-            {{editable-label
-              property=campaign.campaign_receipt_text_head}}
+
+          <div class="col-md-6 form-group float-right">
+            <div class="label-container">
+              {{editable-label
+                property=campaign.campaign_receipt_text_head}}
+            </div>
+            {{banger-text-area
+              property=campaign.campaign_receipt_text
+              placeholder='Receipt email text'
+              rows=4}}
           </div>
-          {{banger-text-area
-            property=campaign.campaign_receipt_text
-            placeholder='Receipt email text'
-            rows=4}}
         </div>
-      </div>
+      {{else}}
+        <div class="row m-lg-t">
+          <div class="col-md-6 form-group">
+            <div class="label-container">
+              {{editable-label property=campaign.descr_head}}
+            </div>
+            {{banger-text-area
+              property=campaign.description
+              placeholder='Campaign Description'
+              rows=4}}
+          </div>
+          <div class="col-md-6 form-group">
+            <div class="label-container">
+              {{editable-label property=campaign.how_donations_used_head}}
+            </div>
+            {{banger-text-area
+              property=campaign.how_donations_used
+              placeholder='e.g Texas High School Footbal Team'
+              rows=4}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 form-group">
+            <div class="label-container">
+              {{editable-label property=campaign.why_donations_head}}
+            </div>
+            {{banger-text-area
+              property=campaign.why_donations
+              placeholder='The school has a limited budget...'
+              rows=4}}
+          </div>
+          <div class="col-md-6 form-group">
+            <div class="label-container">
+              {{editable-label
+                property=campaign.person_msg_head}}
+            </div>
+            {{banger-text-area
+               property=campaign.person_msg
+              placeholder='Thanks for supporting us!'
+              rows=4}}
+          </div>
+
+          <div class="col-md-6 form-group float-right">
+            <div class="label-container">
+              {{editable-label
+                property=campaign.campaign_receipt_text_head}}
+            </div>
+            {{banger-text-area
+              property=campaign.campaign_receipt_text
+              placeholder='Receipt email text'
+              rows=4}}
+          </div>
+        </div>
+      {{/if}}
 
       {{#if (or session.current_user.entity_admin isLeaderOfCurrentCampaign)}}
         <div class="row">

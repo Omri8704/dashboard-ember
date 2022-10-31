@@ -59,6 +59,11 @@ export default Ember.Controller.extend({
     return campaign_ids_for_leader && campaign_ids_for_leader.includes(current_campaign_id);
   }),
 
+  isCampaignDashboardToolbar: Ember.computed("settings.current_entity.features_enabled", function () {
+    const featuresEnabled = this.get("settings.current_entity.features_enabled")
+    return featuresEnabled.includes('campaign_dashboard_toolbar');
+  }),
+
   actions: {
     updateCampaign: function(campaign) {
       return campaign.validate({
