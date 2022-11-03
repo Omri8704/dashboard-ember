@@ -71,7 +71,7 @@ export default Promotion.extend(Validations, {
                               }),
   descr_head:                 string({ defaultValue: "Description" }),
   description:                string(),
-  disable_stretch_goal:       DS.attr("boolean"),
+  disable_stretch_goal:       DS.attr("boolean", { defaultValue: true }),
   dollar_proxy_ratio:         DS.attr("number", { defaultValue: 1 }),
   donationLevels:             HM('donation_level'),
   donations:                  HM('donation'),
