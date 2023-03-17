@@ -6,7 +6,6 @@ export default Ember.Controller.extend({
 
   typeOptions: [
       'dollars',
-      'tickets',
       'donors',
       'donations'
   ],
