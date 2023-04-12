@@ -105,7 +105,7 @@
               <h3 class="control-label">Upload Users by File</h3>
               {{file-drop fileAdded="filePicked" removeFile="removeFile" file=file}}
               <p class="p-sm-t">
-                <a href="/assets/templates/users_template.xlsx">Download Template</a>
+                <a href="/assets/templates/users_template_v2.xlsx">Download Template</a>
               </p>
               {{#if file}}
                 <button {{action "uploadUsersS3"}} disabled={{if uploading "disabled"}}  class="btn btn-primary clear-m ">
